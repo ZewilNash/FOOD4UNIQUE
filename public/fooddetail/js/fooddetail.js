@@ -107,7 +107,7 @@ document.querySelectorAll("#fav_btn").forEach(b => {
     
     // console.log(foodId);
     // logic add to vafourite
-    let URL = document.URL.split("food")[0];
+    let URL = document.URL.split("fooddetail")[0];
 
     console.log(user.token);
     

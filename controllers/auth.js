@@ -1,5 +1,7 @@
 const User = require("../modals/User");
 const bcrypt = require("bcryptjs");
+const Cart = require("../modals/Cart");
+
 
 const signup = async (req,res) => {
 
@@ -38,7 +40,65 @@ const login = async (req,res) => {
 }
 
 
+const getUserCartLength = async (req,res) => {
+    const {id} = req.params;
+
+    const user = await User.findOne({_id:id});
+
+    if(!user){
+        return res.status(404).json({msg:"User Not Found" , success:false});
+    }
+
+    const cart = await Cart.find({user:user._id});
+
+    res.status(200).json({cartLength:cart.length});
+}
+
+const deleteFromCart = async (req,res) => {
+    const {userId , foodId} = req.params;
+
+    const user = await User.findOne({_id:userId});
+
+    if(!user){
+        return res.status(404).json({msg:"User Not Found" , success:false});
+    }
+
+    const findCart = await Cart.find({user:user._id , food:foodId});
+
+    if(findCart.length === 0){
+        return res.status(404).json({msg:"Food Not Found" , success:false});
+    }
+
+    await Cart.findOneAndDelete({user:user._id , food:foodId} , {useFindAndModify:false});
+
+    res.status(200).json({msg:"Item Removed Successfully" , success:true})
+}
+
+const updateCartQty = async (req,res) => {
+    const {userId , foodId} = req.params;
+
+    const user = await User.findOne({_id:userId});
+
+    if(!user){
+        return res.status(404).json({msg:"User Not Found" , success:false});
+    }
+
+    const findCart = await Cart.find({user:user._id , food:foodId});
+
+    if(findCart.length === 0){
+        return res.status(404).json({msg:"Food Not Found" , success:false});
+    }
+
+    await Cart.findOneAndUpdate({user:user._id , food:foodId} , {qty:Number(req.body.qty)} , {useFindAndModify:false});
+
+    res.status(200).json({msg:"Item Quantity Updated Successfully" , success:true})
+}
+
+
 module.exports = {
     signup,
-    login
+    login,
+    getUserCartLength,
+    deleteFromCart,
+    updateCartQty
 }

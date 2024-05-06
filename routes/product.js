@@ -6,7 +6,7 @@ const authenticatedRoute = require("../middleware/auth");
 
 const isAdminMiddleWare = require("../middleware/isAdmin");
 
-const {createProduct,addToFavourite,removeFromFav} = require("../controllers/product");
+const {createProduct,addToFavourite,removeFromFav,deleteFood,getSingleFood,updateProduct,addToCart} = require("../controllers/product");
 
 router.route("/").post(authenticatedRoute , isAdminMiddleWare , createProduct);
 
@@ -14,6 +14,12 @@ router.route("/addToFav/:foodId/:userId").patch(authenticatedRoute, addToFavouri
 
 router.route("/removeFromFav/:foodId/:userId").patch(authenticatedRoute, removeFromFav);
 
+router.route("/delete/:foodId").delete(authenticatedRoute, isAdminMiddleWare ,deleteFood)
+
+router.route("/:foodId").patch(authenticatedRoute,isAdminMiddleWare,getSingleFood).put(authenticatedRoute, isAdminMiddleWare ,updateProduct);;
+
+
+router.route("/cart/:userId/:productId").post(authenticatedRoute,addToCart);
 
 
 module.exports = router;

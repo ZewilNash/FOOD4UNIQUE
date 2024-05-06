@@ -2,6 +2,8 @@ window.onload = () => {
 
     let user = JSON.parse(localStorage.getItem("user"));
 
+    document.querySelector("#my_cart_link").setAttribute("href" , `/cart/${user.user._id}`);
+
     document.querySelector("#fav_nav").setAttribute("href" , `/favourites/${user.user._id}`);
 
     if(!user){
@@ -24,6 +26,18 @@ window.onload = () => {
         document.querySelector(".home").style.display = "block";
         document.querySelector(".loader").style.display = "none";
     } , 4000)
+
+    let URL = document.URL.split("contactus")[0];
+    axios.get(URL + `api/v1/auth/cart/${user.user._id}` ,  {
+        headers: {
+            Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+        }
+    }).then(res => {
+        document.querySelector("#cart_length").innerText = `${res.data.cartLength}`
+    }).catch(err => {
+        console.log(err);
+        
+    })
 }
 
 document.querySelector("#logout").addEventListener("click" , () => logout());

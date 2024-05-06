@@ -76,7 +76,13 @@
 
                         >
         
-                    <i class="fa-solid fa-plus"></i>
+                        <input 
+                        style="width: 50%;"
+                        placeholder="quantity" id="food_qty" 
+                        data-food-name="<%= products[i].name %>"
+                        type="number" min="1">
+
+                        <i data-food-name="<%= products[i].name %>" data-food-id="<%= products[i]._id %>" id="add_to_cart_btn" class="fa-solid fa-plus"></i>
         
                     </div>
 

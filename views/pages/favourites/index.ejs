@@ -55,23 +55,29 @@
                     
                     
                 </a>
-                <div 
-                style="display: flex;justify-content: space-between;width: 100%;font-size: 25px;cursor: pointer;"
-                class="footer">
-                    
-                <!-- <i class="fa-solid fa-trash"></i> -->
-                <i
-                    title="remove from favourite"
-                    data-food-id="<%= favourites[i]._id %>"
-                    id="del_btn"
-                    class="fa-solid fa-trash"></i
 
+                <div style="display: flex;justify-content: space-between;width: 100%;font-size: 25px;cursor: pointer;"
+                        class="footer">
+                        <i
+                        title="remove from favourite"
+                        data-food-id="<%= favourites[i]._id %>"
+                        id="del_btn"
+                        class="fa-solid fa-trash"></i
+    
+    
+                            >
 
-                        >
-        
-                    <i class="fa-solid fa-plus"></i>
-        
+                        <input 
+                        style="width: 50%;"
+                        placeholder="quantity" id="food_qty" 
+                        data-food-name="<%= favourites[i].name %>" 
+                        type="number" min="1">
+
+                        <i data-food-name="<%= favourites[i].name %>" data-food-id="<%= favourites[i]._id %>" id="add_to_cart_btn" class="fa-solid fa-plus"></i>
+
                     </div>
+
+               
 
                 </div>
               <% } %>

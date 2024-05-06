@@ -4,6 +4,9 @@ const User = require("../modals/User");
 const authenticateRoute = async (req,res,next) => {
     const userToken = req.headers.authorization;
 
+    // console.log(userToken);
+    
+
 
     if(!userToken || !userToken.startsWith("Bearer ")){
 

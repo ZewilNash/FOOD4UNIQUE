@@ -47,10 +47,26 @@
         <div class="food container">
             <div class="row food-container mt-5">
                 <!-- the item -->
-                <div style="display: flex;justify-content: center;align-items: center;margin-top: 20px;"
+                <div style="display: flex;justify-content: center;align-items: center;margin-top: 20px;flex-direction: column;"
                     class="col-md-6 item">
                     <img id="main-product-image" style="width: 100%;height: auto;object-fit: cover;"
                         src="<%= food.images[0] %>" alt="">
+
+                        <div class="footer">
+                            <i style="cursor: pointer;" data-food-id="<%= food._id %>" id="fav_btn"
+                                class="fa-solid fa-heart"></i>
+    
+                                <input 
+                                style="width: 50%;"
+                                placeholder="quantity" id="food_qty" 
+                                data-food-name="<%= food.name %>"
+                                min="1"
+                                type="number">
+        
+                                <i data-food-name="<%= food.name %>" data-food-id="<%= food._id %>" id="add_to_cart_btn" class="fa-solid fa-plus"></i>
+    
+                        </div>
+
                 </div>
                 <div class="col-md-6 item-detail"
                     style="display: flex;justify-content: center;align-items: center;flex-direction: column;margin-top: 20px;">
@@ -67,7 +83,7 @@
                     </div>
 
 
-                    <div style="white-space: nowrap;overflow-x: scroll;overflow-y: hidden;width: 100%;"
+                    <div style="white-space: nowrap;overflow-x: scroll;overflow-y: hidden;width: 400px;"
                         class="d-flex gap-4 mt-5">
                         <% for(var i = 0; i < food.images.length; i++) { %>
 
@@ -76,13 +92,7 @@
                         <% } %>
                     </div>
 
-                    <div class="footer">
-                        <i style="cursor: pointer;" data-food-id="<%= food._id %>" id="fav_btn"
-                            class="fa-solid fa-heart"></i>
-
-                        <i class="fa-solid fa-plus"></i>
-
-                    </div>
+                    
 
                 </div>
                 <!-- end item -->
@@ -110,7 +120,15 @@
                         <i style="cursor: pointer;" data-food-id="<%= alsoLike[i]._id %>" id="fav_btn"
                             class="fa-solid fa-heart"></i>
 
-                        <i class="fa-solid fa-plus"></i>
+                            <input 
+                            style="width: 50%;"
+                            placeholder="quantity" id="food_qty" 
+                            data-food-name="<%= food.name %>"
+                            min="1"
+                            type="number">
+    
+                            <i data-food-name="<%= food.name %>" data-food-id="<%= food._id %>" id="add_to_cart_btn" class="fa-solid fa-plus"></i>
+
 
                     </div>
                 </a>

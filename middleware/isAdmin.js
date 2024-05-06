@@ -2,6 +2,7 @@ const User = require("../modals/User")
 
 const isAdmin = async (req,res,next) => {
     const _id = req.user._id;
+ 
 
     const user = await User.findOne({_id:_id});
 

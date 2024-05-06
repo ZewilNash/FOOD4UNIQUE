@@ -30,52 +30,139 @@
 
 <body>
 
-  <div class="contact-us">
-    <form action="#">
+  <div class="success"></div>
+    <div class="error"></div>
 
-      <label for="name">NAME <em>&#x2a;</em></label>
+  <div class="not-edit" style="width: 100vw;">
+    <div class="contact-us">
+      <form action="#">
+  
+        <label for="name">NAME <em>&#x2a;</em></label>
+  
+        <input id="name" name="name" required="" type="text" />
+  
+        <label for="price">PRICE <em>&#x2a;</em></label>
+  
+        <input id="price" name="price" required="" type="number" />
+  
+        <label for="category">CATEGORY <em>&#x2a;</em></label>
+  
+        <input id="category" name="category" required="" type="text" />
+  
+        <label for="available_size">Available Sizes <em>&#x2a;</em></label>
+  
+        <input id="available_size" name="available_size" required="" type="text" />
+  
+        <label for="customerNote">DESCRIPTION <em>&#x2a;</em></label>
+  
+        <textarea id="description" name="description" required="" rows="4"></textarea>
+  
+  
+        <label for="image">IMAGE</label>
+  
+        <input id="images" name="image" type="file" multiple class="input-field upload_widget" accept="image/*" />
+  
+  
+        <button id="create-btn">CREATE</button>
+  
+        <div class="mt-5" id="errors"></div>
+        <div class="mt-5" id="success"></div>
+  
+      </form>
+  
+      
+    </div>
+   
+    <div class="container hide foods">
+      <div class="row">
+       <% for(var i = 0; i < products.length; i++) { %>
+         <div class="col-md-4 food-item">
+         <a href="/fooddetail/<%= products[i]._id %>" class="mt-5 food-item">
+             <img src="<%= products[i].images[0] %>" />
+             <p><%= products[i].name %></p>
+             <span>$<%= products[i].price %></span>
+             
+             
+         </a>
+         <div 
+         style="display: flex;justify-content: space-between;width: 100%;font-size: 25px;cursor: pointer;"
+         class="footer">
+   
+         <!--<i class="fa-solid fa-trash"></i> -->
+             <i
+             data-food-id="<%= products[i]._id %>"
+             id="update_link"
+             class="fa-solid fa-pen-to-square"></i
+   
+                 >
+   
+             <i id="delete_food" data-food-id="<%= products[i]._id %>" class="fa-solid fa-trash"></i>
+   
+             </div>
+   
+         </div>
+       <% } %>
+      </div>
+      
+    </div>
 
-      <input id="name" name="name" required="" type="text" />
-
-      <label for="price">PRICE <em>&#x2a;</em></label>
-
-      <input id="price" name="price" required="" type="number" />
-
-      <label for="category">CATEGORY <em>&#x2a;</em></label>
-
-      <input id="category" name="category" required="" type="text" />
-
-      <label for="available_size">Available Sizes <em>&#x2a;</em></label>
-
-      <input id="available_size" name="available_size" required="" type="text" />
-
-      <label for="customerNote">DESCRIPTION <em>&#x2a;</em></label>
-
-      <textarea id="description" name="description" required="" rows="4"></textarea>
-
-
-      <label for="image">IMAGE</label>
-
-      <input id="images" name="image" type="file" multiple class="input-field upload_widget" accept="image/*" />
-
-
-      <button id="create-btn">CREATE</button>
-
-      <div class="mt-5" id="errors"></div>
-      <div class="mt-5" id="success"></div>
-
-    </form>
-
-
+    <a style="text-align: center;font-weight: bold;color: #000;font-size: 30px;" href="#" id="show_text">Show All Food</a>
 
   </div>
 
-  <div class="search-product">
-    <form>
-      <input placeholder="search for product by name to delete or update" type="text">
+  <div class="edit hide">
+    <div class="success"></div>
+    <div class="errors"></div>
+  <form action="#">
+        <input type="text" hidden id="id_edit">
+        <label for="name">NAME <em>&#x2a;</em></label>
+  
+        <input id="name_edit" name="name" required="" type="text" />
+  
+        <label for="price">PRICE <em>&#x2a;</em></label>
+  
+        <input id="price_edit" name="price" required="" type="number" />
+  
+        <label for="category">CATEGORY <em>&#x2a;</em></label>
+  
+        <input id="category_edit" name="category" required="" type="text" />
+  
+        <label for="available_size">Available Sizes <em>&#x2a;</em></label>
+  
+        <input id="available_size_edit" name="available_size" required="" type="text" />
+  
+        <label for="customerNote">DESCRIPTION <em>&#x2a;</em></label>
+  
+        <textarea id="description_edit" name="description" required="" rows="4"></textarea>
+  
+  
+        <label for="image">IMAGE</label>
+  
+        <input id="images_edit" name="image" type="file" multiple class="input-field upload_widget_edit" accept="image/*" />
+  
+  
+        <button id="create-btn_edit">EDIT</button>
+  
+        <div class="mt-5" id="errors"></div>
+        <div class="mt-5" id="success"></div>
+  
+      </form>
+      <a style="text-align: center;font-weight: bold;color: #000;font-size: 30px;" href="#" id="show_text_edit">Show All Food</a>
+  </div>
+
+
+
+
+
+
+  
+
+  <!-- <div class="search-product" style="width: 100vw;">
+    <form style="width: 100%;">
+      <input style="width: 80%;" placeholder="search for product by name to delete or update" type="text">
       <button>Search</button>
     </form>
-  </div>
+  </div> -->
 
 
   <i style="cursor: pointer;font-size: 35px;" id="logout" style="font-size: 40px;"

@@ -5,6 +5,7 @@ require("dotenv").config()
 const {readFileSync} = require("fs");
 
 const User = require("./modals/User");
+const Cart = require("./modals/Cart");
 
 const Product = require("./modals/Product");
 
@@ -103,6 +104,37 @@ app.get("/food"  ,async (req,res) => {
     res.render("pages/food/index" , {product:[] , products:products});
 });
 
+app.get("/cart/:id"  ,async (req,res) => {
+
+    const user = await User.findOne({_id:req.params.id});
+
+    if(!user){
+        res.status(404);
+        return res.render("pages/notfound/index");
+    }
+
+    const products = await Cart.find({user:req.params.id}).populate("food");
+
+    // const total = products.reduce((a,b) => a.food.price * b.food.price)
+
+    // console.log(total);
+
+    const array = [];
+
+    for(let i = 0 ; i < products.length;i++){
+        let mult = Number(products[i].food.price) * Number(products[i].qty);
+        array.push(mult);
+    }
+   
+    const total = array.reduce((a,b) => a + b);
+    
+    
+    
+    
+
+    res.render("pages/cart/index" , {products:products , user_id:user._id,total:total});
+});
+
 app.get("/findfood/:text"  ,async (req,res) => {
 
     const {text} = req.params
@@ -174,11 +206,17 @@ app.get("/contactus"  ,(req,res) => {
     res.render("pages/contactus/index");
 });
 
-app.get("/4unique-admin" ,(req,res) => {
-    
+app.get("/4unique-admin" ,async (req,res) => {
+    const products = await Product.find({});
     // check passwords
-    res.render("pages/4unique-admin/index");
+    res.render("pages/4unique-admin/index" , {products:products});
 });
+
+// app.get("/4unique-admin/:name" ,async (req,res) => {
+//     const product = await Product.findOne({name:req.params.name});
+//     // check passwords
+//     res.render("pages/4unique-admin/index");
+// });
 
 
 

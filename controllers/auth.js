@@ -113,7 +113,10 @@ const getCart = async (req,res) => {
 
     const cart = await Cart.find({user:user._id}).populate("food");
 
-    res.status(200).json({success:true,cart})
+    console.log(cart);
+    
+
+    res.status(200).json({success:true,cart:cart})
 }
 
 const deleteCart = async (req,res) => {

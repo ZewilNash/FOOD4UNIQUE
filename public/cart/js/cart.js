@@ -196,6 +196,67 @@ document.querySelector("#auto_fill_btn").addEventListener("click" , (e) => {
   }
 })
 
+ /*
+
+    cart
+user
+name
+email
+phone
+address
+state
+country
+zip_code
+road
+village
+leisure
+status
+isPaid
+
+    */
+
+  
+
+
+
+function makeOrder(user_id,name,email,phone,address,zip_code,state,country,road="",village="",leisure="",status , isPaid){
+
+  
+  // const user = JSON.parse(localStorage.getItem("user"));
+  let URL = document.URL.split("cart")[0];
+
+  axios.get(URL + `api/v1/auth/get_cart/${user_id}` , {
+    headers: {
+      Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+    }
+  }).then(res => {
+    
+    let cart_obj = res.data.cart;
+    
+   
+    let URL = document.URL.split("cart")[0];
+ axios.post(URL + `api/v1/auth/order` , {cart:cart_obj,user:user_id,name,email,phone,address,state,country,zip_code,road,village,leisure,status , isPaid} , {
+   headers: {
+     Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+   }
+ }).then(res => {
+
+     // delete_cart
+     deleteCart();
+     const order_id = res.data.order._id
+     // redicrect to success page
+     window.location.href = `/order_success/${order_id}`
+     
+ }).catch(err => {
+   console.log(err);
+ })
+  
+  }).catch(err => console.log(err)
+  )
+
+  
+}
+
 
 // payment implementations
 
@@ -248,9 +309,26 @@ payButton.addEventListener('click', function () {
        /* You may add your own implementation here */
       //  make an order here
 
-    
+    /*
 
-     makeOrder(user_id,name,email,phone,address,zip_code,state,country,road,village,leisure,"pending" , true);
+    cart
+user
+name
+email
+phone
+address
+state
+country
+zip_code
+road
+village
+leisure
+status
+isPaid
+
+    */
+
+     makeOrder(user.user._id,name,email,phone,address,zip_code,state,country,road,village,leisure,"pending" , true);
     },
     onPending: function(result){
       /* You may add your own implementation here */
@@ -280,23 +358,7 @@ payButton.addEventListener('click', function () {
 
 //  getting cart /get_cart/
 
-let user_Cart = [];
 
-
-axios.get(URL + `api/v1/auth/get_cart/${user.user._id}` , {
-  headers: {
-    Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
-  }
-}).then(res => {
-  let cart_obj = res.data.cart;
-
-
-  for(let i = 0 ; i < cart_obj.length;i++){
-    user_Cart.push(cart_obj[i].food);
-  }
-
-}).catch(err => console.log(err)
-)
 
 
 /*
@@ -330,24 +392,3 @@ function deleteCart(){
 }
 
 
- function makeOrder(user,name,email,phone,address,zip_code,state,country,road="",village="",leisure="",status , isPaid){
-   if(user_Cart){
-    let URL = document.URL.split("cart")[0];
-  axios.post(URL + `api/v1/auth/order` , {cart:user_Cart,user,name,email,phone,address,state,country,zip_code,road,village,leisure,status , isPaid} , {
-    headers: {
-      Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
-    }
-  }).then(res => {
-
-      // delete_cart
-      deleteCart();
-      const order_id = res.data.order._id
-      // redicrect to success page
-      window.location.href = `/order_success/${order_id}`
-      
-  }).catch(err => {
-    console.log(err);
-  })
-   }
-  
- }

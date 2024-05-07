@@ -1,12 +1,7 @@
 const mongoose = require("mongoose");
 
 const OrderSchema = new mongoose.Schema({
-    cart: [{
-        type: mongoose.Types.ObjectId,
-        ref: "Cart",
-        required: [true, "Please Provide Cart To Add!"],
-    }],
-
+    cart: [],
 
     user: {
         type: mongoose.Types.ObjectId,
@@ -24,7 +19,6 @@ const OrderSchema = new mongoose.Schema({
         type: String,
         required: [true, "You Must Provide email"],
         trim: true,
-        unique: true,
         match: [
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
             'Please provide valid email'

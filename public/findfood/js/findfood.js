@@ -1,6 +1,17 @@
 window.onload = () => {
 
-    const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  
+  if (!user) {
+    console.log("hello");
+    
+    window.location.href = "/loginpage";
+  }
+
+  if(user && user.user.role === "admin"){
+    window.location.href = "/4unique-admin"
+  }
 
     document.querySelector("#my_cart_link").setAttribute("href" , `/cart/${user.user._id}`);
     

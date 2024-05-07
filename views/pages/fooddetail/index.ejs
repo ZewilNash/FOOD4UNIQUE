@@ -73,7 +73,7 @@
                     <h1 style="font-size: 40px;"><%= food.name %></h1>
                     <p style="text-align: center;font-size: 20px;"><%= food.description %></p>
 
-                    <strong style="text-align: center;font-size: 30px;">$<%= food.price %></strong>
+                    <strong style="text-align: center;font-size: 30px;"><%= food.price %></strong>
 
                     <div class="d-flex gap-4 mt-5" style="font-size: 20px;">
                         <% for(var i = 0; i < food.size.length; i++) { %>
@@ -115,7 +115,7 @@
                 <a href="/fooddetail/<%= alsoLike[i]._id %>" class="col-md-4 mt-5 food-item">
                     <img src="<%= alsoLike[i].images[0] %>" />
                     <p><%= alsoLike[i].name %></p>
-                    <span>$<%= alsoLike[i].price%></span>
+                    <span><%= alsoLike[i].price%></span>
                     <div class="footer">
                         <i style="cursor: pointer;" data-food-id="<%= alsoLike[i]._id %>" id="fav_btn"
                             class="fa-solid fa-heart"></i>

@@ -1,6 +1,7 @@
 const User = require("../modals/User");
 const bcrypt = require("bcryptjs");
 const Cart = require("../modals/Cart");
+const Order = require("../modals/Order");
 
 
 const signup = async (req,res) => {
@@ -95,10 +96,47 @@ const updateCartQty = async (req,res) => {
 }
 
 
+const makeOrder = async (req,res) => {
+    const order = await Order.create({...req.body});
+
+    res.status(200).json({success:true , msg:"Your Order Has Been Made!" , order});
+}
+
+const getCart = async (req,res) => {
+    const {id} = req.params;
+
+    const user = await User.findOne({_id:id});
+
+    if(!user){
+        return res.status(404).json({msg:"User Not Found" , success:false});
+    }
+
+    const cart = await Cart.find({user:user._id}).populate("food");
+
+    res.status(200).json({success:true,cart})
+}
+
+const deleteCart = async (req,res) => {
+    const {id} = req.params;
+
+    const user = await User.findOne({_id:id});
+
+    if(!user){
+        return res.status(404).json({msg:"User Not Found" , success:false});
+    }
+
+    const deleted_cart = await Cart.deleteMany({user:user._id});
+
+    res.status(200).json({success:true,msg:"Deleted Cart Successfully" , deleted_cart})
+}
+
 module.exports = {
     signup,
     login,
     getUserCartLength,
     deleteFromCart,
-    updateCartQty
+    updateCartQty,
+    makeOrder,
+    getCart,
+    deleteCart
 }

@@ -1,10 +1,11 @@
 window.onload = () => {
 
+ 
+  
+
   let user = JSON.parse(localStorage.getItem("user"));
 
-  document.querySelector("#my_cart_link").setAttribute("href", `/cart/${user.user._id}`);
-
-  document.querySelector("#fav_nav").setAttribute("href", `/favourites/${user.user._id}`);
+  
 
   if (!user) {
     window.location.href = "/loginpage";
@@ -14,6 +15,9 @@ window.onload = () => {
     window.location.href = "/4unique-admin"
   }
 
+  document.querySelector("#my_cart_link").setAttribute("href", `/cart/${user.user._id}`);
+
+  document.querySelector("#fav_nav").setAttribute("href", `/favourites/${user.user._id}`);
 
   document.querySelector("#login").style.display = user ? "none" : "block";
 
@@ -139,3 +143,211 @@ document.querySelectorAll("#update_qty_container").forEach(elem => {
   })
 
 })
+
+
+document.querySelector("#order_btn").addEventListener("click" , (e) => {
+  document.querySelector("#order_page").style.display = "block";
+  document.querySelector("#cart_page").style.display = "none";
+});
+
+document.querySelector("#back-to-cart").addEventListener("click" , (e) => {
+  document.querySelector("#order_page").style.display = "none";
+  document.querySelector("#cart_page").style.display = "block";
+});
+
+// https://geocode.maps.co/reverse?lat=latitude&lon=longitude&api_key=65b701bc4459c825070634awd0b43ca
+
+
+
+document.querySelector("#auto_fill_btn").addEventListener("click" , (e) => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      
+      axios.get(`https://geocode.maps.co/reverse?lat=${latitude}&lon=${longitude}&api_key=65b701bc4459c825070634awd0b43ca`).then(res => {
+        let country = res.data.address.country;
+        let state = res.data.address.state;
+        let village = res.data.address.village;
+        let road = res.data.address.road;
+        let postcode = res.data.address.postcode;
+        let display_name = res.data.display_name;
+        let leisure = res.data.address.leisure;
+
+
+        document.querySelector("#order_state").value = state;
+        document.querySelector("#order_country").value = country;
+        document.querySelector("#order_zip_code").value = postcode;
+        document.querySelector("#order_address").value = display_name;
+        document.querySelector("#order_road").value = road;
+        document.querySelector("#order_village").value = village;
+        document.querySelector("#order_leisure").value = leisure;
+        document.querySelector("#order_email").value = user.user.email;
+        document.querySelector("#order_name").value = user.user.fullname;
+
+        
+      }).catch(err => {
+        alert("Couldn't Find Your Address!")
+      })
+
+    });
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+})
+
+
+// payment implementations
+
+// get token
+let transaction_token = "";
+let amount = document.querySelector("#amount").value
+
+let email = user.user.email;
+
+let first_name = user.user.fullname.split(" ")[0];
+
+let phone = document.querySelector("#order_phone").value
+
+let last_name = user.user.fullname.split(" ")[1];
+
+
+let URL = document.URL.split("cart")[0];
+axios.post(URL + `api/v1/products/order_prepare` , {amount:Number(amount) , first_name,last_name,email,phone} , {
+  headers: {
+    Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+  }
+}).then(res => {
+  transaction_token = res.data.token;
+  
+}).catch(err => {
+  console.log(err);
+})
+
+var payButton = document.getElementById('pay-button');
+payButton.addEventListener('click', function () {
+  // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+
+  let state = document.querySelector("#order_state").value;
+    let country = document.querySelector("#order_country").value
+    let zip_code =   document.querySelector("#order_zip_code").value
+    let address =  document.querySelector("#order_address").value
+     let road =   document.querySelector("#order_road").value
+     let village =   document.querySelector("#order_village").value 
+     let leisure =   document.querySelector("#order_leisure").value
+       let email =  user.user.email;
+       let name =  user.user.fullname;
+       let user_id = user.user._id;
+       let phone = document.querySelector("#order_phone").value 
+
+  if(state&&country&&zip_code&&address&&email&&name&&user_id&&phone){
+    
+  window.snap.pay(`${transaction_token}`, {
+    onSuccess: function(result){
+      /* You may add your own implementation here */
+       /* You may add your own implementation here */
+      //  make an order here
+
+    
+
+     makeOrder(user_id,name,email,phone,address,zip_code,state,country,road,village,leisure,"pending" , true);
+    },
+    onPending: function(result){
+      /* You may add your own implementation here */
+      alert("wating your payment!"); console.log(result);
+    },
+    onError: function(result){
+      /* You may add your own implementation here */
+      alert("payment failed!"); console.log(result);
+    },
+    onClose: function(){
+      /* You may add your own implementation here */
+      alert('you closed the popup without finishing the payment');
+    }
+  })
+  }else {
+    document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+
+    setTimeout(() => {
+      document.querySelector(".error").innerText = ``;
+    }, 2000);
+  }
+
+});
+
+
+ 
+
+//  getting cart /get_cart/
+
+let user_Cart = [];
+
+
+axios.get(URL + `api/v1/auth/get_cart/${user.user._id}` , {
+  headers: {
+    Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+  }
+}).then(res => {
+  let cart_obj = res.data.cart;
+
+
+  for(let i = 0 ; i < cart_obj.length;i++){
+    user_Cart.push(cart_obj[i].food);
+  }
+
+}).catch(err => console.log(err)
+)
+
+
+/*
+cart
+user
+name
+email
+phone
+address
+state
+country
+zip_code
+road
+village
+status
+isPaid
+
+*/
+
+function deleteCart(){
+  let user_ob = JSON.parse(localStorage.getItem("user"));
+  let URL = document.URL.split("cart")[0];
+  axios.delete(URL + `api/v1/auth/delete_cart/${user_ob.user._id}` , {
+    headers: {
+      Authorization: 'Bearer ' + user_ob.token //the token is a variable which holds the token
+    }
+  }).then(res => {
+      console.log("hello");
+      
+  }).catch(err => console.log(err))
+}
+
+
+ function makeOrder(user,name,email,phone,address,zip_code,state,country,road="",village="",leisure="",status , isPaid){
+   if(user_Cart){
+    let URL = document.URL.split("cart")[0];
+  axios.post(URL + `api/v1/auth/order` , {cart:user_Cart,user,name,email,phone,address,state,country,zip_code,road,village,leisure,status , isPaid} , {
+    headers: {
+      Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+    }
+  }).then(res => {
+
+      // delete_cart
+      deleteCart();
+      const order_id = res.data.order._id
+      // redicrect to success page
+      window.location.href = `/order_success/${order_id}`
+      
+  }).catch(err => {
+    console.log(err);
+  })
+   }
+  
+ }

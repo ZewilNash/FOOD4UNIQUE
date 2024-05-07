@@ -2,7 +2,7 @@ const Product = require("../modals/Product");
 const Cart = require("../modals/Cart");
 
 const User = require("../modals/User");
-
+const midtransClient = require('midtrans-client');
 
 const createProduct = async (req,res) => {
     const {name,price,category,size,description,images} = req.body;
@@ -182,6 +182,50 @@ const addToCart = async (req,res) => {
 }
 
 
+const prepareOrder = async (req,res) => {
+  const {amount , first_name,last_name,email,phone} = req.body;
+// Create Snap API instance
+let snap = new midtransClient.Snap({
+        // Set to true if you want Production Environment (accept real transaction).
+        isProduction : false,
+        serverKey : process.env.PAYMENT_SERVER_KEY
+    });
+
+let parameter = {
+    "transaction_details": {
+        "order_id": "YOUR-ORDERID-123456",
+        "gross_amount": amount
+    },
+    "credit_card":{
+        "secure" : true
+    },
+    "customer_details": {
+        "first_name": first_name,
+        "last_name": last_name,
+        "email": email,
+        "phone": phone
+    }
+};
+
+let token = "";
+
+await snap.createTransaction(parameter)
+    .then((transaction)=>{
+        // transaction token
+        let transactionToken = transaction.token;
+        console.log('transactionToken:',transactionToken);
+
+        token = transactionToken;
+    })
+
+if(!token){
+    return res.status(400).json({success:false,msg:"Token Not generated!"})
+}
+
+res.status(200).json({success:true , token:token})
+
+}
+
 module.exports = {
     createProduct,
     addToFavourite,
@@ -189,5 +233,6 @@ module.exports = {
     deleteFood,
     getSingleFood,
     updateProduct,
-    addToCart
+    addToCart,
+    prepareOrder
 }

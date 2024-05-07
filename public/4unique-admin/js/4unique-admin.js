@@ -7,11 +7,17 @@ window.onload = () => {
     }
 
     if (user && user.user.role === "user") {
-        console.log("hello");
+        document.querySelector("#secure").style.display = "none";
 
-        window.location.href = "/loginpage";
+        window.location.href = "/notfound";
+    }
+
+    if(user && user.user.role === "admin"){
+        document.querySelector("#secure").style.display = "block";
     }
 }
+
+document.querySelector("#secure").style.display = "none";
 
 
 document.querySelector("#create-btn").addEventListener("click", (event) => {

@@ -2,11 +2,7 @@ window.onload = () => {
 
     let user = JSON.parse(localStorage.getItem("user"));
 
-    document.querySelector("#my_cart_link").setAttribute("href" , `/cart/${user.user._id}`);
-
-    // nav sett
-
-    document.querySelector("#fav_nav").setAttribute("href" , `/favourites/${user.user._id}`);
+    
 
     if(!user){
         window.location.href = "/loginpage";
@@ -15,6 +11,12 @@ window.onload = () => {
     if(user && user.user.role === "admin"){
         window.location.href = "/4unique-admin"
     }
+
+    document.querySelector("#my_cart_link").setAttribute("href" , `/cart/${user.user._id}`);
+
+    // nav sett
+
+    document.querySelector("#fav_nav").setAttribute("href" , `/favourites/${user.user._id}`);
 
     document.querySelector("#login").style.display = user ? "none" : "block";
 

@@ -1,6 +1,8 @@
 const Product = require("../modals/Product");
 const Cart = require("../modals/Cart");
 
+const generateUniqueId = require('generate-unique-id');
+
 const User = require("../modals/User");
 const midtransClient = require('midtrans-client');
 
@@ -183,6 +185,10 @@ const addToCart = async (req,res) => {
 
 
 const prepareOrder = async (req,res) => {
+    const id = generateUniqueId({
+        includeSymbols: ['@','#','|'],
+        excludeSymbols: ['0']
+      });
   const {amount , first_name,last_name,email,phone} = req.body;
 // Create Snap API instance
 let snap = new midtransClient.Snap({
@@ -193,7 +199,7 @@ let snap = new midtransClient.Snap({
 
 let parameter = {
     "transaction_details": {
-        "order_id": "YOUR-ORDERID-123456",
+        "order_id": `${id}`,
         "gross_amount": amount
     },
     "credit_card":{
@@ -209,14 +215,18 @@ let parameter = {
 
 let token = "";
 
+
 await snap.createTransaction(parameter)
     .then((transaction)=>{
         // transaction token
+        console.log(transaction);
+        
         let transactionToken = transaction.token;
-        console.log('transactionToken:',transactionToken);
-
+       
         token = transactionToken;
     })
+
+
 
 if(!token){
     return res.status(400).json({success:false,msg:"Token Not generated!"})

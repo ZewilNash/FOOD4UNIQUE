@@ -237,10 +237,6 @@ app.get("/contactus", (req, res) => {
 app.get("/4unique-admin", async (req, res) => {
     const orders = await Order.find({});
 
-    
-    
-    
-
     const carts = orders.map(order => order.cart);
     const cart_items = [];
     const foods = [];

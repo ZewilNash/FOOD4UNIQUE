@@ -1,4 +1,11 @@
 const mongoose = require("mongoose");
+var nodemailer = require('nodemailer');
+const dotenv = require('dotenv');
+dotenv.config();
+
+console.log(process.env.GMAIL);
+console.log(process.env.GMAIL_PASS);
+
 
 const OrderSchema = new mongoose.Schema({
     cart: [],
@@ -79,8 +86,35 @@ const OrderSchema = new mongoose.Schema({
     }
 
 
-});
+}, {timestamps:true});
 
 
+OrderSchema.pre("save" , function () {
+    var transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+            user: process.env.GMAIL,
+            pass: process.env.GMAIL_PASS,
+        },
+       
+      });
+      
+      var mailOptions = {
+        from: process.env.GMAIL,
+        to: process.env.GMAIL,
+        subject: 'NEW ORDER IS MADE PLEASE CHECK THE ADNIN PAGE NOTE THE ORDER ID PLEASE',
+        html: `<p>ORDER ID: </p><h1>${this._id}</h1>, <p>ORDER OWNER: </p><h1>${this.name}</h1>`
+      };
+      
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent Successfully');
+        }
+      });
+})
 
 module.exports = mongoose.model("Order", OrderSchema);

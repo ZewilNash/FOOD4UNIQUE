@@ -36,7 +36,6 @@ const OrderSchema = new mongoose.Schema({
         type: String,
         required: [true, "You Must Provide Phone Number"],
         trim: true,
-        unique: true
     },
 
     address: {

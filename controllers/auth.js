@@ -202,7 +202,24 @@ const deleteOrder = async (req,res) => {
 
     res.status(200).json({msg:"Order Deleted Successfully" , success:true})
 
-}       
+}  
+
+const findOrder = async (req,res) => {
+    let {text} = req.body;
+ 
+    
+    const order = await Order.find({_id:text});
+
+
+    
+
+    if(order.lenght === 0){
+        return res.status(400).json({msg:"Order Not Found" , success:false});
+    }
+
+    res.status(200).json({msg:"Order Deleted Successfully" , success:true , order:order[0]})
+
+}
 
 module.exports = {
     signup,
@@ -217,5 +234,6 @@ module.exports = {
     getAllOrders,
     getOrder,
     editOrder,
-    deleteOrder
+    deleteOrder,
+    findOrder
 }

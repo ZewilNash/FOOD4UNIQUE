@@ -69,44 +69,50 @@
 
   <div id="order_page" class="container hide">
     <div class="row">
-    
+      
+      <input style="padding: 10px;" class="mt-5" id="order_id_text" type="text" placeholder="SEARCH ORDER BY ID">
+
+      <div id="order_container_search"></div>
+
+      <div id="con">
       <% for(var i = 0; i < orders.length; i++) { %>
         
 
-        <div style="width: 100vw;height: auto;display: flex;justify-content: center;align-items: center;flex-direction: column;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;" class="col-md-12 mt-4">
-            <p style="text-align: center;">ORDER ID: <%=  orders[i]._id %></p>
+        <div id="order_container" style="width: 100vw;height: auto;display: flex;justify-content: center;align-items: center;flex-direction: column;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;" class="col-md-12 mt-4">
+          <p style="text-align: center;">ORDER ID: <%=  orders[i]._id %></p>
 
-            <p style="text-align: center;">Made By : <%=  orders[i].name %></p>
-            <p style="text-align: center;">Order Owner Email : <%=  orders[i].email %></p>
-            <p style="text-align: center;">Order Owner phone : <%=  orders[i].phone %></p>
-            <p style="text-align: center;">Order Owner address : <%=  orders[i].address %></p>
+          <p style="text-align: center;">Made By : <%=  orders[i].name %></p>
+          <p style="text-align: center;">Order Owner Email : <%=  orders[i].email %></p>
+          <p style="text-align: center;">Order Owner phone : <%=  orders[i].phone %></p>
+          <p style="text-align: center;">Order Owner address : <%=  orders[i].address %></p>
 
-            <div style="font-size: 22px;" class="d-flex gap-3 mt-3">
-              <span style="font-size:15px;text-align: center;">owner state: <%=  orders[i].state %></span >
-              <span style="font-size:15px;text-align: center;">owner country: <%=  orders[i].country %></span>
-              <span style="font-size:15px;text-align: center;">owner village: <%=  orders[i].village %></span>
-              <span style="font-size:15px;text-align: center;">owner leisure: <%=  orders[i].leisure %></span>
-            </div>
+          <div style="font-size: 22px;" class="d-flex gap-3 mt-3">
+            <span style="font-size:15px;text-align: center;">owner state: <%=  orders[i].state %></span >
+            <span style="font-size:15px;text-align: center;">owner country: <%=  orders[i].country %></span>
+            <span style="font-size:15px;text-align: center;">owner village: <%=  orders[i].village %></span>
+            <span style="font-size:15px;text-align: center;">owner leisure: <%=  orders[i].leisure %></span>
+          </div>
 
-            <div style="font-size: 18px;" class="d-flex gap-3 mt-3">
-              <span>order Owner Zip Code: <%=  orders[i].zip_code %></span>
-              <span>order status: <%=  orders[i].status %></span>
-              <span>order isPaid: <%=  orders[i].isPaid %></span>
-              
-            </div>
+          <div style="font-size: 18px;" class="d-flex gap-3 mt-3">
+            <span>order Owner Zip Code: <%=  orders[i].zip_code %></span>
+            <span>order status: <%=  orders[i].status %></span>
+            <span>order isPaid: <%=  orders[i].isPaid %></span>
+            
+          </div>
 
-            <div style="font-size: 20px;" class="d-flex gap-3 mt-3">
-              <a data-order-id="<%= orders[i]._id %>" id="order_show_more" href="#" style="color:green">Show More</a>
-              <a data-order-id="<%= orders[i]._id %>"  href="#" id="delete_order" style="color:red;">Delete Order</a>
-              <a data-order-id="<%= orders[i]._id %>" id="edit_order_btn" href="#">Edit Order</a>
-              
-            </div>
+          <div style="font-size: 20px;" class="d-flex gap-3 mt-3">
+            <a data-order-id="<%= orders[i]._id %>" id="order_show_more" href="#" style="color:green">Show More</a>
+            <a data-order-id="<%= orders[i]._id %>"  href="#" id="delete_order" style="color:red;">Delete Order</a>
+            <a data-order-id="<%= orders[i]._id %>" id="edit_order_btn" href="#">Edit Order</a>
+            
+          </div>
 
 
 
         </div>
       
       <% } %>
+      </div>
 
       <a style="font-size: 20px;color: #000;text-align: center;margin-top: 20px;" href="#" id="back_from_orders">Go Back</a>
 

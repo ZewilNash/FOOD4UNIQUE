@@ -5,7 +5,7 @@ const router = express.Router();
 const authenticatedRoute = require("../middleware/auth");
 const isAdminRoute = require("../middleware/isAdmin");
  
-const {signup , login , getUserCartLength,deleteFromCart,updateCartQty,makeOrder,getCart,deleteCart,sendReport,getAllOrders,getOrder,editOrder,deleteOrder} = require("../controllers/auth");
+const {signup , login , getUserCartLength,deleteFromCart,updateCartQty,makeOrder,getCart,deleteCart,sendReport,getAllOrders,getOrder,editOrder,deleteOrder,findOrder} = require("../controllers/auth");
 
 router.route("/signup").post(signup);
 router.route("/login").post(login);
@@ -21,6 +21,8 @@ router.route("/get_order/:id").get(authenticatedRoute,isAdminRoute,getOrder);
 router.route("/edit_order/:id").patch(authenticatedRoute,isAdminRoute,editOrder);
 
 router.route("/delete_order/:id").delete(authenticatedRoute,isAdminRoute,deleteOrder);
+
+router.route("/get_order").post(authenticatedRoute,isAdminRoute,findOrder);
 
 
 router.route("/order").post(authenticatedRoute,makeOrder);

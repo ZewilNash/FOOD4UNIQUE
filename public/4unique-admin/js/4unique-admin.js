@@ -533,3 +533,65 @@ document.querySelector("#delete_order").addEventListener("click" , (e) => {
         
     })
 })
+
+
+
+document.querySelector("#order_id_text").addEventListener("input" , (e) => {
+    let text = e.target.value;
+    let URL = document.URL.split("4unique-admin")[0];
+   
+    
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if(!text){
+        alert("enter id")
+    }
+
+    axios.post(URL + 'api/v1/auth/get_order',{text} ,  {
+        headers: {
+            Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+        }
+    }).then(res => {
+        console.log(res);
+        document.querySelector("#con").style.display = "none";
+        const order = res.data.order;
+        console.log(order);
+        
+        
+        document.querySelector("#order_container_search").innerHTML = `
+        <p style="text-align: center;">ORDER ID: ${  order._id }</p>
+
+        <p style="text-align: center;">Made By : ${  order.name }</p>
+        <p style="text-align: center;">Order Owner Email : ${  order.email }</p>
+        <p style="text-align: center;">Order Owner phone : ${  order.phone }</p>
+        <p style="text-align: center;">Order Owner address : ${  order.address }</p>
+
+        <div style="font-size: 22px;" class="d-flex gap-3 mt-3">
+          <span style="font-size:15px;text-align: center;">owner state: ${  order.state }</span >
+          <span style="font-size:15px;text-align: center;">owner country: ${  order.country }</span>
+          <span style="font-size:15px;text-align: center;">owner village: ${  order.village }</span>
+          <span style="font-size:15px;text-align: center;">owner leisure: ${  order.leisure }</span>
+        </div>
+
+        <div style="font-size: 18px;" class="d-flex gap-3 mt-3">
+          <span>order Owner Zip Code: ${  order.zip_code }</span>
+          <span>order status: ${  order.status }</span>
+          <span>order isPaid: ${  order.isPaid }</span>
+          
+        </div>
+
+        <div style="font-size: 20px;" class="d-flex gap-3 mt-3">
+          <a data-order-id="${ order._id }" id="order_show_more" href="#" style="color:green">Show More</a>
+          <a data-order-id="${ order._id }"  href="#" id="delete_order" style="color:red;">Delete Order</a>
+          <a data-order-id="${ order._id }" id="edit_order_btn" href="#">Edit Order</a>
+          
+        </div>
+
+        `
+
+    }).catch(err => {
+
+        console.log(err);
+    })
+    
+})

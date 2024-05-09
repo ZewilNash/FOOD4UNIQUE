@@ -44,3 +44,9 @@ window.onload = () => {
     })
   }
   
+  document.querySelector("#logout").addEventListener("click" , () => logout());
+
+function logout() {
+    localStorage.removeItem('user');
+    window.location.href = '/loginpage';
+}

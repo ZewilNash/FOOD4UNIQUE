@@ -341,3 +341,195 @@ document.querySelector("#create-btn_edit").addEventListener("click" , (e) => {
     
     
 })
+
+
+document.querySelector("#show_orders").addEventListener("click" , (e) => {
+    document.querySelector(".edit").classList.add("hide");
+    document.querySelector(".not-edit").classList.add("hide");
+    document.querySelector("#order_page").classList.toggle("hide");
+})
+
+document.querySelector("#back_from_orders").addEventListener("click" , (e) => {
+    
+    document.querySelector(".not-edit").classList.toggle("hide");
+    document.querySelector("#order_page").classList.add("hide");
+})
+
+// /get_order/:id  order_item .row
+
+document.querySelectorAll("#order_show_more").forEach(btn => {
+    btn.addEventListener("click" , (e) => {
+        // document.querySelector(".not-edit").classList.toggle("hide");
+    
+        let URL = document.URL.split("4unique-admin")[0];
+    
+        
+    
+        const user = JSON.parse(localStorage.getItem("user"));
+    
+        let order_id = e.target.dataset.orderId;
+    
+        axios.get(URL + `api/v1/auth/get_order/${order_id}` ,  {
+            headers: {
+                Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+            }
+        }).then(res => {
+    
+            document.querySelector("#order_item").classList.toggle("hide");
+            document.querySelector("#order_page").classList.add("hide");
+    
+            let order = res.data.order;
+            let total = [];
+           order[0].cart.forEach(c => {
+                
+                
+                
+
+                total.push(Number(c.food.price) * Number(c.qty))
+
+                console.log(total);
+                
+
+                let total_order = total.reduce((a,b) => a+b);
+
+                document.querySelector("#total_order_price").innerText = total_order;
+
+               let HTML = `
+                <div style="display-flex;flex-direction:column;gap-3;justify-content-center-align-items-center" class="col-md-12 mt-5">
+                    <img style="width:100%;height:350px;object-fit:contain" src="${c.food.images[0]}" />
+                    <p>Quantity: ${c.qty}</p>
+                    <p>Food Name: ${c.food.name}</p>
+                    <p>Food price: ${c.food.price}</p>
+                    <p>Food Total Price: ${Number(c.food.price) * Number(c.qty) }</p>
+                </div>
+               `
+    
+               document.querySelector("#order_item").querySelector(".row").innerHTML += HTML
+
+              
+    
+           })
+           
+        //    document.querySelector("#go_back_orders").addEventListener("click" , (e) => {
+            
+                
+        //     document.querySelector("#order_item").classList.add("hide");
+        //     document.querySelector("#order_page").classList.toggle("hide");
+            
+            
+        // })
+    
+            
+    
+        }).catch(err => {
+            console.log(err);
+            
+        })
+    
+       
+    })
+})
+
+
+
+document.querySelectorAll("#edit_order_btn").forEach(btn => {
+    btn.addEventListener("click" , (e) => {
+        document.querySelector("#span_order_id").innerText = e.target.dataset.orderId;
+    
+        document.querySelector("#edit_order").classList.toggle("hide");
+    
+        document.querySelector("#edit_order").style.display = "block";
+    
+        document.querySelector("#order_page").classList.add("hide");
+    
+    })
+})
+
+document.querySelector("#back_orders").addEventListener("click" , (e) => {
+    document.querySelector("#edit_order").classList.toggle("hide");
+
+    document.querySelector("#edit_order").style.display = "none";
+
+    document.querySelector("#order_page").classList.toggle("hide");
+})
+
+document.querySelector("#edit_order_submit").addEventListener("click" , (e) => {
+    e.preventDefault();
+    /*
+order_status
+order_paid
+    */
+
+    let status = document.querySelector("#order_status").value;
+    
+    let isPaid = document.querySelector("#order_paid").value === "true" ? true : false;
+
+
+    let URL = document.URL.split("4unique-admin")[0];
+    
+        
+    
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    let order_id_span = document.querySelector("#span_order_id").innerText;
+
+    axios.patch(URL + `api/v1/auth/edit_order/${order_id_span}`,{status,isPaid} ,  {
+        headers: {
+            Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+        }
+    }).then(res => {
+        let msg = res.data.msg;
+        
+        let HTML = `<p class="success-message">${msg}</p>`;
+
+        document.querySelector(".success").innerHTML += HTML;
+
+        setTimeout(() => {
+            document.querySelector(".success").innerHTML = "";
+           
+            // window.location.href = "/home";
+
+        } , 3000)
+        window.location.reload();
+    }).catch(err => {
+        console.log(err);
+        
+    })
+
+
+
+})
+
+
+document.querySelector("#delete_order").addEventListener("click" , (e) => {
+    let URL = document.URL.split("4unique-admin")[0];
+    
+        
+    
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    let {orderId} = e.target.dataset;
+
+    axios.delete(URL + `api/v1/auth/delete_order/${orderId}` ,  {
+        headers: {
+            Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+        }
+    }).then(res => {
+        let msg = res.data.msg;
+        
+        let HTML = `<p class="success-message">${msg}</p>`;
+
+        document.querySelector(".success").innerHTML += HTML;
+
+        setTimeout(() => {
+            document.querySelector(".success").innerHTML = "";
+           
+            // window.location.href = "/home";
+
+        } , 3000)
+        window.location.reload();
+    }).catch(err => {
+        console.log(err);
+        
+    })
+})

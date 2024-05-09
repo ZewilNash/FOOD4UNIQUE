@@ -1,9 +1,21 @@
-<div class="contact-us">
+<div class="contact-us" style="display: flex;flex-direction: column;">
     <form action="#">
-      <label for="customerName">NAME <em>&#x2a;</em></label><input id="customerName" name="customerName" required="" type="text" /><label for="customerEmail">EMAIL <em>&#x2a;</em></label><input id="customerEmail" name="customerEmail" required="" type="email" /><label for="customerPhone">PHONE</label><input id="customerPhone" name="customerPhone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" type="tel" /><label for="orderNumber">ORDER NUMBER</label><input id="orderNumber" name="orderNumber" type="text" /><label for="customerNote">YOUR MESSAGE <em>&#x2a;</em></label><textarea id="customerNote" name="customerNote" required="" rows="4"></textarea>
+      <label for="orderId">ORDER ID</label>
+      <input id="orderId" name="orderId" type="text" />
+
+      <label for="customerNote">YOUR MESSAGE <em>&#x2a;</em></label>
+      <textarea id="customerNote" name="customerNote" required="" rows="4"></textarea>
       <h3>
-        Please provide all the information about your issue you can.
+        Please provide all the information about your issue.
       </h3>
-     <button id="customerOrder">SUBMIT</button>
+     <button id="sendReport">SUBMIT</button>
+
+     
+
     </form>
+
+    <p style="text-align: center;font-size: 20px;">Or</p>
+
+     <a style="text-align: center;font-size: 25px;color: #000;" href="https://wa.me/+2001021568465">Whatsapp us</a>
+     <small style="text-align: center;font-size: 18px;color: #000;">Before You Whatsapp us please keep your order id,we will ask you about before you apply your report</small>
   </div>

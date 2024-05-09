@@ -6,6 +6,7 @@ const { readFileSync } = require("fs");
 
 const User = require("./modals/User");
 const Cart = require("./modals/Cart");
+const Order = require("./modals/Order");
 
 const Product = require("./modals/Product");
 
@@ -110,7 +111,7 @@ app.get("/cart/:id", async (req, res) => {
 
     if (!user) {
         res.status(404);
-        return res.render("pages/notfound/index");
+        return res.redirect("/notfound");
     }
 
     const products = await Cart.find({ user: req.params.id }).populate("food");
@@ -168,7 +169,7 @@ app.get("/food/:cat", async (req, res) => {
 
     if (product.length === 0) {
         res.status(404);
-        return res.render("pages/notfound/index");
+        return res.redirect("/notfound");
     }
 
     res.render("pages/food/index", { product: product });
@@ -182,7 +183,7 @@ app.get("/fooddetail/:id", async (req, res) => {
 
     if (!food) {
         res.status(404);
-        return res.render("pages/notfound/index");
+        return res.redirect("/notfound");
     }
 
     let may_like = await Product.find({ category: food.category, _id: { $ne: food._id } });
@@ -194,8 +195,19 @@ app.get("/fooddetail/:id", async (req, res) => {
 app.get("/aboutus", (req, res) => {
     res.render("pages/aboutus/index");
 });
-app.get("/order_success/:id", (req, res) => {
+
+app.get("/notfound", (req, res) => {
+    res.render("pages/notfound/index");
+});
+app.get("/order_success/:id", async (req, res) => {
     const {id} = req.params;
+
+    const order = await Order.findOne({_id:id});
+
+    if(!order){
+        return res.redirect("/notfound");
+    }
+
     res.render("pages/order_success/index" , {id:id});
 });
 
@@ -207,7 +219,7 @@ app.get("/favourites/:id", async (req, res) => {
     const user = await User.findOne({ _id: id }).populate("favourites");
 
     if (!user) {
-        return res.render("pages/notfound/index");
+        return res.redirect("/notfound");
     }
 
     let user_favoutites = user.favourites;
@@ -219,10 +231,39 @@ app.get("/contactus", (req, res) => {
     res.render("pages/contactus/index");
 });
 
+
+
+
 app.get("/4unique-admin", async (req, res) => {
+    const orders = await Order.find({});
+
+    
+    
+    
+
+    const carts = orders.map(order => order.cart);
+    const cart_items = [];
+    const foods = [];
+    carts.forEach(c => {
+        // console.log(c);
+        cart_items.push(c);  
+    })
+    
+    
+    cart_items.forEach(c => {
+        c.forEach(item => {
+            foods.push(item.food);
+        })
+        
+    });
+
+  
+    
+    
     const products = await Product.find({});
+
     // check passwords
-    res.render("pages/4unique-admin/index", { products: products });
+    res.render("pages/4unique-admin/index", { products: products , orders:orders,carts:carts,foods:foods });
 });
 
 // app.get("/4unique-admin/:name" ,async (req,res) => {

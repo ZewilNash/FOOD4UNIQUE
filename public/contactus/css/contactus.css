@@ -317,4 +317,58 @@ textarea:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
 }
 
+#errors {
+	margin-bottom: 30px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	color: red;
+	float: right;
+	width: 100%;
+	font-size: 25px;
+}
 
+#success {
+	margin-bottom: 30px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	color: green;
+	float: right;
+	width: 100%;
+	font-size: 25px;
+}
+
+.error-message{
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+	padding: 5px;
+	text-align: center;
+}
+
+.success-message{
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+	padding: 5px;
+	text-align: center;
+}
+
+.success{
+  float: right;
+  padding: 10px;
+  width: auto;
+  height: auto;
+  color: green;
+  font-size: 20px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  position: fixed;
+}
+
+.errors {
+  float: right;
+  padding: 10px;
+  width: auto;
+  height: auto;
+  color: red;
+  font-size: 20px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  position: fixed;
+}

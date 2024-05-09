@@ -5,8 +5,7 @@ window.onload = () => {
 
   let user = JSON.parse(localStorage.getItem("user"));
 
-  
-
+ 
   if (!user) {
     window.location.href = "/loginpage";
   }
@@ -174,14 +173,13 @@ document.querySelector("#auto_fill_btn").addEventListener("click" , (e) => {
         let display_name = res.data.display_name;
         let leisure = res.data.address.leisure;
 
-
-        document.querySelector("#order_state").value = state;
-        document.querySelector("#order_country").value = country;
-        document.querySelector("#order_zip_code").value = postcode;
-        document.querySelector("#order_address").value = display_name;
-        document.querySelector("#order_road").value = road;
-        document.querySelector("#order_village").value = village;
-        document.querySelector("#order_leisure").value = leisure;
+        document.querySelector("#order_state").value = state ? state : "";
+        document.querySelector("#order_country").value = country ? country : "";
+        document.querySelector("#order_zip_code").value = postcode ? postcode : "";
+        document.querySelector("#order_address").value = display_name ? display_name : "";
+        document.querySelector("#order_road").value = road ? road : "";
+        document.querySelector("#order_village").value = village ? village : "";
+        document.querySelector("#order_leisure").value = leisure ? leisure : "";
         document.querySelector("#order_email").value = user.user.email;
         document.querySelector("#order_name").value = user.user.fullname;
 
@@ -392,3 +390,56 @@ function deleteCart(){
 }
 
 
+// add auto fill address
+
+// https://alamat.thecloudalert.com/api/cari/index/?keyword=Soreang
+
+/*
+"negara": "Indonesia",
+      "provinsi": "Jawa Barat",
+      "kabkota": "Kabupaten Bandung",
+      "kecamatan": "Soreang",
+      "desakel": "Bukit Harapan"
+*/
+
+document.querySelector("#order_address").addEventListener("input" , (e) => {
+  console.log(e.target.value);
+  
+  let url = `https://alamat.thecloudalert.com/api/cari/index/?keyword=${e.target.value}` 
+  axios.get(url).then(res => {
+    let data_arr = res.data.result;
+
+    if(data_arr.length > 0){
+      document.querySelector("#address").classList.remove("hide");
+    }else {
+      document.querySelector("#address").classList.add("hide");
+    }
+
+
+    for (let i = 0 ; i < data_arr.length;i++){
+      let option = document.createElement("option");
+      option.innerText = `${data_arr[i].negara},${data_arr[i].provinsi},${data_arr[i].kabkota},${data_arr[i].kecamatan},
+      ${data_arr[i].desakel}`;
+      option.value = `${data_arr[i].negara},${data_arr[i].provinsi},${data_arr[i].kabkota},${data_arr[i].kecamatan},
+      ${data_arr[i].desakel}`;
+
+      
+
+      document.querySelector("#address").appendChild(option);
+
+      document.querySelector("#address").addEventListener("change" , (e) => {
+
+        document.querySelector("#order_address").value = e.target.value;
+        document.querySelector("#order_state").value = e.target.value.split(",")[1];
+        document.querySelector("#order_country").value = e.target.value.split(",")[0];;
+      })
+
+    }
+
+    
+
+    
+  }).catch(err => console.log(err)
+  )
+
+})

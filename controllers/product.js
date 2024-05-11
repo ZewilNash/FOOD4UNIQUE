@@ -132,7 +132,7 @@ const deleteFood = async (req,res) => {
 const getSingleFood = async (req,res) => {
     const {foodId} = req.params;
 
-    console.log(foodId);
+  
     
 
     const food = await Product.findOne({_id:foodId});
@@ -219,7 +219,7 @@ let token = "";
 await snap.createTransaction(parameter)
     .then((transaction)=>{
         // transaction token
-        console.log(transaction);
+        
         
         let transactionToken = transaction.token;
        

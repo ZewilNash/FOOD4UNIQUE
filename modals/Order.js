@@ -111,7 +111,7 @@ OrderSchema.pre("save" , function () {
         if (error) {
           console.log(error);
         } else {
-          console.log('Email sent Successfully');
+          console.log('');
         }
       });
 })

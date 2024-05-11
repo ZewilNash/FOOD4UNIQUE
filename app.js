@@ -7,6 +7,7 @@ const { readFileSync } = require("fs");
 const User = require("./modals/User");
 const Cart = require("./modals/Cart");
 const Order = require("./modals/Order");
+const Report = require("./modals/Report");
 
 const Product = require("./modals/Product");
 
@@ -100,7 +101,7 @@ app.get("/home", (req, res) => {
 
 app.get("/food", async (req, res) => {
 
-    const products = await Product.find({});
+    const products = await Product.find({}).sort("createdAt");
 
     res.render("pages/food/index", { product: [], products: products });
 });
@@ -114,7 +115,7 @@ app.get("/cart/:id", async (req, res) => {
         return res.redirect("/notfound");
     }
 
-    const products = await Cart.find({ user: req.params.id }).populate("food");
+    const products = await Cart.find({ user: req.params.id }).populate("food").sort("createdAt");
 
   
     // const total = products.reduce((a,b) => a.food.price * b.food.price)
@@ -148,7 +149,7 @@ app.get("/findfood/:text", async (req, res) => {
 
     const { text } = req.params
 
-    let products = await Product.find({ name: { $regex: text, $options: "i" } });
+    let products = await Product.find({ name: { $regex: text, $options: "i" } }).sort("createdAt");
 
 
     if (products.length === 0) {
@@ -163,7 +164,7 @@ app.get("/food/:cat", async (req, res) => {
 
     const { cat } = req.params;
 
-    const product = await Product.find({ category: cat });
+    const product = await Product.find({ category: cat }).sort("createdAt");
 
 
 
@@ -233,9 +234,20 @@ app.get("/contactus", (req, res) => {
 
 
 
-
+// ["pending" , "delivered" , "canceled"]
 app.get("/4unique-admin", async (req, res) => {
-    const orders = await Order.find({});
+    const orders = await Order.find({}).sort("createdAt");
+
+    const pendingOrders = await Order.find({status:"pending"});
+    const deliveredOrders = await Order.find({status:"delivered"});
+    const canceledOrders = await Order.find({status:"canceled"});
+
+    const ordersLength = orders.length;
+
+    const reports = await Report.find({}).sort("createdAt");
+
+    const reportsLength = reports.length
+
 
     const carts = orders.map(order => order.cart);
     const cart_items = [];
@@ -256,10 +268,15 @@ app.get("/4unique-admin", async (req, res) => {
   
     
     
-    const products = await Product.find({});
+    const products = await Product.find({}).sort("createdAt");
+
+    const users = await User.find({});
+    const usersLength = users.length
+
+    const productsLength = products.length;
 
     // check passwords
-    res.render("pages/4unique-admin/index", { products: products , orders:orders,carts:carts,foods:foods });
+    res.render("pages/4unique-admin/index", { products: products,ordersLength,productsLength,reportsLength , orders:orders,carts:carts,foods:foods,reports:reports,usersLength,users:users,canceledOrders,pendingOrders,deliveredOrders });
 });
 
 // app.get("/4unique-admin/:name" ,async (req,res) => {

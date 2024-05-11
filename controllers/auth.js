@@ -158,13 +158,13 @@ const sendReport = async (req,res) => {
 const getAllOrders = async (req,res) => {
     const orders = await Order.find({})
 
-    res.status(200).json({orders,success:true});
+    res.status(200).json({orders,success:true}).sort("createdAt");
 }
 
 const getOrder = async (req,res) => {
     const {id} = req.params;
 
-    const order = await Order.find({_id:id});
+    const order = await Order.find({_id:id}).sort("createdAt");
 
     if(order.lenght === 0){
         return res.status(404).json({msg:"Order Not Found" , success:false});
@@ -206,19 +206,106 @@ const deleteOrder = async (req,res) => {
 
 const findOrder = async (req,res) => {
     let {text} = req.body;
- 
     
-    const order = await Order.find({_id:text});
-
-
+    
+    // { $or:[ {'_id':objId}, {'name':param}, {'nickname':param} ]}
     
 
+
+    const order = await Order.find({_id:text})
+    
+    
     if(order.lenght === 0){
         return res.status(400).json({msg:"Order Not Found" , success:false});
     }
 
-    res.status(200).json({msg:"Order Deleted Successfully" , success:true , order:order[0]})
+    res.status(200).json({success:true , order:order[0]})
 
+}
+
+const deleteReport = async (req,res) => {
+    const {id} = req.params;
+    const report = await Report.find({_id:id});
+
+    if(report.lenght === 0){
+        return res.status(404).json({msg:"report Not Found" , success:false});
+    }
+
+    await Report.findByIdAndDelete({_id:id});
+
+    res.status(200).json({success:true, msg:"Report Deleted Successfully"})
+}
+
+const findReport = async (req,res) => {
+    const {id} = req.params;
+    const report = await Report.find({order:id});
+
+
+    if(report.lenght === 0){
+        return res.status(404).json({msg:"report Not Found" , success:false});
+    }
+
+    res.status(200).json({report:report[0] , success:true})
+}
+
+
+const getAllOrderWithStatus = async (req,res) => {
+    const {status} = req.params;
+    const orders = await Order.find({status:status}).sort("createdAt")
+
+    res.status(200).json({success:true , orders})
+}
+
+const deleteUser = async (req,res) => {
+    const {id} = req.params;
+
+    const user = await User.find({_id:id});
+
+    if(user.lenght === 0){
+        return res.status(404).json({msg:"user Not Found" , success:false});
+    }
+
+    await User.findOneAndDelete({_id:user[0]._id},{useFindAndModify:false});
+
+    res.status(200).json({success:true,msg:"User Deleted Successfully"})
+}
+const updateUser = async (req,res) => {
+    const {id} = req.params;
+    const {fullname,email,role} = req.body;
+
+    const user = await User.find({_id:id});
+
+    if(user.lenght === 0){
+        return res.status(404).json({msg:"user Not Found" , success:false});
+    }
+
+    await User.findOneAndUpdate({_id:user[0]._id},{fullname,email,role},{useFindAndModify:false});
+
+    res.status(200).json({user:user[0],success:true,msg:"User Updated Successfully"})
+}
+
+const getUser = async (req,res) => {
+    const {id} = req.params;
+
+    const user = await User.find({_id:id});
+
+    if(user.lenght === 0){
+        return res.status(404).json({msg:"user Not Found" , success:false});
+    }
+
+  
+    res.status(200).json({user:user[0],success:true,msg:"User Found Successfully"})
+}
+
+const deleteAllCanceledOrders = async (req,res) => {
+    await Order.deleteMany({status:"canceled"});
+
+    res.status(200).json({success:true,msg:"Orders Deleted Successfully"})
+}
+const deleteAllDeliveredOrders = async (req,res) => {
+    await Order.deleteMany({status:"delivered"});
+
+    res.status(200).json({success:true,msg:"Orders Deleted Successfully"})
 }
 
 module.exports = {
@@ -235,5 +322,13 @@ module.exports = {
     getOrder,
     editOrder,
     deleteOrder,
-    findOrder
+    findOrder,
+    deleteReport,
+    findReport,
+    getAllOrderWithStatus,
+    deleteUser,
+    updateUser,
+    getUser,
+    deleteAllDeliveredOrders,
+    deleteAllCanceledOrders
 }

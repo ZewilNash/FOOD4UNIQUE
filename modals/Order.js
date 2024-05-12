@@ -74,7 +74,7 @@ const OrderSchema = new mongoose.Schema({
         type: String,
         required: [true, "You Must Provide Status"],
         trim: true,
-        enum:["pending" , "delivered" , "canceled"],
+        enum:["pending" , "delivered" , "canceled" , "onway"],
         default:"pending"
     },
 
@@ -82,7 +82,9 @@ const OrderSchema = new mongoose.Schema({
         type: Boolean,
         required: [true, "You Must Provide IsPaid"],
         trim: true,
-    }
+    },
+
+   
 
 
 }, {timestamps:true});

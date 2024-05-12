@@ -68,27 +68,35 @@ document.querySelectorAll("#fav_btn").forEach(b => {
       console.log(res);
       const msg_data = res.data.msg;
 
-      document.querySelector(".success").innerText = `${msg_data}`;
-
-      e.target.style.color = "red";
+      const myPopup = new Popup({
+        id: "my-popup",
+        title: "FOOD4UNIQUE",
+        content: `${msg_data}`,
+            showImmediately: true,
+            textColor:"green"
+    });
   
-          setTimeout(() => {
-            e.target.style.color = "#000";
-          },2000);
-
-      setTimeout(() => {
-        document.querySelector(".success").innerText = ``;
-      },2000);
+  
+  
+      // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+      myPopup.show();
       
     }).catch(err => {
       const msg = err.response.data.msg;
 
       // do something
-      document.querySelector(".error").innerText = `${msg}`;
-
-      setTimeout(() => {
-        document.querySelector(".error").innerText = ``;
-      },2000);
+      const myPopup = new Popup({
+        id: "my-popup",
+        title: "FOOD4UNIQUE",
+        content: `${msg}`,
+            showImmediately: true,
+            textColor:"red"
+    });
+  
+  
+  
+      // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+      myPopup.show();
       
       
     });
@@ -161,3 +169,49 @@ document.querySelectorAll("#add_to_cart_btn").forEach(btn => {
       
     })
   });
+
+
+  document.querySelectorAll("#food_qty").forEach(btn => {
+    btn.addEventListener("input" , (e) => {
+      // oninput="this.value = 
+    
+      console.log(e.target.value);
+      
+    
+      if(Number(e.target.value) === 0){
+        const myPopup = new Popup({
+          id: "my-popup",
+          title: "FOOD4UNIQUE",
+          content: `
+          ADD NON ZERO & POSITIVE & NOT EMPTY QUANTITY`,
+              showImmediately: true,
+              textColor:"red"
+      });
+    
+    
+    
+        // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+        myPopup.show();
+        e.target.value = ""
+      }
+    
+      if(Number(e.target.value) < 0 || e.target.value.startsWith("-")){
+        const myPopup = new Popup({
+          id: "my-popup",
+          title: "FOOD4UNIQUE",
+          content: `
+          ADD POSITIVE QUANTITY NUMBER`,
+              showImmediately: true,
+              textColor:"red"
+      });
+    
+    
+    
+        // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+        myPopup.show();
+        e.target.value = ""
+      }
+    
+     
+    })
+  })

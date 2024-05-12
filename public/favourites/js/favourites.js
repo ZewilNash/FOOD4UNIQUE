@@ -146,3 +146,49 @@ document.querySelectorAll("#add_to_cart_btn").forEach(btn => {
       
     })
   });
+
+
+  document.querySelectorAll("#food_qty").forEach(btn => {
+    btn.addEventListener("input" , (e) => {
+      // oninput="this.value = 
+    
+      console.log(e.target.value);
+      
+    
+      if(Number(e.target.value) === 0){
+        const myPopup = new Popup({
+          id: "my-popup",
+          title: "FOOD4UNIQUE",
+          content: `
+          ADD NON ZERO & POSITIVE & NOT EMPTY QUANTITY`,
+              showImmediately: true,
+              textColor:"red"
+      });
+    
+    
+    
+        // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+        myPopup.show();
+        e.target.value = ""
+      }
+    
+      if(Number(e.target.value) < 0 || e.target.value.startsWith("-")){
+        const myPopup = new Popup({
+          id: "my-popup",
+          title: "FOOD4UNIQUE",
+          content: `
+          ADD POSITIVE QUANTITY NUMBER`,
+              showImmediately: true,
+              textColor:"red"
+      });
+    
+    
+    
+        // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+        myPopup.show();
+        e.target.value = ""
+      }
+    
+     
+    })
+  })

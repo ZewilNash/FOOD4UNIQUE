@@ -10,14 +10,9 @@
   }
   
   body {
-    font-family: "Tac One", sans-serif !important;
+    font-family: "Roboto", sans-serif !important;
     font-weight: 400;
     font-style: normal;
-    /* display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100vw; */
   }
   
   a {
@@ -115,7 +110,7 @@
   }
   .offcanvas-menu nav > ul {
     margin-top: 30px;
-    counter-reset: nav-link-count;
+    /* counter-reset: nav-link-count; */
   }
   .offcanvas-menu nav > ul li {
     cursor: pointer;
@@ -123,7 +118,7 @@
     transform: translateX(-30px);
     opacity: 0;
     transition: 0.4s ease;
-    counter-increment: nav-link-count;
+    /* counter-increment: nav-link-count; */
   }
   .offcanvas-menu nav > ul li a {
     font-size: 2.5rem;
@@ -132,9 +127,9 @@
     color: #333333;
     display: block;
   }
-  .offcanvas-menu nav > ul li a::after {
+  /* .offcanvas-menu nav > ul li a::after {
     content: " : " counter(nav-link-count);
-  }
+  } */
   .offcanvas-menu nav > ul li:hover {
     animation: hover 0.5s;
   }

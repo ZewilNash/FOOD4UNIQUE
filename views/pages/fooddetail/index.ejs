@@ -112,26 +112,29 @@
 
 
 
-                <a href="/fooddetail/<%= alsoLike[i]._id %>" class="col-md-4 mt-5 food-item">
-                    <img src="<%= alsoLike[i].images[0] %>" />
-                    <p><%= alsoLike[i].name %></p>
-                    <span><%= alsoLike[i].price%></span>
-                    <div class="footer">
-                        <i style="cursor: pointer;" data-food-id="<%= alsoLike[i]._id %>" id="fav_btn"
-                            class="fa-solid fa-heart"></i>
-
+                    <div class="col-md-4 food-item">
+                        <a href="/fooddetail/<%= alsoLike[i]._id %>" class="mt-5 food-item">
+                            <img src="<%= alsoLike[i].images[0] %>" />
+                            <p><%= alsoLike[i].name %></p>
+                            <span><%= alsoLike[i].price %></span>
+    
+    
+                        </a>
+                        <div style="display: flex;justify-content: space-between;width: 100%;font-size: 25px;cursor: pointer;"
+                            class="footer">
+                            <i data-food-id="<%= alsoLike[i]._id %>" id="fav_btn" class="fa-solid fa-heart"></i>
+    
                             <input 
                             style="width: 50%;"
                             placeholder="quantity" id="food_qty" 
-                            data-food-name="<%= food.name %>"
-                            min="1"
-                            type="number">
+                            data-food-name="<%= alsoLike[i].name %>" 
+                            type="number" min="1">
     
-                            <i data-food-name="<%= food.name %>" data-food-id="<%= food._id %>" id="add_to_cart_btn" class="fa-solid fa-plus"></i>
-
-
+                            <i data-food-name="<%= alsoLike[i].name %>" data-food-id="<%= alsoLike[i]._id %>" id="add_to_cart_btn" class="fa-solid fa-plus"></i>
+    
+                        </div>
+    
                     </div>
-                </a>
 
 
 
@@ -148,6 +151,7 @@
 
 
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/@simondmc/popup-js@1.4.3/popup.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"
         integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>

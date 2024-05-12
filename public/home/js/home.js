@@ -88,7 +88,7 @@ categories.forEach(cat => {
     HTML += `
         <a href="/food/${cat.name.toLowerCase()}"class="col-md-4 category mt-5">
             <img style="width:100%;height:350px;object-fit-contain" src="${cat.image}" />
-            <p>${cat.name}</p>
+            <p>${cat.name === "BEST FOOD"  ? "NEW" : cat.name.split(" ")[0]}</p>
         </a>
     `;
 

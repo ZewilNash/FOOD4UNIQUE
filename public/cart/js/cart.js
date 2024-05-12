@@ -159,6 +159,10 @@ document.querySelector("#back-to-cart").addEventListener("click" , (e) => {
 
 
 document.querySelector("#auto_fill_btn").addEventListener("click" , (e) => {
+  e.target.innerText = "WAIT A MOMENT..."
+  e.target.disabled = true;
+
+
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       const latitude = position.coords.latitude;
@@ -173,7 +177,9 @@ document.querySelector("#auto_fill_btn").addEventListener("click" , (e) => {
         let display_name = res.data.display_name;
         let leisure = res.data.address.leisure;
 
-        document.querySelector("#order_state").value = state ? state : "";
+        setTimeout(() => {
+         
+          document.querySelector("#order_state").value = state ? state : "";
         document.querySelector("#order_country").value = country ? country : "";
         document.querySelector("#order_zip_code").value = postcode ? postcode : "";
         document.querySelector("#order_address").value = display_name ? display_name : "";
@@ -182,10 +188,24 @@ document.querySelector("#auto_fill_btn").addEventListener("click" , (e) => {
         document.querySelector("#order_leisure").value = leisure ? leisure : "";
         document.querySelector("#order_email").value = user.user.email;
         document.querySelector("#order_name").value = user.user.fullname;
+        e.target.innerText = "Fill Most Of Info Automatically"
+        e.target.disabled = false;
+        },1500)
 
         
       }).catch(err => {
-        alert("Couldn't Find Your Address!")
+        const myPopup = new Popup({
+          id: "my-popup",
+          title: "FOOD4UNIQUE",
+          content: `AUTOMATIC SERVICE IS NOT WORKING , TRY AGAIN LATER!`,
+              showImmediately: true,
+              textColor:"red"
+      });
+    
+    
+    
+        // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+        myPopup.show();
       })
 
     });
@@ -342,7 +362,20 @@ isPaid
     }
   })
   }else {
-    document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+
+    const myPopup = new Popup({
+      id: "my-popup",
+      title: "FOOD4UNIQUE",
+      content: `
+      Please Provide Your Missing Order Details First!!`,
+          showImmediately: true,
+          textColor:"red"
+  });
+
+
+
+    // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+    myPopup.show();
 
     setTimeout(() => {
       document.querySelector(".error").innerText = ``;

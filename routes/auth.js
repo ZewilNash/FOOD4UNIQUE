@@ -5,7 +5,7 @@ const router = express.Router();
 const authenticatedRoute = require("../middleware/auth");
 const isAdminRoute = require("../middleware/isAdmin");
  
-const {signup , login , getUserCartLength,deleteFromCart,updateCartQty,makeOrder,getCart,deleteCart,sendReport,getAllOrders,getOrder,editOrder,deleteOrder,findOrder,deleteReport,findReport,getAllOrderWithStatus,deleteUser,updateUser,getUser,deleteAllDeliveredOrders,deleteAllCanceledOrders,getUserOrders,bookOrder} = require("../controllers/auth");
+const {signup , login , getUserCartLength,deleteFromCart,updateCartQty,makeOrder,getCart,deleteCart,sendReport,getAllOrders,getOrder,editOrder,deleteOrder,findOrder,deleteReport,findReport,getAllOrderWithStatus,deleteUser,updateUser,getUser,deleteAllDeliveredOrders,deleteAllCanceledOrders,getUserOrders,bookOrder,findBookedOrder,deleteBookedOrder,getBookedOrder} = require("../controllers/auth");
 
 router.route("/signup").post(signup);
 router.route("/login").post(login);
@@ -23,8 +23,13 @@ router.route("/get_order/:id").get(authenticatedRoute,isAdminRoute,getOrder);
 router.route("/edit_order/:id").patch(authenticatedRoute,isAdminRoute,editOrder);
 
 router.route("/delete_order/:id").delete(authenticatedRoute,isAdminRoute,deleteOrder);
+router.route("/delete_booked_order/:id").delete(authenticatedRoute,isAdminRoute,deleteBookedOrder);
 
 router.route("/get_order").post(authenticatedRoute,isAdminRoute,findOrder);
+
+router.route("/get_booked_order").post(authenticatedRoute,isAdminRoute,findBookedOrder);
+
+router.route("/get_booked_order/:id").get(authenticatedRoute,isAdminRoute,getBookedOrder);
 
 router.route("/delete_report/:id").delete(authenticatedRoute,isAdminRoute,deleteReport);
 

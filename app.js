@@ -284,6 +284,7 @@ app.get("/user_orders/:id", async (req, res) => {
 // ["pending" , "delivered" , "canceled"]
 app.get("/4unique-admin", async (req, res) => {
     const orders = await Order.find({}).sort("-createdAt");
+    const bookedOrders = await BOOKOrder.find({}).sort("-createdAt");
 
     const pendingOrders = await Order.find({status:"pending"});
     const deliveredOrders = await Order.find({status:"delivered"});
@@ -323,7 +324,7 @@ app.get("/4unique-admin", async (req, res) => {
     const productsLength = products.length;
 
     // check passwords
-    res.render("pages/4unique-admin/index", { products: products,ordersLength,productsLength,reportsLength , orders:orders,carts:carts,foods:foods,reports:reports,usersLength,users:users,canceledOrders,pendingOrders,deliveredOrders });
+    res.render("pages/4unique-admin/index", { products: products,ordersLength,productsLength,reportsLength , orders:orders,carts:carts,foods:foods,reports:reports,usersLength,users:users,canceledOrders,pendingOrders,deliveredOrders,bookedOrders:bookedOrders });
 });
 
 // app.get("/4unique-admin/:name" ,async (req,res) => {

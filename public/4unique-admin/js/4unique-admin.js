@@ -410,6 +410,85 @@ document.querySelector("#order_id_text").addEventListener("input", (e) => {
 
             })
         })
+
+        //         document.querySelectorAll(".booked_order_show").forEach(btn => {
+
+        //             console.log(btn);
+
+
+        //             btn.addEventListener("click", (e) => {
+        //                 // document.querySelector(".not-edit").classList.toggle("hide");
+        //                 e.preventDefault();
+        //                 console.log("hi");
+        //                 let URL = document.URL.split("4unique-admin")[0];
+
+
+
+        //                 const user = JSON.parse(localStorage.getItem("user"));
+
+        //                 let order_id = e.target.dataset.orderId;
+        // // get_booked_order
+        //                 axios.get(URL + `api/v1/auth/get_booked_order/${order_id}`, {
+        //                     headers: {
+        //                         Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+        //                     }
+        //                 }).then(res => {
+
+        //                     document.querySelector("#booked_order_item").classList.toggle("hide");
+        //                     document.querySelector("#booked_order_page").classList.add("hide");
+
+        //                     let order = res.data.order;
+        //                     let total = [];
+        //                     order[0].cart.forEach(c => {
+
+
+
+
+        //                         total.push(Number(c.food.price) * Number(c.qty))
+
+        //                         console.log(total);
+
+
+        //                         let total_order = total.reduce((a, b) => a + b);
+
+        //                         document.querySelector("#total_order_price").innerText = total_order;
+
+        //                         let HTML = `
+        //                         <div style="display-flex;flex-direction:column;gap-3;justify-content-center-align-items-center" class="col-md-12 mt-5">
+        //                             <img style="width:100%;height:350px;object-fit:contain" src="${c.food.images[0]}" />
+        //                             <p>Quantity: ${c.qty}</p>
+        //                             <p>Food Name: ${c.food.name}</p>
+        //                             <p>Food price: ${c.food.price}</p>
+        //                             <p>Food Total Price: ${Number(c.food.price) * Number(c.qty)}</p>
+        //                         </div>
+        //                        `
+
+        //                         document.querySelector("#booked_order_item").querySelector(".row").innerHTML += HTML
+
+
+
+        //                     })
+
+        //                     //    document.querySelector("#go_back_orders").addEventListener("click" , (e) => {
+
+
+        //                     //     document.querySelector("#order_item").classList.add("hide");
+        //                     //     document.querySelector("#order_page").classList.toggle("hide");
+
+
+        //                     // })
+
+
+
+        //                 }).catch(err => {
+        //                     console.log(err);
+
+        //                 })
+
+
+        //             })
+        //         })
+
         document.querySelectorAll("#order_show_more").forEach(btn => {
             btn.addEventListener("click", (e) => {
                 // document.querySelector(".not-edit").classList.toggle("hide");
@@ -428,7 +507,7 @@ document.querySelector("#order_id_text").addEventListener("input", (e) => {
                     }
                 }).then(res => {
 
-                    document.querySelector("#order_item").classList.toggle("hide");
+                    document.querySelector("#order_item").classList.remove("hide");
                     document.querySelector("#order_page").classList.add("hide");
 
                     let order = res.data.order;
@@ -448,6 +527,7 @@ document.querySelector("#order_id_text").addEventListener("input", (e) => {
                         document.querySelector("#total_order_price").innerText = total_order;
 
                         let HTML = `
+                       
                         <div style="display-flex;flex-direction:column;gap-3;justify-content-center-align-items-center" class="col-md-12 mt-5">
                             <img style="width:100%;height:350px;object-fit:contain" src="${c.food.images[0]}" />
                             <p>Quantity: ${c.qty}</p>
@@ -459,7 +539,7 @@ document.querySelector("#order_id_text").addEventListener("input", (e) => {
 
                         document.querySelector("#order_item").querySelector(".row").innerHTML += HTML
 
-
+                       
 
                     })
 
@@ -483,7 +563,263 @@ document.querySelector("#order_id_text").addEventListener("input", (e) => {
             })
         })
 
+        // document.querySelector("#back_orders").addEventListener("click" , (e) => {
+
+
+        //     document.querySelector("#order_item").classList.add("hide");
+        //     document.querySelector("#order_page").classList.remove("hide");
+        // })
+
         document.querySelector("#delete_order").addEventListener("click", (e) => {
+            let URL = document.URL.split("4unique-admin")[0];
+
+
+
+            const user = JSON.parse(localStorage.getItem("user"));
+
+            let { orderId } = e.target.dataset;
+
+            axios.delete(URL + `api/v1/auth/delete_order/${orderId}`, {
+                headers: {
+                    Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+                }
+            }).then(res => {
+                let msg = res.data.msg;
+
+                let HTML = `<p class="success-message">${msg}</p>`;
+
+                document.querySelector(".success").innerHTML += HTML;
+
+                setTimeout(() => {
+                    document.querySelector(".success").innerHTML = "";
+
+                    // window.location.href = "/home";
+
+                }, 3000)
+                window.location.reload();
+            }).catch(err => {
+                console.log(err);
+
+            })
+        })
+
+
+    }).catch(err => {
+
+        console.log(err);
+    })
+
+})
+document.querySelector("#booked_order_id_text").addEventListener("input", (e) => {
+    let text = e.target.value;
+    let URL = document.URL.split("4unique-admin")[0];
+
+
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!text) {
+        alert("enter id")
+    }
+
+    axios.post(URL + 'api/v1/auth/get_booked_order', { text }, {
+        headers: {
+            Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+        }
+    }).then(res => {
+        console.log(res);
+        document.querySelector("#booked_con").style.display = "none";
+        const order = res.data.order;
+
+        document.querySelector("#booked_order_container_search").innerHTML = `
+        <p style="text-align: center;">ORDER ID: ${  order._id}</p>
+        <p style="text-align: center;">ORDER NUMBER: ${  order.order_num}</p>
+        <p style="text-align: center;">ORDER DATE: ${  order.date}</p>
+        <p style="text-align: center;">ORDER TIME: ${  order.time}</p>
+
+        <p style="text-align: center;">Made By : ${  order.name}</p>
+        <p style="text-align: center;">Order Owner Email : ${  order.email}</p>
+        <p style="text-align: center;">Order Owner phone : ${  order.phone}</p>
+       
+       
+
+        <div style="font-size: 18px;" class="d-flex gap-3 mt-3">
+         
+          <span>order isPaid: ${  order.isPaid}</span>
+          
+        </div>
+
+        <p style="text-align: center;">Order Date : ${  order.createdAt}</p>
+
+        <div style="font-size: 20px;" class="d-flex gap-3 mt-3">
+          <a data-order-id="${ order._id}" id="booked_order_show_more" href="#" style="color:green">Show More</a>
+          <a data-order-id="${ order._id}"  href="#" id="delete_booked_order" style="color:red;">Delete Order</a>
+          
+          
+        </div>
+
+        `
+        
+
+        //         document.querySelectorAll(".booked_order_show").forEach(btn => {
+
+        //             console.log(btn);
+
+
+        //             btn.addEventListener("click", (e) => {
+        //                 // document.querySelector(".not-edit").classList.toggle("hide");
+        //                 e.preventDefault();
+        //                 console.log("hi");
+        //                 let URL = document.URL.split("4unique-admin")[0];
+
+
+
+        //                 const user = JSON.parse(localStorage.getItem("user"));
+
+        //                 let order_id = e.target.dataset.orderId;
+        // // get_booked_order
+        //                 axios.get(URL + `api/v1/auth/get_booked_order/${order_id}`, {
+        //                     headers: {
+        //                         Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+        //                     }
+        //                 }).then(res => {
+
+        //                     document.querySelector("#booked_order_item").classList.toggle("hide");
+        //                     document.querySelector("#booked_order_page").classList.add("hide");
+
+        //                     let order = res.data.order;
+        //                     let total = [];
+        //                     order[0].cart.forEach(c => {
+
+
+
+
+        //                         total.push(Number(c.food.price) * Number(c.qty))
+
+        //                         console.log(total);
+
+
+        //                         let total_order = total.reduce((a, b) => a + b);
+
+        //                         document.querySelector("#total_order_price").innerText = total_order;
+
+        //                         let HTML = `
+        //                         <div style="display-flex;flex-direction:column;gap-3;justify-content-center-align-items-center" class="col-md-12 mt-5">
+        //                             <img style="width:100%;height:350px;object-fit:contain" src="${c.food.images[0]}" />
+        //                             <p>Quantity: ${c.qty}</p>
+        //                             <p>Food Name: ${c.food.name}</p>
+        //                             <p>Food price: ${c.food.price}</p>
+        //                             <p>Food Total Price: ${Number(c.food.price) * Number(c.qty)}</p>
+        //                         </div>
+        //                        `
+
+        //                         document.querySelector("#booked_order_item").querySelector(".row").innerHTML += HTML
+
+
+
+        //                     })
+
+        //                     //    document.querySelector("#go_back_orders").addEventListener("click" , (e) => {
+
+
+        //                     //     document.querySelector("#order_item").classList.add("hide");
+        //                     //     document.querySelector("#order_page").classList.toggle("hide");
+
+
+        //                     // })
+
+
+
+        //                 }).catch(err => {
+        //                     console.log(err);
+
+        //                 })
+
+
+        //             })
+        //         })
+
+        document.querySelectorAll("#booked_order_show_more").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                // document.querySelector(".not-edit").classList.toggle("hide");
+
+                let URL = document.URL.split("4unique-admin")[0];
+
+
+
+                const user = JSON.parse(localStorage.getItem("user"));
+
+                let order_id = e.target.dataset.orderId;
+
+                axios.get(URL + `api/v1/auth/get_booked_order/${order_id}`, {
+                    headers: {
+                        Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+                    }
+                }).then(res => {
+
+                    document.querySelector("#booked_order_item").classList.remove("hide");
+                    document.querySelector("#booked_order_page").classList.add("hide");
+
+                    let order = res.data.order;
+                    let total = [];
+                    order.cart.forEach(c => {
+
+
+
+
+                        total.push(Number(c.food.price) * Number(c.qty))
+
+                        console.log(total);
+
+
+                        let total_order = total.reduce((a, b) => a + b);
+
+                        document.querySelector("#total_booked_order_price").innerText = total_order;
+
+                        let HTML = `
+                       
+                        <div style="display-flex;flex-direction:column;gap-3;justify-content-center-align-items-center" class="col-md-12 mt-5">
+                            <img style="width:100%;height:350px;object-fit:contain" src="${c.food.images[0]}" />
+                            <p>Quantity: ${c.qty}</p>
+                            <p>Food Name: ${c.food.name}</p>
+                            <p>Food price: ${c.food.price}</p>
+                            <p>Food Total Price: ${Number(c.food.price) * Number(c.qty)}</p>
+                        </div>
+                       `
+
+                        document.querySelector("#booked_order_item").querySelector(".row").innerHTML += HTML
+
+                       
+
+                    })
+
+                    //    document.querySelector("#go_back_orders").addEventListener("click" , (e) => {
+
+
+                    //     document.querySelector("#order_item").classList.add("hide");
+                    //     document.querySelector("#order_page").classList.toggle("hide");
+
+
+                    // })
+
+
+
+                }).catch(err => {
+                    console.log(err);
+
+                })
+
+
+            })
+        })
+
+        // document.querySelector("#back_orders").addEventListener("click" , (e) => {
+
+
+        //     document.querySelector("#order_item").classList.add("hide");
+        //     document.querySelector("#order_page").classList.remove("hide");
+        // })
+
+        document.querySelector("#delete_booked_order").addEventListener("click", (e) => {
             let URL = document.URL.split("4unique-admin")[0];
 
 
@@ -529,12 +865,25 @@ document.querySelector("#show_orders").addEventListener("click", (e) => {
     document.querySelector(".edit").classList.add("hide");
     document.querySelector(".not-edit").classList.add("hide");
     document.querySelector("#order_page").classList.toggle("hide");
+
+})
+
+document.querySelector("#show_booked_orders").addEventListener("click", (e) => {
+    document.querySelector(".edit").classList.add("hide");
+    document.querySelector(".not-edit").classList.add("hide");
+    document.querySelector("#booked_order_page").classList.toggle("hide");
 })
 
 document.querySelector("#back_from_orders").addEventListener("click", (e) => {
 
     document.querySelector(".not-edit").classList.toggle("hide");
     document.querySelector("#order_page").classList.add("hide");
+})
+
+document.querySelector("#back_from_booked_orders").addEventListener("click", (e) => {
+
+    document.querySelector(".not-edit").classList.toggle("hide");
+    document.querySelector("#booked_order_page").classList.add("hide");
 })
 
 // /get_order/:id  order_item .row
@@ -759,6 +1108,88 @@ document.querySelectorAll("#pendingOrder_show_more").forEach(btn => {
     })
 })
 
+document.querySelectorAll(".booked_order_show").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        // document.querySelector(".not-edit").classList.toggle("hide");
+
+        let URL = document.URL.split("4unique-admin")[0];
+
+
+
+        const user = JSON.parse(localStorage.getItem("user"));
+
+        let order_id = e.target.dataset.orderId;
+
+        axios.get(URL + `api/v1/auth/get_booked_order/${order_id}`, {
+            headers: {
+                Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+            }
+        }).then(res => {
+            console.log(res);
+            
+            document.querySelector("#booked_order_item").classList.remove("hide");
+            document.querySelector("#booked_order_page").classList.add("hide");
+
+            let order = res.data.order;
+
+            // console.log(order[0].cart);
+            
+
+            let total = [];
+            order?.cart.forEach(c => {
+
+                total.push(Number(c.food.price) * Number(c.qty))
+
+                console.log(total);
+
+
+                let total_order = total.reduce((a, b) => a + b);
+
+                document.querySelector("#total_booked_order_price").innerText = total_order;
+
+                let HTML = `
+                <div style="display-flex;flex-direction:column;gap-3;justify-content-center-align-items-center" class="col-md-12 mt-5">
+                    <img style="width:100%;height:350px;object-fit:contain" src="${c.food.images[0]}" />
+                    <p>Quantity: ${c.qty}</p>
+                    <p>Food Name: ${c.food.name}</p>
+                    <p>Food price: ${c.food.price}</p>
+                    <p>Food Total Price: ${Number(c.food.price) * Number(c.qty)}</p>
+                </div>
+               `
+
+                document.querySelector("#booked_order_item").querySelector(".row").innerHTML += HTML
+
+
+                // document.querySelector("#back_booked_orders").addEventListener("click", (e) => {
+
+
+                //     document.querySelector("#booked_order_item").classList.add("hide");
+                //     document.querySelector("#booked_order_page").classList.remove("hide");
+                // })
+
+            })
+
+            //    document.querySelector("#go_back_orders").addEventListener("click" , (e) => {
+
+
+            //     document.querySelector("#order_item").classList.add("hide");
+            //     document.querySelector("#order_page").classList.toggle("hide");
+
+
+            // })
+
+
+
+        }).catch(err => {
+            console.log(err);
+
+        })
+
+
+    })
+})
+
+// asddddddddddddddddddddddddddddd
 document.querySelectorAll("#order_show_more").forEach(btn => {
     btn.addEventListener("click", (e) => {
         // document.querySelector(".not-edit").classList.toggle("hide");
@@ -777,7 +1208,7 @@ document.querySelectorAll("#order_show_more").forEach(btn => {
             }
         }).then(res => {
 
-            document.querySelector("#order_item").classList.toggle("hide");
+            document.querySelector("#order_item").classList.remove("hide");
             document.querySelector("#order_page").classList.add("hide");
 
             let order = res.data.order;
@@ -794,6 +1225,8 @@ document.querySelectorAll("#order_show_more").forEach(btn => {
 
                 let total_order = total.reduce((a, b) => a + b);
 
+
+
                 document.querySelector("#total_order_price").innerText = total_order;
 
                 let HTML = `
@@ -807,6 +1240,13 @@ document.querySelectorAll("#order_show_more").forEach(btn => {
                `
 
                 document.querySelector("#order_item").querySelector(".row").innerHTML += HTML
+
+                // document.querySelector("#back_orders_btn").addEventListener("click", (e) => {
+
+
+                //     document.querySelector("#order_item").classList.add("hide");
+                //     document.querySelector("#order_page").classList.remove("hide");
+                // })
 
 
 
@@ -848,6 +1288,7 @@ document.querySelectorAll("#edit_order_btn").forEach(btn => {
 })
 
 document.querySelector("#back_orders").addEventListener("click", (e) => {
+
     document.querySelector("#edit_order").classList.toggle("hide");
 
     document.querySelector("#edit_order").style.display = "none";
@@ -906,34 +1347,68 @@ order_paid
 document.querySelectorAll("#delete_order").forEach(btn => {
     btn.addEventListener("click", (e) => {
         let URL = document.URL.split("4unique-admin")[0];
-    
-    
-    
+
+
+
         const user = JSON.parse(localStorage.getItem("user"));
-    
+
         let { orderId } = e.target.dataset;
-    
+
         axios.delete(URL + `api/v1/auth/delete_order/${orderId}`, {
             headers: {
                 Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
             }
         }).then(res => {
             let msg = res.data.msg;
-    
+
             let HTML = `<p class="success-message">${msg}</p>`;
-    
+
             document.querySelector(".success").innerHTML += HTML;
-    
+
             setTimeout(() => {
                 document.querySelector(".success").innerHTML = "";
-    
+
                 // window.location.href = "/home";
-    
+
             }, 3000)
             window.location.reload();
         }).catch(err => {
             console.log(err);
-    
+
+        })
+    })
+})
+document.querySelectorAll("#delete_booked_order").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        let URL = document.URL.split("4unique-admin")[0];
+
+
+
+        const user = JSON.parse(localStorage.getItem("user"));
+
+        let { orderId } = e.target.dataset;
+
+        axios.delete(URL + `api/v1/auth/delete_booked_order/${orderId}`, {
+            headers: {
+                Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+            }
+        }).then(res => {
+            let msg = res.data.msg;
+
+            let HTML = `<p class="success-message">${msg}</p>`;
+
+            document.querySelector(".success").innerHTML += HTML;
+
+            setTimeout(() => {
+                document.querySelector(".success").innerHTML = "";
+
+                // window.location.href = "/home";
+
+            }, 3000)
+            window.location.reload();
+        }).catch(err => {
+            console.log(err);
+
         })
     })
 })
@@ -941,68 +1416,68 @@ document.querySelectorAll("#delete_order").forEach(btn => {
 document.querySelectorAll("#canceledOrder_delete").forEach(btn => {
     btn.addEventListener("click", (e) => {
         let URL = document.URL.split("4unique-admin")[0];
-    
-    
-    
+
+
+
         const user = JSON.parse(localStorage.getItem("user"));
-    
+
         let { orderId } = e.target.dataset;
-    
+
         axios.delete(URL + `api/v1/auth/delete_order/${orderId}`, {
             headers: {
                 Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
             }
         }).then(res => {
             let msg = res.data.msg;
-    
+
             let HTML = `<p class="success-message">${msg}</p>`;
-    
+
             document.querySelector(".success").innerHTML += HTML;
-    
+
             setTimeout(() => {
                 document.querySelector(".success").innerHTML = "";
-    
+
                 // window.location.href = "/home";
-    
+
             }, 3000)
             window.location.reload();
         }).catch(err => {
             console.log(err);
-    
+
         })
     })
 })
 document.querySelectorAll("#deliveredOrder_delete").forEach(btn => {
     btn.addEventListener("click", (e) => {
         let URL = document.URL.split("4unique-admin")[0];
-    
-    
-    
+
+
+
         const user = JSON.parse(localStorage.getItem("user"));
-    
+
         let { orderId } = e.target.dataset;
-    
+
         axios.delete(URL + `api/v1/auth/delete_order/${orderId}`, {
             headers: {
                 Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
             }
         }).then(res => {
             let msg = res.data.msg;
-    
+
             let HTML = `<p class="success-message">${msg}</p>`;
-    
+
             document.querySelector(".success").innerHTML += HTML;
-    
+
             setTimeout(() => {
                 document.querySelector(".success").innerHTML = "";
-    
+
                 // window.location.href = "/home";
-    
+
             }, 3000)
             window.location.reload();
         }).catch(err => {
             console.log(err);
-    
+
         })
     })
 })
@@ -1011,34 +1486,34 @@ document.querySelectorAll("#deliveredOrder_delete").forEach(btn => {
 document.querySelectorAll("#pendingOrder_delete").forEach(btn => {
     btn.addEventListener("click", (e) => {
         let URL = document.URL.split("4unique-admin")[0];
-    
-    
-    
+
+
+
         const user = JSON.parse(localStorage.getItem("user"));
-    
+
         let { orderId } = e.target.dataset;
-    
+
         axios.delete(URL + `api/v1/auth/delete_order/${orderId}`, {
             headers: {
                 Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
             }
         }).then(res => {
             let msg = res.data.msg;
-    
+
             let HTML = `<p class="success-message">${msg}</p>`;
-    
+
             document.querySelector(".success").innerHTML += HTML;
-    
+
             setTimeout(() => {
                 document.querySelector(".success").innerHTML = "";
-    
+
                 // window.location.href = "/home";
-    
+
             }, 3000)
             window.location.reload();
         }).catch(err => {
             console.log(err);
-    
+
         })
     })
 })
@@ -1258,7 +1733,7 @@ document.querySelectorAll("#edit_user").forEach(btn => {
             }
         }).then(res => {
             console.log(res);
-            
+
             let user_ob = res.data.user;
 
             document.querySelector(".not-edit").classList.add("hide");
@@ -1275,16 +1750,16 @@ document.querySelectorAll("#edit_user").forEach(btn => {
            <button data-user-id="${user_ob._id}" id="edit_user_btn" type="submit">Submit</button>
          </form>
            `
-            
-           document.querySelector("#edit_user_btn").addEventListener("click" , (e) => {
-                const {userId} = e.target.dataset;
+
+            document.querySelector("#edit_user_btn").addEventListener("click", (e) => {
+                const { userId } = e.target.dataset;
 
                 let user_fullname = document.querySelector("#edit_fullname").value;
                 let user_email = document.querySelector("#edit_email").value;
                 let user_role = document.querySelector("#edit_role").value;
 
-                updateUser(userId , user_fullname,user_email,user_role)
-           })
+                updateUser(userId, user_fullname, user_email, user_role)
+            })
 
 
         }).catch(err => {
@@ -1296,7 +1771,7 @@ document.querySelectorAll("#edit_user").forEach(btn => {
 })
 
 
-function updateUser(id , fullname,email,role) {
+function updateUser(id, fullname, email, role) {
     let URL = document.URL.split("4unique-admin")[0];
 
 
@@ -1304,7 +1779,7 @@ function updateUser(id , fullname,email,role) {
     const user = JSON.parse(localStorage.getItem("user"));
 
 
-    axios.patch(URL + `api/v1/auth/update_user/${id}`,{fullname,email,role}, {
+    axios.patch(URL + `api/v1/auth/update_user/${id}`, { fullname, email, role }, {
         headers: {
             Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
         }
@@ -1328,7 +1803,7 @@ function updateUser(id , fullname,email,role) {
     })
 }
 
-document.querySelector("#delete_all_canceled").addEventListener("click" , (e) => {
+document.querySelector("#delete_all_canceled").addEventListener("click", (e) => {
     // delivered_all_delete
     let URL = document.URL.split("4unique-admin")[0];
 
@@ -1336,7 +1811,7 @@ document.querySelector("#delete_all_canceled").addEventListener("click" , (e) =>
 
     const user = JSON.parse(localStorage.getItem("user"));
 
-   
+
 
     axios.delete(URL + `api/v1/auth/canceled_all_delete`, {
         headers: {
@@ -1347,25 +1822,25 @@ document.querySelector("#delete_all_canceled").addEventListener("click" , (e) =>
 
         let msg = res.data.msg;
 
-            let HTML = `<p class="success-message">${msg}</p>`;
+        let HTML = `<p class="success-message">${msg}</p>`;
 
-            document.querySelector(".success").innerHTML += HTML;
+        document.querySelector(".success").innerHTML += HTML;
 
-            setTimeout(() => {
-                document.querySelector(".success").innerHTML = "";
+        setTimeout(() => {
+            document.querySelector(".success").innerHTML = "";
 
-                // window.location.href = "/home";
+            // window.location.href = "/home";
 
-            }, 3000)
-            window.location.reload();
+        }, 3000)
+        window.location.reload();
 
 
     }).catch(err => {
         console.log(err);
-        
+
     })
 })
-document.querySelector("#delete_all_delivered").addEventListener("click" , (e) => {
+document.querySelector("#delete_all_delivered").addEventListener("click", (e) => {
     // delivered_all_delete
     let URL = document.URL.split("4unique-admin")[0];
 
@@ -1373,7 +1848,7 @@ document.querySelector("#delete_all_delivered").addEventListener("click" , (e) =
 
     const user = JSON.parse(localStorage.getItem("user"));
 
-   
+
 
     axios.delete(URL + `api/v1/auth/delivered_all_delete`, {
         headers: {
@@ -1384,21 +1859,21 @@ document.querySelector("#delete_all_delivered").addEventListener("click" , (e) =
 
         let msg = res.data.msg;
 
-            let HTML = `<p class="success-message">${msg}</p>`;
+        let HTML = `<p class="success-message">${msg}</p>`;
 
-            document.querySelector(".success").innerHTML += HTML;
+        document.querySelector(".success").innerHTML += HTML;
 
-            setTimeout(() => {
-                document.querySelector(".success").innerHTML = "";
+        setTimeout(() => {
+            document.querySelector(".success").innerHTML = "";
 
-                // window.location.href = "/home";
+            // window.location.href = "/home";
 
-            }, 3000)
-            window.location.reload();
+        }, 3000)
+        window.location.reload();
 
 
     }).catch(err => {
         console.log(err);
-        
+
     })
 })

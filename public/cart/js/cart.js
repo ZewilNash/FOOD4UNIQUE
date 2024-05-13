@@ -542,8 +542,78 @@ function deleteCart(){
       "desakel": "Bukit Harapan"
 */
 
+// const phoneRegex = /^(?:\+62|62|0)[2-9]\d{7,11}$/;
+
+document.querySelector("#order_phone").addEventListener("focusout" , (event) => {
+  const phoneRegex = /^(?:\+62|62|0)[2-9]\d{7,11}$/;
+  let value = document.querySelector("#order_phone").value
+  if (!phoneRegex.test(value)) {
+    // Phone number is valid
+    const myPopup = new Popup({
+      id: "my-popup",
+      title: "FOOD4UNIQUE",
+      content: `PLEASE ENTER A VALID NUMBER (EX:+62212341234)`,
+          showImmediately: true,
+          textColor:"red"
+  });
+
+
+
+    // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+    myPopup.show();
+  }
+})
+
+document.querySelector("#order_email").addEventListener("focusout" , (event) => {
+  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
+  let value = document.querySelector("#order_email").value
+
+  if (!emailRegex.test(value)) {
+    // Email is valid
+    const myPopup = new Popup({
+      id: "my-popup",
+      title: "FOOD4UNIQUE",
+      content: `PLEASE ENTER A VALID EMIAL (EX:example@email.com)`,
+          showImmediately: true,
+          textColor:"red"
+  });
+
+
+
+    // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+    myPopup.show();
+  }
+})
+
+document.querySelector("#order_name").addEventListener("focusout" , (event) => {
+  
+  
+  const nameRegex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
+
+  let value = document.querySelector("#order_name").value;
+
+
+
+  if (!nameRegex.test(value)) {
+    const myPopup = new Popup({
+      id: "my-popup",
+      title: "FOOD4UNIQUE",
+      content: `PLEASE ENTER A VALID NAME (EX:John Doe)`,
+          showImmediately: true,
+          textColor:"red"
+  });
+
+
+
+    // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+    myPopup.show();
+  }
+
+})
+
 document.querySelector("#order_address").addEventListener("input" , (e) => {
-  console.log(e.target.value);
+  
   
   let url = `https://alamat.thecloudalert.com/api/cari/index/?keyword=${e.target.value}` 
   axios.get(url).then(res => {

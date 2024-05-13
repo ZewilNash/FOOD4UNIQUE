@@ -173,6 +173,17 @@ const getOrder = async (req,res) => {
 
     res.status(200).json({order,success:true});
 }
+const getBookedOrder = async (req,res) => {
+    const {id} = req.params;
+
+    const order = await BookedOrder.find({_id:id}).sort("createdAt");
+
+    if(order.lenght === 0){
+        return res.status(404).json({msg:"Order Not Found" , success:false});
+    }
+
+    res.status(200).json({order:order[0],success:true});
+}
 
 
 const editOrder = async (req,res) => {
@@ -204,6 +215,19 @@ const deleteOrder = async (req,res) => {
     res.status(200).json({msg:"Order Deleted Successfully" , success:true})
 
 }  
+const deleteBookedOrder = async (req,res) => {
+    const {id} = req.params;
+    const order = await BookedOrder.find({_id:id});
+    
+    if(order.lenght === 0){
+        return res.status(404).json({msg:"Order Not Found" , success:false});
+    }
+
+    await BookedOrder.findOneAndDelete({_id:id} , {useFindAndModify:false});
+
+    res.status(200).json({msg:"Order Deleted Successfully" , success:true})
+
+}  
 
 const findOrder = async (req,res) => {
     let {text} = req.body;
@@ -215,6 +239,25 @@ const findOrder = async (req,res) => {
 
     const order = await Order.find({_id:text})
     
+    
+    if(order.lenght === 0){
+        return res.status(400).json({msg:"Order Not Found" , success:false});
+    }
+
+    res.status(200).json({success:true , order:order[0]})
+
+}
+const findBookedOrder = async (req,res) => {
+    let {text} = req.body;
+    
+    
+    // { $or:[ {'_id':objId}, {'name':param}, {'nickname':param} ]}
+    
+
+
+    const order = await BookedOrder.find({_id:text})
+    
+  
     
     if(order.lenght === 0){
         return res.status(400).json({msg:"Order Not Found" , success:false});
@@ -367,5 +410,8 @@ module.exports = {
     deleteAllDeliveredOrders,
     deleteAllCanceledOrders,
     getUserOrders,
-    bookOrder
+    bookOrder,
+    findBookedOrder,
+    deleteBookedOrder,
+    getBookedOrder
 }

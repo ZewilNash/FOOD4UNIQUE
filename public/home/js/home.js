@@ -74,7 +74,7 @@ const categories = [
 
 
     {
-        name: "INDONISIAN FOOD",
+        name: "INDONESIAN FOOD",
         image: "./images/categories/indonisian.jpg"
     },
 
@@ -82,21 +82,18 @@ const categories = [
         name: "EGYINDO FOOD",
         image: "./images/categories/egyindo.jpg"
     },
-    {
-        name: "ECONOMICAL FOOD",
-        image: "./images/categories/economical.jpg"
-    },
+    
     {
         name: "VIP FOOD",
         image: "./images/categories/vip.jpg"
     },
+    // {
+    //     name: "BEST FOOD",
+    //     image: "./images/categories/best.jpg"
+    // },
     {
-        name: "BEST FOOD",
-        image: "./images/categories/best.jpg"
-    },
-    {
-        name: "BESTSALE FOOD",
-        image: "./images/categories/most.jpg"
+        name: "DESSERTS",
+        image: "./images/categories/dessert.jpg"
     },
 
 ]

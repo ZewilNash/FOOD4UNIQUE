@@ -41,6 +41,27 @@ window.onload = () => {
       console.log(err);
       
   })
+
+ 
+  axios.get(URL + `api/v1/auth/get_user_orders/${user.user._id}` ,  {
+      headers: {
+          Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+      }
+  }).then(res => {
+      let userOrders = res.data.userOrders;
+      console.log(userOrders);
+
+      if(userOrders.length > 0){
+          document.querySelector("#track_orders").setAttribute("href" , `/user_orders/${user.user._id}`);
+          document.querySelector("#track_orders").innerText = "Track Your Orders Status"
+          document.querySelector(".track").classList.toggle("hide")
+      }
+      
+  }).catch(err => {
+      console.log(err);
+      
+  })
+
 }
 
 
@@ -141,7 +162,7 @@ document.querySelectorAll("#food_qty").forEach(btn => {
         id: "my-popup",
         title: "FOOD4UNIQUE",
         content: `
-        ADD NON ZERO & POSITIVE & NOT EMPTY QUANTITY`,
+        THE MINIMUM TO ADD TO CART IS 1`,
             showImmediately: true,
             textColor:"red"
     });
@@ -158,7 +179,7 @@ document.querySelectorAll("#food_qty").forEach(btn => {
         id: "my-popup",
         title: "FOOD4UNIQUE",
         content: `
-        ADD POSITIVE QUANTITY NUMBER`,
+        THE MINIMUM TO ADD TO CART IS 1`,
             showImmediately: true,
             textColor:"red"
     });
@@ -256,7 +277,18 @@ document.querySelectorAll("#add_to_cart_btn").forEach(btn => {
     
 
     if(!qty){
-      alert("Please Provide Quantity To Add To Cart");
+      const myPopup = new Popup({
+        id: "my-popup",
+        title: "FOOD4UNIQUE",
+        content: `THE MINIMUM TO ADD TO CART IS 1`,
+            showImmediately: true,
+            textColor:"red"
+    });
+  
+  
+  
+      // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+      myPopup.show();
     }else {
       let URL = document.URL.split("food/")[0];
       // logic of add cart to user

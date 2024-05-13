@@ -42,6 +42,27 @@ window.onload = () => {
     console.log(err);
 
   })
+
+  // let URL = document.URL.split("cart")[0];
+    axios.get(URL + `api/v1/auth/get_user_orders/${user.user._id}` ,  {
+        headers: {
+            Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+        }
+    }).then(res => {
+        let userOrders = res.data.userOrders;
+        console.log(userOrders);
+
+        if(userOrders.length > 0){
+            document.querySelector("#track_orders").setAttribute("href" , `/user_orders/${user.user._id}`);
+            document.querySelector("#track_orders").innerText = "Track Your Orders Status"
+            document.querySelector(".track").classList.toggle("hide")
+        }
+        
+    }).catch(err => {
+        console.log(err);
+        
+    })
+
 }
 
 
@@ -188,9 +209,13 @@ document.querySelector("#auto_fill_btn").addEventListener("click" , (e) => {
         document.querySelector("#order_leisure").value = leisure ? leisure : "";
         document.querySelector("#order_email").value = user.user.email;
         document.querySelector("#order_name").value = user.user.fullname;
-        e.target.innerText = "Fill Most Of Info Automatically"
-        e.target.disabled = false;
+        e.target.innerText = "Wait 10 minutes to use it again"
         },1500)
+
+        setTimeout(() => {
+          e.target.innerText = "Fill Most Of Info Automatically"
+          e.target.disabled = false;
+        } , 600000)
 
         
       }).catch(err => {
@@ -210,7 +235,19 @@ document.querySelector("#auto_fill_btn").addEventListener("click" , (e) => {
 
     });
   } else {
-    alert("Geolocation is not supported by this browser.");
+    const myPopup = new Popup({
+      id: "my-popup",
+      title: "FOOD4UNIQUE",
+      content: `Geolocation is not supported by this Device.`,
+          showImmediately: true,
+          textColor:"red"
+  });
+
+
+
+    // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+    myPopup.show();
+    
   }
 })
 
@@ -234,6 +271,39 @@ isPaid
     */
 
   
+
+function BOOKOrder(user_id , name , email , phone , time , date , isPaid){
+  let URL = document.URL.split("cart")[0];
+
+  axios.get(URL + `api/v1/auth/get_cart/${user_id}` , {
+    headers: {
+      Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+    }
+  }).then(res => {
+    
+    let cart_obj = res.data.cart;
+    
+   
+    let URL = document.URL.split("cart")[0];
+ axios.post(URL + `api/v1/auth/book_order` , {cart:cart_obj,user:user_id,name,email,phone, time,date, isPaid} , {
+   headers: {
+     Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+   }
+ }).then(res => {
+
+     // delete_cart
+     deleteCart();
+     const order_id = res.data.order._id
+     // redicrect to success page
+     window.location.href = `/book_order_success/${order_id}`
+     
+ }).catch(err => {
+   console.log(err);
+ })
+  
+  }).catch(err => console.log(err)
+  )
+}
 
 
 
@@ -350,15 +420,52 @@ isPaid
     },
     onPending: function(result){
       /* You may add your own implementation here */
-      alert("wating your payment!"); console.log(result);
+      const myPopup = new Popup({
+        id: "my-popup",
+        title: "FOOD4UNIQUE",
+        content: `
+       Waiting Your Payment`,
+            showImmediately: true,
+            textColor:"red"
+    });
+  
+  
+  
+      // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+      myPopup.show();
     },
     onError: function(result){
       /* You may add your own implementation here */
-      alert("payment failed!"); console.log(result);
+      const myPopup = new Popup({
+        id: "my-popup",
+        title: "FOOD4UNIQUE",
+        content: `
+       Payment Failed`,
+            showImmediately: true,
+            textColor:"red"
+    });
+  
+  
+  
+      // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+      myPopup.show();
     },
     onClose: function(){
       /* You may add your own implementation here */
-      alert('you closed the popup without finishing the payment');
+      const myPopup = new Popup({
+        id: "my-popup",
+        title: "FOOD4UNIQUE",
+        content: `
+        you closed the popup without finishing the payment!`,
+            showImmediately: true,
+            textColor:"red"
+    });
+  
+  
+  
+      // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+      myPopup.show();
+      
     }
   })
   }else {
@@ -474,5 +581,121 @@ document.querySelector("#order_address").addEventListener("input" , (e) => {
     
   }).catch(err => console.log(err)
   )
+
+})
+
+
+document.querySelector("#pay-button_book").addEventListener("click" , (e) => {
+    e.preventDefault();
+    let phone = document.querySelector("#order_phone").value;
+    let email =  user.user.email;
+    let name =  user.user.fullname;
+    let user_id = user.user._id;
+
+    var [h, m] = document.getElementById('book_food_time').value.split(":");
+
+    let date = document.querySelector("#book_food_date").value;
+    let time = h >= 12 ? document.getElementById('book_food_time').value +  ' PM' : document.getElementById('book_food_time').value +  ' AM'
+
+    if(!phone){
+      
+     
+      const myPopup = new Popup({
+        id: "my-popup",
+        title: "FOOD4UNIQUE",
+        content: `YOUR PHONE NUMBER FIELD IS REQUIRED!!`,
+            showImmediately: true,
+            textColor:"red"
+    });
+
+
+
+  
+  
+  
+      // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+      myPopup.show();
+    }else{
+      window.snap.pay(`${transaction_token}`, {
+        onSuccess: function(result){
+          /* You may add your own implementation here */
+           /* You may add your own implementation here */
+          //  make an order here
+    
+        /*
+    
+        cart
+    user
+    name
+    email
+    phone
+    address
+    state
+    country
+    zip_code
+    road
+    village
+    leisure
+    status
+    isPaid
+    
+        */
+    
+         BOOKOrder(user_id,name,email,phone, time,date,true);
+
+        },
+        onPending: function(result){
+          /* You may add your own implementation here */
+          const myPopup = new Popup({
+            id: "my-popup",
+            title: "FOOD4UNIQUE",
+            content: `
+           Waiting Your Payment`,
+                showImmediately: true,
+                textColor:"red"
+        });
+      
+      
+      
+          // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+          myPopup.show();
+        },
+        onError: function(result){
+          /* You may add your own implementation here */
+          const myPopup = new Popup({
+            id: "my-popup",
+            title: "FOOD4UNIQUE",
+            content: `
+           Payment Failed`,
+                showImmediately: true,
+                textColor:"red"
+        });
+      
+      
+      
+          // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+          myPopup.show();
+        },
+        onClose: function(){
+          /* You may add your own implementation here */
+          const myPopup = new Popup({
+            id: "my-popup",
+            title: "FOOD4UNIQUE",
+            content: `
+            you closed the popup without finishing the payment!`,
+                showImmediately: true,
+                textColor:"red"
+        });
+      
+      
+      
+          // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+          myPopup.show();
+          
+        }
+      })
+    }
+    
+
 
 })

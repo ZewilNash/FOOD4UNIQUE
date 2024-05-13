@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const Cart = require("../modals/Cart");
 const Order = require("../modals/Order");
 const Report = require("../modals/Report");
+const BookedOrder = require("../modals/BookedOrder");
 
 
 const signup = async (req,res) => {
@@ -308,6 +309,40 @@ const deleteAllDeliveredOrders = async (req,res) => {
     res.status(200).json({success:true,msg:"Orders Deleted Successfully"})
 }
 
+const getUserOrders = async (req,res) => {
+    const {id} = req.params;
+    const user = await User.find({_id:id});
+
+    
+    
+
+    if(user.lenght === 0){
+        return res.status(404).json({msg:"user Not Found" , success:false});
+    }
+
+    const userOrders = await Order.find({email:user[0].email});
+
+    
+    
+
+     if(userOrders.lenght === 0){
+        return res.status(404).json({msg:"user has no orders" , success:false});
+     }
+
+     res.status(200).json({userOrders , success:true})
+
+}
+
+
+const bookOrder = async (req,res) => {
+    
+    const order = await BookedOrder.create({...req.body});
+
+    
+
+    res.status(200).json({success:true , msg:`WE BOOK YOUR ORDER SUCCESSFULLY!` , order:order});
+}
+
 module.exports = {
     signup,
     login,
@@ -330,5 +365,7 @@ module.exports = {
     updateUser,
     getUser,
     deleteAllDeliveredOrders,
-    deleteAllCanceledOrders
+    deleteAllCanceledOrders,
+    getUserOrders,
+    bookOrder
 }

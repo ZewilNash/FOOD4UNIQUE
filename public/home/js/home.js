@@ -1,5 +1,5 @@
 window.onload = () => {
-
+// get_user_orders
     let user = JSON.parse(localStorage.getItem("user"));
 
     
@@ -11,6 +11,28 @@ window.onload = () => {
     if(user && user.user.role === "admin"){
         window.location.href = "/4unique-admin"
     }
+
+    // track user orders track_orders track
+    let URL = document.URL.split("home")[0];
+    axios.get(URL + `api/v1/auth/get_user_orders/${user.user._id}` ,  {
+        headers: {
+            Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+        }
+    }).then(res => {
+        let userOrders = res.data.userOrders;
+        console.log(userOrders);
+
+        if(userOrders.length > 0){
+            document.querySelector("#track_orders").setAttribute("href" , `/user_orders/${user.user._id}`);
+            document.querySelector("#track_orders").innerText = "Track Your Orders Status"
+            document.querySelector(".track").classList.toggle("hide")
+        }
+        
+    }).catch(err => {
+        console.log(err);
+        
+    })
+
 
     document.querySelector("#my_cart_link").setAttribute("href" , `/cart/${user.user._id}`);
 
@@ -31,7 +53,6 @@ window.onload = () => {
         document.querySelector(".loader").style.display = "none";
     }, 4000)
 
-    let URL = document.URL.split("home")[0];
     axios.get(URL + `api/v1/auth/cart/${user.user._id}` ,  {
         headers: {
             Authorization: 'Bearer ' + user.token //the token is a variable which holds the token

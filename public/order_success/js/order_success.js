@@ -42,6 +42,26 @@ window.onload = () => {
       console.log(err);
   
     })
+
+    // let URL = document.URL.split("order_success")[0];
+    axios.get(URL + `api/v1/auth/get_user_orders/${user.user._id}` ,  {
+        headers: {
+            Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+        }
+    }).then(res => {
+        let userOrders = res.data.userOrders;
+        console.log(userOrders);
+
+        if(userOrders.length > 0){
+            document.querySelector("#track_orders").setAttribute("href" , `/user_orders/${user.user._id}`);
+            document.querySelector("#track_orders").innerText = "Track Your Orders Status"
+            document.querySelector(".track").classList.toggle("hide")
+        }
+        
+    }).catch(err => {
+        console.log(err);
+        
+    })
   }
   
   document.querySelector("#logout").addEventListener("click" , () => logout());

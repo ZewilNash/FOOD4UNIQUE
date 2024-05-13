@@ -7,6 +7,7 @@ const { readFileSync } = require("fs");
 const User = require("./modals/User");
 const Cart = require("./modals/Cart");
 const Order = require("./modals/Order");
+const BOOKOrder = require("./modals/BookedOrder");
 const Report = require("./modals/Report");
 
 const Product = require("./modals/Product");
@@ -212,6 +213,18 @@ app.get("/order_success/:id", async (req, res) => {
     res.render("pages/order_success/index" , {id:id});
 });
 
+app.get("/book_order_success/:id", async (req, res) => {
+    const {id} = req.params;
+
+    const order = await BOOKOrder.findOne({_id:id});
+
+    if(!order){
+        return res.redirect("/notfound");
+    }
+
+    res.render("pages/book_order_success/index" , {order:order});
+});
+
 
 app.get("/favourites/:id", async (req, res) => {
 
@@ -232,11 +245,45 @@ app.get("/contactus", (req, res) => {
     res.render("pages/contactus/index");
 });
 
+app.get("/user_orders/:id", async (req, res) => {
+
+    const {id} = req.params;
+    const user = await User.find({_id:id});
+
+ 
+    
+    if(user.lenght === 0){
+        return res.status(404).json({msg:"user Not Found" , success:false});
+    }
+
+    const userOrders = await Order.find({email:user[0].email}).sort("-createdAt");
+
+    const carts = [];
+
+    // console.log(userOrders);
+    
+     userOrders.forEach(order => {
+         order.cart.forEach(c => {
+             carts.push(c) 
+         })
+     })
+
+
+     
+     
+
+     if(userOrders.length === 0){
+       return res.render("pages/user_orders/index" , {msg:"You Have No Orders Yet To Track"});
+     }
+
+    res.render("pages/user_orders/index" , {userOrders,carts});
+});
+
 
 
 // ["pending" , "delivered" , "canceled"]
 app.get("/4unique-admin", async (req, res) => {
-    const orders = await Order.find({}).sort("createdAt");
+    const orders = await Order.find({}).sort("-createdAt");
 
     const pendingOrders = await Order.find({status:"pending"});
     const deliveredOrders = await Order.find({status:"delivered"});
@@ -244,7 +291,7 @@ app.get("/4unique-admin", async (req, res) => {
 
     const ordersLength = orders.length;
 
-    const reports = await Report.find({}).sort("createdAt");
+    const reports = await Report.find({}).sort("-createdAt");
 
     const reportsLength = reports.length
 
@@ -268,7 +315,7 @@ app.get("/4unique-admin", async (req, res) => {
   
     
     
-    const products = await Product.find({}).sort("createdAt");
+    const products = await Product.find({}).sort("-createdAt");
 
     const users = await User.find({});
     const usersLength = users.length

@@ -189,7 +189,7 @@ document.querySelector("#back-to-cart").addEventListener("click" , (e) => {
 // https://geocode.maps.co/reverse?lat=latitude&lon=longitude&api_key=65b701bc4459c825070634awd0b43ca
 
 
-
+// --------------------------------------
 document.querySelector("#auto_fill_btn").addEventListener("click" , (e) => {
   e.target.innerText = "WAIT A MOMENT..."
   e.target.disabled = true;
@@ -283,7 +283,7 @@ isPaid
 
   
 
-function BOOKOrder(user_id , name , email , phone , time , date , isPaid){
+function BOOKOrder(user_id , name , email , phone,address,zip_code,state,country,road="",village="",leisure="",status , time , date , isPaid){
   let URL = document.URL.split("cart")[0];
 
   axios.get(URL + `api/v1/auth/get_cart/${user_id}` , {
@@ -296,7 +296,7 @@ function BOOKOrder(user_id , name , email , phone , time , date , isPaid){
     
    
     let URL = document.URL.split("cart")[0];
- axios.post(URL + `api/v1/auth/book_order` , {cart:cart_obj,user:user_id,name,email,phone, time,date, isPaid} , {
+ axios.post(URL + `api/v1/auth/book_order` , {cart:cart_obj,user:user_id,name,email,phone, address,zip_code,state,country,road,village,leisure,status,time,date, isPaid} , {
    headers: {
      Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
    }
@@ -384,123 +384,123 @@ axios.post(URL + `api/v1/products/order_prepare` , {amount:Number(amount) , firs
   console.log(err);
 })
 
-var payButton = document.getElementById('pay-button');
-payButton.addEventListener('click', function () {
-  // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+// var payButton = document.getElementById('pay-button');
+// payButton.addEventListener('click', function () {
+//   // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
 
-  let state = document.querySelector("#order_state").value;
-    let country = document.querySelector("#order_country").value
-    let zip_code =   document.querySelector("#order_zip_code").value
-    let address =  document.querySelector("#order_address").value
-     let road =   document.querySelector("#order_road").value
-     let village =   document.querySelector("#order_village").value 
-     let leisure =   document.querySelector("#order_leisure").value
-       let email =  user.user.email;
-       let name =  user.user.fullname;
-       let user_id = user.user._id;
-       let phone = document.querySelector("#order_phone").value 
+//   let state = document.querySelector("#order_state").value;
+//     let country = document.querySelector("#order_country").value
+//     let zip_code =   document.querySelector("#order_zip_code").value
+//     let address =  document.querySelector("#order_address").value
+//      let road =   document.querySelector("#order_road").value
+//      let village =   document.querySelector("#order_village").value 
+//      let leisure =   document.querySelector("#order_leisure").value
+//        let email =  user.user.email;
+//        let name =  user.user.fullname;
+//        let user_id = user.user._id;
+//        let phone = document.querySelector("#order_phone").value 
 
-  if(state&&country&&zip_code&&address&&email&&name&&user_id&&phone){
+//   if(state&&country&&zip_code&&address&&email&&name&&user_id&&phone){
     
-  window.snap.pay(`${transaction_token}`, {
-    onSuccess: function(result){
-      /* You may add your own implementation here */
-       /* You may add your own implementation here */
-      //  make an order here
+//   window.snap.pay(`${transaction_token}`, {
+//     onSuccess: function(result){
+//       /* You may add your own implementation here */
+//        /* You may add your own implementation here */
+//       //  make an order here
 
-    /*
+//     /*
 
-    cart
-user
-name
-email
-phone
-address
-state
-country
-zip_code
-road
-village
-leisure
-status
-isPaid
+//     cart
+// user
+// name
+// email
+// phone
+// address
+// state
+// country
+// zip_code
+// road
+// village
+// leisure
+// status
+// isPaid
 
-    */
+//     */
 
-     makeOrder(user.user._id,name,email,phone,address,zip_code,state,country,road,village,leisure,"pending" , true);
-    },
-    onPending: function(result){
-      /* You may add your own implementation here */
-      const myPopup = new Popup({
-        id: "my-popup",
-        title: "FOOD4UNIQUE",
-        content: `
-       Waiting Your Payment`,
-            showImmediately: true,
-            textColor:"red"
-    });
+//      makeOrder(user.user._id,name,email,phone,address,zip_code,state,country,road,village,leisure,"pending" , true);
+//     },
+//     onPending: function(result){
+//       /* You may add your own implementation here */
+//       const myPopup = new Popup({
+//         id: "my-popup",
+//         title: "FOOD4UNIQUE",
+//         content: `
+//        Waiting Your Payment`,
+//             showImmediately: true,
+//             textColor:"red"
+//     });
   
   
   
-      // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
-      myPopup.show();
-    },
-    onError: function(result){
-      /* You may add your own implementation here */
-      const myPopup = new Popup({
-        id: "my-popup",
-        title: "FOOD4UNIQUE",
-        content: `
-       Payment Failed`,
-            showImmediately: true,
-            textColor:"red"
-    });
+//       // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+//       myPopup.show();
+//     },
+//     onError: function(result){
+//       /* You may add your own implementation here */
+//       const myPopup = new Popup({
+//         id: "my-popup",
+//         title: "FOOD4UNIQUE",
+//         content: `
+//        Payment Failed`,
+//             showImmediately: true,
+//             textColor:"red"
+//     });
   
   
   
-      // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
-      myPopup.show();
-    },
-    onClose: function(){
-      /* You may add your own implementation here */
-      const myPopup = new Popup({
-        id: "my-popup",
-        title: "FOOD4UNIQUE",
-        content: `
-        you closed the popup without finishing the payment!`,
-            showImmediately: true,
-            textColor:"red"
-    });
+//       // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+//       myPopup.show();
+//     },
+//     onClose: function(){
+//       /* You may add your own implementation here */
+//       const myPopup = new Popup({
+//         id: "my-popup",
+//         title: "FOOD4UNIQUE",
+//         content: `
+//         you closed the popup without finishing the payment!`,
+//             showImmediately: true,
+//             textColor:"red"
+//     });
   
   
   
-      // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
-      myPopup.show();
+//       // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+//       myPopup.show();
       
-    }
-  })
-  }else {
+//     }
+//   })
+//   }else {
 
-    const myPopup = new Popup({
-      id: "my-popup",
-      title: "FOOD4UNIQUE",
-      content: `
-      Please Provide Your Missing Order Details First!!`,
-          showImmediately: true,
-          textColor:"red"
-  });
+//     const myPopup = new Popup({
+//       id: "my-popup",
+//       title: "FOOD4UNIQUE",
+//       content: `
+//       Please Provide Your Missing Order Details First!!`,
+//           showImmediately: true,
+//           textColor:"red"
+//   });
 
 
 
-    // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
-    myPopup.show();
+//     // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+//     myPopup.show();
 
-    setTimeout(() => {
-      document.querySelector(".error").innerText = ``;
-    }, 2000);
-  }
+//     setTimeout(() => {
+//       document.querySelector(".error").innerText = ``;
+//     }, 2000);
+//   }
 
-});
+// });
 
 
  
@@ -728,7 +728,16 @@ document.querySelector("#order_address").addEventListener("input" , (e) => {
 
 
 document.querySelector("#pay-button_book").addEventListener("click" , (e) => {
-    e.preventDefault();
+  e.preventDefault();
+
+    let state = document.querySelector("#order_state").value;
+    let country = document.querySelector("#order_country").value
+    let zip_code =   document.querySelector("#order_zip_code").value
+    let address =  document.querySelector("#order_address").value
+     let road =   document.querySelector("#order_road").value
+     let village =   document.querySelector("#order_village").value 
+     let leisure =   document.querySelector("#order_leisure").value
+
     let phone = document.querySelector("#order_phone").value;
     let email =  user.user.email;
     let name =  user.user.fullname;
@@ -739,25 +748,10 @@ document.querySelector("#pay-button_book").addEventListener("click" , (e) => {
     let date = document.querySelector("#book_food_date").value;
     let time = h >= 12 ? document.getElementById('book_food_time').value +  ' PM' : document.getElementById('book_food_time').value +  ' AM'
 
-    if(!phone){
-      
-     
-      const myPopup = new Popup({
-        id: "my-popup",
-        title: "FOOD4UNIQUE",
-        content: `YOUR PHONE NUMBER FIELD IS REQUIRED!!`,
-            showImmediately: true,
-            textColor:"red"
-    });
+    
 
+    if(phone &&  address && email && name && date && time){
 
-
-  
-  
-  
-      // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
-      myPopup.show();
-    }else{
       window.snap.pay(`${transaction_token}`, {
         onSuccess: function(result){
           /* You may add your own implementation here */
@@ -782,8 +776,12 @@ document.querySelector("#pay-button_book").addEventListener("click" , (e) => {
     isPaid
     
         */
+
+        // user_id , name , email , phone,address,zip_code,state,country,road="",village="",leisure="",status , time , date , isPaid
+
+        //      makeOrder(user.user._id,name,email,phone,address,zip_code,state,country,road,village,leisure,"pending" , true);
     
-         BOOKOrder(user_id,name,email,phone, time,date,true);
+         BOOKOrder(user_id,name,email,phone, address,zip_code,state,country,road,village,leisure,"booked",time,date,true);
 
         },
         onPending: function(result){
@@ -836,6 +834,25 @@ document.querySelector("#pay-button_book").addEventListener("click" , (e) => {
           
         }
       })
+      
+     
+      
+    }else{
+      const myPopup = new Popup({
+        id: "my-popup",
+        title: "FOOD4UNIQUE",
+        content: `PLEASE PROVIDE ALL MISSING ORDER DETAILS (required: email , name , phone , address,date,time)`,
+            showImmediately: true,
+            textColor:"red"
+    });
+
+
+
+  
+  
+  
+      // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+      myPopup.show();
     }
     
 

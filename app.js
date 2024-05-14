@@ -261,7 +261,7 @@ app.get("/user_orders/:id", async (req, res) => {
         return res.status(404).json({msg:"user Not Found" , success:false});
     }
 
-    const userOrders = await Order.find({email:user[0].email}).sort("-createdAt");
+    const userOrders = await BOOKOrder.find({email:user[0].email}).sort("-createdAt");
 
     const carts = [];
 
@@ -289,13 +289,19 @@ app.get("/user_orders/:id", async (req, res) => {
 // ["pending" , "delivered" , "canceled"]
 app.get("/4unique-admin", async (req, res) => {
     const orders = await Order.find({}).sort("-createdAt");
+
+    const bookedOrder = await BOOKOrder.find({}).sort("-createdAt");
+
     const bookedOrders = await BOOKOrder.find({}).sort("-createdAt");
 
     const pendingOrders = await Order.find({status:"pending"});
     const deliveredOrders = await Order.find({status:"delivered"});
     const canceledOrders = await Order.find({status:"canceled"});
 
+    const completedOrders = await BOOKOrder.find({status:"completed"})
+
     const ordersLength = orders.length;
+    const bookedordersLength = bookedOrder.length;
 
     const reports = await Report.find({}).sort("-createdAt");
 
@@ -329,7 +335,7 @@ app.get("/4unique-admin", async (req, res) => {
     const productsLength = products.length;
 
     // check passwords
-    res.render("pages/4unique-admin/index", { products: products,ordersLength,productsLength,reportsLength , orders:orders,carts:carts,foods:foods,reports:reports,usersLength,users:users,canceledOrders,pendingOrders,deliveredOrders,bookedOrders:bookedOrders });
+    res.render("pages/4unique-admin/index", { products: products,ordersLength,productsLength,reportsLength , orders:orders,carts:carts,foods:foods,reports:reports,usersLength,users:users,canceledOrders,pendingOrders,deliveredOrders,bookedOrders:bookedOrders,completedOrders:completedOrders,bookedordersLength });
 });
 
 // app.get("/4unique-admin/:name" ,async (req,res) => {

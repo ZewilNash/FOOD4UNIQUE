@@ -37,6 +37,50 @@ const BookedOrderSchema = new mongoose.Schema({
         trim: true,
     },
 
+    address: {
+        type: String,
+        required: [true, "You Must Provide Address"],
+        trim: true,
+    },
+    confirmed_address: {
+        type: String,
+        trim: true,
+    },
+    state: {
+        type: String,
+       
+        trim: true,
+    },
+    country: {
+        type: String,
+        
+        trim: true,
+    },
+
+    zip_code: {
+        type: String,
+        
+        trim: true
+    },
+    road: {
+        type: String
+    },
+    village: {
+        type: String
+    },
+
+    leisure:{
+        type: String
+    },
+
+    status:{
+        type: String,
+       
+        trim: true,
+        enum:["booked" , "completed"],
+        default:"booked"
+    },
+
     
     isPaid:{
         type: Boolean,

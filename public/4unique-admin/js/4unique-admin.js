@@ -1149,6 +1149,9 @@ document.querySelectorAll(".booked_order_show").forEach(btn => {
 
                 let HTML = `
                 <div style="display-flex;flex-direction:column;gap-3;justify-content-center-align-items-center" class="col-md-12 mt-5">
+
+                    <h1>BOOKED ORDER ID : ${order._id}</h1>
+
                     <img style="width:100%;height:350px;object-fit:contain" src="${c.food.images[0]}" />
                     <p>Quantity: ${c.qty}</p>
                     <p>Food Name: ${c.food.name}</p>
@@ -1287,16 +1290,41 @@ document.querySelectorAll("#edit_order_btn").forEach(btn => {
     })
 })
 
-document.querySelector("#back_orders").addEventListener("click", (e) => {
+document.querySelectorAll("#edit_booked_order_btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        console.log(e.target.dataset.orderId);
+        
+        document.querySelector("#span_booked_order_id").innerText = e.target.dataset.orderId;
 
-    document.querySelector("#edit_order").classList.toggle("hide");
+        document.querySelector("#edit_booked_order").classList.remove("hide");
+        // document.querySelector("#edit_order").classList.add("hide");
 
-    document.querySelector("#edit_order").style.display = "none";
+        document.querySelector("#edit_booked_order").style.display = "block";
 
-    document.querySelector("#order_page").classList.toggle("hide");
+        document.querySelector("#booked_order_page").classList.add("hide");
+        document.querySelector("#order_page").classList.add("hide");
+
+    })
 })
 
-document.querySelector("#edit_order_submit").addEventListener("click", (e) => {
+// document.querySelector("#back_orders").addEventListener("click", (e) => {
+
+//     document.querySelector("#edit_order").classList.toggle("hide");
+
+//     document.querySelector("#edit_order").style.display = "none";
+
+//     document.querySelector("#order_page").classList.toggle("hide");
+// })
+document.querySelector("#back_booked_orders").addEventListener("click", (e) => {
+
+    document.querySelector("#edit_booked_order").classList.toggle("hide");
+
+    document.querySelector("#edit_booked_order").style.display = "none";
+
+    document.querySelector("#booked_order_page").classList.toggle("hide");
+})
+
+document.querySelector("#edit_booked_order_submit").addEventListener("click", (e) => {
     e.preventDefault();
     /*
 order_status
@@ -1314,9 +1342,9 @@ order_paid
 
     const user = JSON.parse(localStorage.getItem("user"));
 
-    let order_id_span = document.querySelector("#span_order_id").innerText;
+    let order_id_span = document.querySelector("#span_booked_order_id").innerText;
 
-    axios.patch(URL + `api/v1/auth/edit_order/${order_id_span}`, { status, isPaid }, {
+    axios.patch(URL + `api/v1/auth/edit_booked_order/${order_id_span}`, { status, isPaid }, {
         headers: {
             Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
         }
@@ -1342,6 +1370,53 @@ order_paid
 
 
 })
+
+// document.querySelector("#edit_order_submit").addEventListener("click", (e) => {
+//     e.preventDefault();
+//     /*
+// order_status
+// order_paid
+//     */
+
+//     let status = document.querySelector("#order_status").value;
+
+//     let isPaid = document.querySelector("#order_paid").value === "true" ? true : false;
+
+
+//     let URL = document.URL.split("4unique-admin")[0];
+
+
+
+//     const user = JSON.parse(localStorage.getItem("user"));
+
+//     let order_id_span = document.querySelector("#span_order_id").innerText;
+
+//     axios.patch(URL + `api/v1/auth/edit_order/${order_id_span}`, { status, isPaid }, {
+//         headers: {
+//             Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+//         }
+//     }).then(res => {
+//         let msg = res.data.msg;
+
+//         let HTML = `<p class="success-message">${msg}</p>`;
+
+//         document.querySelector(".success").innerHTML += HTML;
+
+//         setTimeout(() => {
+//             document.querySelector(".success").innerHTML = "";
+
+//             // window.location.href = "/home";
+
+//         }, 3000)
+//         window.location.reload();
+//     }).catch(err => {
+//         console.log(err);
+
+//     })
+
+
+
+// })
 
 
 document.querySelectorAll("#delete_order").forEach(btn => {
@@ -1876,4 +1951,157 @@ document.querySelector("#delete_all_delivered").addEventListener("click", (e) =>
         console.log(err);
 
     })
+})
+
+
+document.querySelectorAll("#completedOrder_show_more").forEach(btn => {
+    btn.addEventListener("click" , (e) => {
+        // document.querySelector(".not-edit").classList.toggle("hide");
+
+        let URL = document.URL.split("4unique-admin")[0];
+
+
+
+        const user = JSON.parse(localStorage.getItem("user"));
+
+        let order_id = e.target.dataset.orderId;
+
+        axios.get(URL + `api/v1/auth/get_booked_order/${order_id}`, {
+            headers: {
+                Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+            }
+        }).then(res => {
+
+            document.querySelector("#booked_order_item").classList.remove("hide");
+            document.querySelector("#booked_order_page").classList.add("hide");
+
+            let order = res.data.order;
+            let total = [];
+            order.cart.forEach(c => {
+
+
+
+
+                total.push(Number(c.food.price) * Number(c.qty))
+
+                console.log(total);
+
+
+                let total_order = total.reduce((a, b) => a + b);
+
+
+
+                document.querySelector("#total_booked_order_price").innerText = total_order;
+
+                let HTML = `
+                <div style="display-flex;flex-direction:column;gap-3;justify-content-center-align-items-center" class="col-md-12 mt-5">
+                    <h1>BOOKED ORDER ID : ${order._id}</h1>
+                    <img style="width:100%;height:350px;object-fit:contain" src="${c.food.images[0]}" />
+                    <p>Quantity: ${c.qty}</p>
+                    <p>Food Name: ${c.food.name}</p>
+                    <p>Food price: ${c.food.price}</p>
+                    <p>Food Total Price: ${Number(c.food.price) * Number(c.qty)}</p>
+                </div>
+               `
+
+                document.querySelector("#booked_order_item").querySelector(".row").innerHTML += HTML
+
+              
+              
+
+            })
+
+          
+
+
+
+        }).catch(err => {
+            console.log(err);
+
+        })
+
+    })
+})
+
+document.querySelectorAll("#completedOrder_delete").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        let URL = document.URL.split("4unique-admin")[0];
+
+
+        const user = JSON.parse(localStorage.getItem("user"));
+
+        let { orderId } = e.target.dataset;
+
+        axios.delete(URL + `api/v1/auth/delete_booked_order/${orderId}`, {
+            headers: {
+                Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+            }
+        }).then(res => {
+            let msg = res.data.msg;
+
+            let HTML = `<p class="success-message">${msg}</p>`;
+
+            document.querySelector(".success").innerHTML += HTML;
+
+            setTimeout(() => {
+                document.querySelector(".success").innerHTML = "";
+
+                // window.location.href = "/home";
+
+            }, 3000)
+            window.location.reload();
+        }).catch(err => {
+            console.log(err);
+
+        })
+    })
+})
+
+
+document.querySelector("#delete_all_completed").addEventListener("click", (e) => {
+    // delivered_all_delete
+    let URL = document.URL.split("4unique-admin")[0];
+
+
+
+    const user = JSON.parse(localStorage.getItem("user"));
+
+
+
+    axios.delete(URL + `api/v1/auth/completed_all_delete`, {
+        headers: {
+            Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+        }
+    }).then(res => {
+        console.log(res);
+
+        let msg = res.data.msg;
+
+        let HTML = `<p class="success-message">${msg}</p>`;
+
+        document.querySelector(".success").innerHTML += HTML;
+
+        setTimeout(() => {
+            document.querySelector(".success").innerHTML = "";
+
+            // window.location.href = "/home";
+
+        }, 3000)
+        window.location.reload();
+
+
+    }).catch(err => {
+        console.log(err);
+
+    })
+})
+
+document.querySelector("#show_booked_orders_with_completed").addEventListener("click" , (e) =>{
+    // all_completed_orders
+    document.querySelector("#all_completed_orders").classList.toggle("hide");
+})
+
+document.querySelector("#back_from_completed").addEventListener("click" , (e) =>{
+    // all_completed_orders
+    document.querySelector("#all_completed_orders").classList.toggle("hide");
 })

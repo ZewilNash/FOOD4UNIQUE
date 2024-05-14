@@ -186,6 +186,28 @@ const getBookedOrder = async (req,res) => {
 }
 
 
+const editBookedOrder = async (req,res) => {
+    const {id} = req.params;
+    const {status , isPaid} = req.body;
+
+    const order = await BookedOrder.find({_id:id});
+    
+    if(order.lenght === 0){
+        return res.status(404).json({msg:"Order Not Found" , success:false});
+    }
+
+    await BookedOrder.findOneAndUpdate({_id:id} , {status:status , isPaid:isPaid} , {useFindAndModify:false});
+
+    // send 
+    
+    
+    global.io.on('connection', function (socket) {
+        socket.emit('statusUpdated' , order);
+    });
+
+    res.status(200).json({msg:"Order Updated Successfully" , success:true})
+
+}
 const editOrder = async (req,res) => {
     const {id} = req.params;
     const {status , isPaid} = req.body;
@@ -201,10 +223,6 @@ const editOrder = async (req,res) => {
     // send 
     
     
-    global.io.on('connection', function (socket) {
-        socket.emit('statusUpdated');
-    });
-
     res.status(200).json({msg:"Order Updated Successfully" , success:true})
 
 }
@@ -307,6 +325,13 @@ const getAllOrderWithStatus = async (req,res) => {
     res.status(200).json({success:true , orders})
 }
 
+const getAllBookedOrderWithStatus = async (req,res) => {
+    const {status} = req.params;
+    const orders = await BookedOrder.find({status:status}).sort("createdAt")
+
+    res.status(200).json({success:true , orders})
+}
+
 const deleteUser = async (req,res) => {
     const {id} = req.params;
 
@@ -353,6 +378,14 @@ const deleteAllCanceledOrders = async (req,res) => {
 
     res.status(200).json({success:true,msg:"Orders Deleted Successfully"})
 }
+
+const deleteAllCompletedOrders = async (req,res) => {
+    await BookedOrder.deleteMany({status:"completed"});
+
+    res.status(200).json({success:true,msg:"Orders Deleted Successfully"})
+}
+
+
 const deleteAllDeliveredOrders = async (req,res) => {
     await Order.deleteMany({status:"delivered"});
 
@@ -370,7 +403,7 @@ const getUserOrders = async (req,res) => {
         return res.status(404).json({msg:"user Not Found" , success:false});
     }
 
-    const userOrders = await Order.find({email:user[0].email});
+    const userOrders = await BookedOrder.find({email:user[0].email});
 
     
     
@@ -420,5 +453,8 @@ module.exports = {
     bookOrder,
     findBookedOrder,
     deleteBookedOrder,
-    getBookedOrder
+    getBookedOrder,
+    getAllBookedOrderWithStatus,
+    deleteAllCompletedOrders,
+    editBookedOrder
 }

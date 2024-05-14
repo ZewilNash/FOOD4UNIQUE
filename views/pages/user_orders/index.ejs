@@ -79,29 +79,46 @@
 ["pending" , "delivered" , "canceled" , "onway"],
 
                          -->
-                         <% if(userOrders[i].status === "pending") { %>
+                         <% if(userOrders[i].status === "booked") { %>
                           <div style="display:flex;justify-content: center;align-items: center;flex-direction: column;gap: 10px;text-align: center;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;padding: 20px;">
                             <img style="width: 200px;height: 200px;object-fit: contain;" src="./images/pending.gif" alt="">
-                            <h1>WE STILL PREPARING YOUR FOOD</h1>
-                            <small style="font-size: 17px;">PLEASE WAIT , WE WILL NOT MAKE YOU HUNGRY</small>
+
+                            <h1>
+                                ORDER NUMBER : <%= userOrders[i].order_num %>
+                            </h1>
+
+
+
+                            <h1>WE BOOKED YOUR FOOD IT WILL BE READY ON TIME</h1>
+
+                            <small style="font-size: 17px;">
+                                ORDER DATE: <%= userOrders[i].date %>
+                            </small>
+                            <small style="font-size: 17px;">
+                                ORDER TIME: <%= userOrders[i].time %>
+                            </small>
+
+                            <small style="font-size: 17px;">WHEN YOUR FOOD IS READY WE WILL INFORM YOU</small>
+                            <small style="font-size: 17px;">
+                                ALWAYS COME HERE & REFRESH THE PAGE TO CHECK YOUR FOOD STATUS
+                            </small>
                           </div>
 
                           <% } %>
 
-                         <% if(userOrders[i].status === "delivered") { %>
+                         <% if(userOrders[i].status === "completed") { %>
                           <div style="display:flex;justify-content: center;align-items: center;flex-direction: column;gap: 10px;text-align: center;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;padding: 20px;">
                             <img style="width: 200px;height: 200px;object-fit: contain;" src="./images/delivered.gif" alt="">
-                            <h1>THIS ORDER HAS BEEN DELIVERED TO YOU</h1>
+                            <h1>YOUR ORDER IS READY PLEASE COME TO TAKE IT</h1>
 
-                            <p>IF YOU HAVE ANY COMPLAIN PLEASE CONTACT US <a style="font-size: 17px;font-weight: bold;color: #000;" href="/contactus">HERE</a></p>
-
-                            <small style="font-size: 17px;">Not: NOTE YOUR ORDER ID</small>
+                           
+                            <small style="font-size: 17px;">YOUR ORDER NUMBER IS : <%= userOrders[i].order_num %></small>
                             
                           </div>
 
                           <% } %>
 
-                         <% if(userOrders[i].status === "onway") { %>
+                         <!-- <% if(userOrders[i].status === "onway") { %>
                           <div style="display:flex;justify-content: center;align-items: center;flex-direction: column;gap: 10px;text-align: center;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;padding: 20px;">
                             <img style="width: 200px;height: 200px;object-fit: contain;" src="./images/onway.gif" alt="">
                             <h1>THE ORDER IS IN THE WAY TO YOU</h1>
@@ -121,7 +138,7 @@
                             
                           </div>
 
-                          <% } %>
+                          <% } %> -->
 
                           
                         

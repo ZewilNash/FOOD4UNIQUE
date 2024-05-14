@@ -43,6 +43,10 @@ const OrderSchema = new mongoose.Schema({
         required: [true, "You Must Provide Address"],
         trim: true,
     },
+    confirmed_address: {
+        type: String,
+        trim: true,
+    },
     state: {
         type: String,
         required: [true, "You Must Provide State"],

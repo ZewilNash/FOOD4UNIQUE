@@ -5,7 +5,7 @@ const router = express.Router();
 const authenticatedRoute = require("../middleware/auth");
 const isAdminRoute = require("../middleware/isAdmin");
  
-const {signup , login , getUserCartLength,deleteFromCart,updateCartQty,makeOrder,getCart,deleteCart,sendReport,getAllOrders,getOrder,editOrder,deleteOrder,findOrder,deleteReport,findReport,getAllOrderWithStatus,deleteUser,updateUser,getUser,deleteAllDeliveredOrders,deleteAllCanceledOrders,getUserOrders,bookOrder,findBookedOrder,deleteBookedOrder,getBookedOrder} = require("../controllers/auth");
+const {signup , login , getUserCartLength,deleteFromCart,updateCartQty,makeOrder,getCart,deleteCart,sendReport,getAllOrders,getOrder,editOrder,deleteOrder,findOrder,deleteReport,findReport,getAllOrderWithStatus,deleteUser,updateUser,getUser,deleteAllDeliveredOrders,deleteAllCanceledOrders,getUserOrders,bookOrder,findBookedOrder,deleteBookedOrder,getBookedOrder,getAllBookedOrderWithStatus,deleteAllCompletedOrders,editBookedOrder} = require("../controllers/auth");
 
 router.route("/signup").post(signup);
 router.route("/login").post(login);
@@ -21,6 +21,8 @@ router.route("/get_user_orders/:id").get(authenticatedRoute,getUserOrders);
 router.route("/get_order/:id").get(authenticatedRoute,isAdminRoute,getOrder);
 
 router.route("/edit_order/:id").patch(authenticatedRoute,isAdminRoute,editOrder);
+
+router.route("/edit_booked_order/:id").patch(authenticatedRoute,isAdminRoute,editBookedOrder);
 
 router.route("/delete_order/:id").delete(authenticatedRoute,isAdminRoute,deleteOrder);
 router.route("/delete_booked_order/:id").delete(authenticatedRoute,isAdminRoute,deleteBookedOrder);
@@ -43,9 +45,13 @@ router.route("/delivered_all_delete").delete(authenticatedRoute,isAdminRoute,del
 
 router.route("/canceled_all_delete").delete(authenticatedRoute,isAdminRoute,deleteAllCanceledOrders);
 
+router.route("/completed_all_delete").delete(authenticatedRoute,isAdminRoute,deleteAllCompletedOrders);
+
 router.route("/get_user/:id").get(authenticatedRoute,isAdminRoute,getUser);
 
 router.route("/find_order_status/:status").get(authenticatedRoute,isAdminRoute,getAllOrderWithStatus);
+
+router.route("/find_booked_order_status/:status").get(authenticatedRoute,isAdminRoute,getAllBookedOrderWithStatus);
 
 
 router.route("/order").post(authenticatedRoute,makeOrder);

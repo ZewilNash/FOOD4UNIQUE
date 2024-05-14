@@ -198,6 +198,13 @@ const editOrder = async (req,res) => {
 
     await Order.findOneAndUpdate({_id:id} , {status:status , isPaid:isPaid} , {useFindAndModify:false});
 
+    // send 
+    
+    
+    global.io.on('connection', function (socket) {
+        socket.emit('statusUpdated');
+    });
+
     res.status(200).json({msg:"Order Updated Successfully" , success:true})
 
 }

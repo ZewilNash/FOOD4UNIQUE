@@ -25,10 +25,7 @@ const updateProduct = async (req,res) => {
 
     const edit_product = await Product.findOne({_id:foodId});
 
-    console.log(edit_product , "kamal");
-    
-
-    
+  
 
     if(images.length === 0){
         return res.status(400).json({success:false, msg:"Please Provide Images before inserting any of the fields"});
@@ -40,8 +37,7 @@ const updateProduct = async (req,res) => {
 
     const product = await Product.findOneAndUpdate({_id:foodId} , {$set:{name,price,category,size,description,images}} , {new:true})
 
-    console.log(product , "kamal");
-    
+   
 
     res.status(200).json({product , success:true, msg:"Product Updated Successfully"});
 }

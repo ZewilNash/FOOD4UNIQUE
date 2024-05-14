@@ -3,7 +3,7 @@
 require("express-async-errors");
 require("dotenv").config()
 const { readFileSync } = require("fs");
-
+const {createServer} = require("http")
 const User = require("./modals/User");
 const Cart = require("./modals/Cart");
 const Order = require("./modals/Order");
@@ -13,7 +13,7 @@ const Report = require("./modals/Report");
 const Product = require("./modals/Product");
 
 const authRouter = require("./routes/auth");
-
+const { Server } = require('socket.io');
 const productRouter = require("./routes/product");
 
 //security packages
@@ -25,6 +25,11 @@ const rateLimiter = require('express-rate-limit');
 
 const express = require("express");
 const app = express();
+
+const server = createServer(app);
+
+const io = new Server(server);
+global.io = io;
 
 const cors = require("cors");
 
@@ -353,7 +358,7 @@ app.use(errorhandlerMiddleware);
 const start = async () => {
     try {
         await connectDB(process.env.MONGO_URL);
-        app.listen(PORT, () => {
+        server.listen(PORT, () => {
             console.log(`Server is listening on port: ${PORT}`);
         })
 
@@ -364,3 +369,4 @@ const start = async () => {
 
 
 start();
+

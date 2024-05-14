@@ -106,3 +106,13 @@ function logout() {
     
     
 // })
+
+
+// track changes
+const socket = io();
+
+socket.on('statusUpdated', function () {
+    window.location.reload();
+    console.log("hello");
+    
+ });

@@ -125,7 +125,18 @@ document.querySelectorAll("#update_qty_container").forEach(elem => {
 
    
     if (!qty) {
-      alert("Choose Quantity To Update With!");
+      const myPopup = new Popup({
+        id: "my-popup",
+        title: "FOOD4UNIQUE",
+        content: `THE MINIMUM TO ADD TO CART IS 1`,
+            showImmediately: true,
+            textColor:"red"
+    });
+  
+  
+  
+      // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+      myPopup.show();
     } else {
       const userId = user.user._id;
       const { foodId } = e.target.dataset;
@@ -561,7 +572,53 @@ document.querySelector("#order_phone").addEventListener("focusout" , (event) => 
 
     // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
     myPopup.show();
+    document.querySelector("#order_phone").value = ""
   }
+})
+
+
+document.querySelectorAll("#update_qty").forEach(btn => {
+  btn.addEventListener("input" , (e) => {
+    // oninput="this.value = 
+  
+    console.log(e.target.value);
+    
+  
+    if(Number(e.target.value) === 0){
+      const myPopup = new Popup({
+        id: "my-popup",
+        title: "FOOD4UNIQUE",
+        content: `THE MINIMUM TO ADD TO CART IS 1`,
+            showImmediately: true,
+            textColor:"red"
+    });
+  
+  
+  
+      // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+      myPopup.show();
+      e.target.value = ""
+    }
+  
+    if(Number(e.target.value) < 0 || e.target.value.startsWith("-")){
+      const myPopup = new Popup({
+        id: "my-popup",
+        title: "FOOD4UNIQUE",
+        content: `
+        THE MINIMUM TO ADD TO CART IS 1`,
+            showImmediately: true,
+            textColor:"red"
+    });
+  
+  
+  
+      // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+      myPopup.show();
+      e.target.value = ""
+    }
+  
+   
+  })
 })
 
 document.querySelector("#order_email").addEventListener("focusout" , (event) => {
@@ -583,6 +640,7 @@ document.querySelector("#order_email").addEventListener("focusout" , (event) => 
 
     // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
     myPopup.show();
+    document.querySelector("#order_email").value = ""
   }
 })
 
@@ -608,9 +666,23 @@ document.querySelector("#order_name").addEventListener("focusout" , (event) => {
 
     // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
     myPopup.show();
+    document.querySelector("#order_name").value = ""
   }
 
 })
+
+// document.querySelector("#order_address").addEventListener("focusout" , (e) => {
+//   let value = document.querySelector("#order_address").value;
+
+//   let url = `https://alamat.thecloudalert.com/api/cari/index/?keyword=${value}` 
+//   axios.get(url).then(res => {
+//     let data_arr = res.data.result;
+
+//   })
+
+// })
+
+
 
 document.querySelector("#order_address").addEventListener("input" , (e) => {
   

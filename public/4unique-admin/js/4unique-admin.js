@@ -300,7 +300,7 @@ function updateProduct() {
 
         // success
         let msg = res.data.msg;
-        document.querySelector("#create-btn-edit").disabled = true;
+        // document.querySelector("#create-btn-edit").disabled = true;
 
         let HTML = `<p class="success-message">${msg}</p>`;
 
@@ -308,7 +308,7 @@ function updateProduct() {
 
         setTimeout(() => {
             document.querySelector(".success").innerHTML = "";
-            document.querySelector("#create-btn").disabled = false;
+            // document.querySelector("#create-btn").disabled = false;
 
             // window.location.href = "/home";
 

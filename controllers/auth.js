@@ -139,7 +139,7 @@ const sendReport = async (req,res) => {
 
     
 
-    const order = await Order.find({_id:orderId});
+    const order = await BookedOrder.find({_id:orderId});
 
     
 

@@ -94,6 +94,8 @@ document.querySelector("#sendReport").addEventListener("click", (e) => {
           document.querySelector(".success").innerText = ``;
         }, 2000);
         
+        window.location.reload()
+
     }).catch(err => {
         const msg = err.response.data.msg;
 

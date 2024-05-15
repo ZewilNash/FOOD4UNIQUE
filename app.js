@@ -77,7 +77,7 @@ app.use(
             "img-src": ["'self'", "https: data:"],
             "script-src": ["'self'", "https: data:"],
             "default-src": ["'self'", "https: data:"],
-
+            
         }
     })
 )
@@ -298,7 +298,7 @@ app.get("/4unique-admin", async (req, res) => {
     const deliveredOrders = await Order.find({status:"delivered"});
     const canceledOrders = await Order.find({status:"canceled"});
 
-    const completedOrders = await BOOKOrder.find({status:"completed"})
+    const completedOrders = await BOOKOrder.find({status:"completed"}).sort("-createdAt");
 
     const ordersLength = orders.length;
     const bookedordersLength = bookedOrder.length;
@@ -309,6 +309,9 @@ app.get("/4unique-admin", async (req, res) => {
 
 
     const carts = orders.map(order => order.cart);
+
+    
+
     const cart_items = [];
     const foods = [];
     carts.forEach(c => {
@@ -329,7 +332,7 @@ app.get("/4unique-admin", async (req, res) => {
     
     const products = await Product.find({}).sort("-createdAt");
 
-    const users = await User.find({});
+    const users = await User.find({}).sort("-createdAt");;
     const usersLength = users.length
 
     const productsLength = products.length;

@@ -10,6 +10,19 @@ const Order = require("./modals/Order");
 const BOOKOrder = require("./modals/BookedOrder");
 const Report = require("./modals/Report");
 
+// const Pusher = require("pusher");
+
+// global.pusher = new Pusher({
+//     appId: "1803313",
+//     key: "17c9f46a0256c402a5c8",
+//     secret: "2a64cd67e60cbce7c8de",
+//     cluster: "eu",
+//     useTLS: true
+// });
+
+
+
+
 const Product = require("./modals/Product");
 
 const authRouter = require("./routes/auth");
@@ -92,6 +105,10 @@ app.use(cors());
 app.get("/", (req, res) => {
     res.render("pages/landing/index");
 });
+
+// app.get("/sw.js", (req, res) => {
+//     res.render("pages/sw.js/index");
+// });
 
 app.get("/signuppage", (req, res) => {
     res.render("pages/signuppage/index");

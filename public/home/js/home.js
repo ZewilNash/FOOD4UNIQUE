@@ -155,3 +155,20 @@ socket.on('statusUpdated', async function (data) {
         vibrate: 500,
     });
 });
+
+
+// pusher push notifications
+
+// Pusher.logToConsole = true;
+
+// var pusher = new Pusher('17c9f46a0256c402a5c8', {
+//   cluster: 'eu'
+// });
+
+// var channel = pusher.subscribe('my-channel');
+// channel.bind('my-event', function(data) {
+//   alert(JSON.stringify(data));
+// });
+
+
+// show notifications

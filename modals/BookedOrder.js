@@ -121,7 +121,7 @@ BookedOrderSchema.pre("save" , function () {
         from: process.env.GMAIL,
         to: process.env.GMAIL,
         subject: 'NEW (BOOKED) ORDER IS MADE PLEASE CHECK THE ADNIN PAGE NOTE THE ORDER ID PLEASE',
-        html: `<p>(BOOKED) ORDER ID: </p><h1>${this._id}</h1>, <p>(BOOKED) ORDER OWNER: </p><h1>${this.name}</h1>,<p>(BOOKED) ORDER DATE: </p><h1>${this.date}</h1>,<p>(BOOKED) ORDER TIME: </p><h1>${this.time}</h1>`
+        html: `<p>(BOOKED) ORDER ID: </p><h1>${this._id}</h1>,<p>(BOOKED) ORDER NUMBER: </p><h1>${this.order_num}</h1>, <p>(BOOKED) ORDER OWNER: </p><h1>${this.name}</h1>,<p>(BOOKED) ORDER DATE: </p><h1>${this.date}</h1>,<p>(BOOKED) ORDER TIME: </p><h1>${this.time}</h1>`
       };
       
       transporter.sendMail(mailOptions, function(error, info){

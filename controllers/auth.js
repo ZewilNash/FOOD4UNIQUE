@@ -201,9 +201,15 @@ const editBookedOrder = async (req,res) => {
     // send 
     
     
-    global.io.on('connection', function (socket) {
-        socket.emit('statusUpdated' , order);
-    });
+    // global.io.on('connection', function (socket) {
+    //     socket.emit('statusUpdated' , order);
+    // });
+
+  
+    // global.pusher.trigger("my-channel", "my-event", {
+    //         message: `YOUR ORDER NUMBER ${order.order_num} IS READY PLEASE COME TO TAKE IT, THIS ORDER INCLUDES (${order.cart[0].food[0].name})`,
+    // });
+   
 
     res.status(200).json({msg:"Order Updated Successfully" , success:true})
 

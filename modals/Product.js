@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const {pusher} = require("../app")
+
 const ProductSchema = new mongoose.Schema({
     name:{
         type:String,
@@ -51,5 +53,10 @@ const ProductSchema = new mongoose.Schema({
 } , {timestamps:true});
 
 
+ProductSchema.pre("save" , async function () {
+    // global.pusher.trigger("my-channel", "my-event", {
+    //     message: `NEW FOOD IS ADDED , FOOD NAME IS ${this.name} PLEASE CHECK IT OUT`,
+    //   });
+})
 
 module.exports = mongoose.model("Product" , ProductSchema);

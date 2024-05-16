@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 var nodemailer = require('nodemailer');
+const {pusher} = require("../app")
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -49,5 +50,7 @@ ReportSchema.pre("save", function () {
         }
     });
 })
+
+
 
 module.exports = mongoose.model("Report", ReportSchema);

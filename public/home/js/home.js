@@ -157,18 +157,50 @@ socket.on('statusUpdated', async function (data) {
 });
 
 
-// pusher push notifications
-
-// Pusher.logToConsole = true;
-
-// var pusher = new Pusher('17c9f46a0256c402a5c8', {
-//   cluster: 'eu'
-// });
-
-// var channel = pusher.subscribe('my-channel');
-// channel.bind('my-event', function(data) {
-//   alert(JSON.stringify(data));
-// });
 
 
-// show notifications
+var pusher = new Pusher('17c9f46a0256c402a5c8', { cluster: 'eu' });
+
+// retrieve the socket ID once we're connected
+pusher.connection.bind('connected', function () {
+    // attach the socket ID to all outgoing Axios requests
+    axios.defaults.headers.common['X-Socket-Id'] = pusher.connection.socket_id;
+});
+
+// request permission to display notifications, if we don't alreay have it
+Notification.requestPermission();
+pusher.subscribe('notifications')
+    .bind('food_added', function (data) {
+        console.log(data.food);
+        
+        // if we're on the home page, show an "Updated" badge
+        
+        var notification = new Notification("NEW FOOD ADDED" ,  {
+            body: data.food.name + "has been added to our food list. Check it out.",
+            icon: "./images/food4unique.png",
+          });
+        notification.onclick = function (event) {
+            window.location.href = `/fooddetail/${data.food._id}`
+            event.preventDefault();
+            notification.close();
+        }
+});
+
+pusher.subscribe('notifications')
+    .bind('order_status', function (data) {
+        console.log(data.order);
+        
+        // if we're on the home page, show an "Updated" badge
+        let user = JSON.parse(localStorage.getItem("user"));
+        var notification = new Notification("ONE ORDER IS READY" , {
+            body:"Order Number" + data.order.order_num + "is ready for you to come & take. check also your order list.",
+            icon: "./images/food4unique.png",
+        });
+        notification.onclick = function (event) {
+            window.location.href = `/user_orders/${user._id}`
+            event.preventDefault();
+            notification.close();
+        }
+});
+
+

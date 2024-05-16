@@ -199,7 +199,15 @@ const editBookedOrder = async (req,res) => {
     await BookedOrder.findOneAndUpdate({_id:id} , {status:status , isPaid:isPaid} , {useFindAndModify:false});
 
     // send 
-    
+    let Pusher = require('pusher');
+    let pusher = new Pusher({
+        appId: process.env.PUSHER_APP_ID,
+        key: process.env.PUSHER_APP_KEY,
+        secret: process.env.PUSHER_APP_SECRET,
+        cluster: process.env.PUSHER_APP_CLUSTER
+    });
+
+    pusher.trigger('notifications', 'order_status', {data:order});
     
     // global.io.on('connection', function (socket) {
     //     socket.emit('statusUpdated' , order);

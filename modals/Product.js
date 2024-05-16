@@ -54,9 +54,18 @@ const ProductSchema = new mongoose.Schema({
 
 
 ProductSchema.pre("save" , async function () {
-    // global.pusher.trigger("my-channel", "my-event", {
-    //     message: `NEW FOOD IS ADDED , FOOD NAME IS ${this.name} PLEASE CHECK IT OUT`,
-    //   });
+    let Pusher = require('pusher');
+    let pusher = new Pusher({
+        appId: process.env.PUSHER_APP_ID,
+        key: process.env.PUSHER_APP_KEY,
+        secret: process.env.PUSHER_APP_SECRET,
+        cluster: process.env.PUSHER_APP_CLUSTER
+    });
+
+    const food = this
+
+    pusher.trigger('notifications', 'food_added', {data:food});
+   
 })
 
 module.exports = mongoose.model("Product" , ProductSchema);

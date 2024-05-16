@@ -31,7 +31,7 @@ window.onload = () => {
         
     })
 
-    let URL = document.URL.split("favourites")[0];
+    // let URL = document.URL.split("favourites")[0];
     axios.get(URL + `api/v1/auth/get_user_orders/${user.user._id}` ,  {
         headers: {
             Authorization: 'Bearer ' + user.token //the token is a variable which holds the token

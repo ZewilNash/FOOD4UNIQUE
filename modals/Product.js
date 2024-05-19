@@ -65,6 +65,10 @@ ProductSchema.pre("save" , async function () {
     const food = this
 
     pusher.trigger('notifications', 'food_added', {data:food});
+
+    global.io.on('connection', function (socket) {
+        socket.emit('foodadded' , food);
+    });
    
 })
 

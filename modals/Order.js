@@ -3,8 +3,6 @@ var nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
 dotenv.config();
 
-console.log(process.env.GMAIL);
-console.log(process.env.GMAIL_PASS);
 
 
 const OrderSchema = new mongoose.Schema({

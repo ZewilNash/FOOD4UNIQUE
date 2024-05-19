@@ -60,6 +60,8 @@ document.querySelector("#logout").style.display = user ? "block" : "none";
       console.log(err);
       
   })
+
+  showFoodReviews();
 }
 
 // alsolike-container
@@ -307,3 +309,42 @@ document.querySelectorAll("#food_qty").forEach(btn => {
    
   })
 })
+
+const showFoodReviews = () => {
+  const food_id = document.URL.split("fooddetail/")[1]
+  let user = JSON.parse(localStorage.getItem("user"));
+
+  let URL = document.URL.split("fooddetail")[0];
+      // logic of add cart to user
+      axios.get(URL + `api/v1/auth/get_reviews/${food_id}` ,  {
+        headers: {
+            Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+        }
+    }).then(res => {
+       
+        const reviews = res.data.reviews;
+
+        if(reviews.length > 0){
+          document.querySelector("#review_title").innerText = "SOME OF CUSTOMERS REVIEWS"
+        }
+
+       reviews.forEach(rev => {
+         document.querySelector("#food_reviews").innerHTML += `
+
+          <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;gap:20px">
+              <img style="height:400px;width:200px;object-fit:cover" src='${rev.review_img}' />
+
+              <a style="color:#000;font-size:20px" href="${rev.review_link}"><i class="fa-solid fa-link"></i></a>
+
+          </div>
+         
+         `
+       })
+        
+        
+      }).catch(err => {
+        console.log(err);
+        
+      });
+  
+}

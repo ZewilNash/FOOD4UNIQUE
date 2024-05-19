@@ -14,6 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tac+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/4unique-admin.css">
+  <link rel="icon" href="./images/food4unique.png" type="image/x-icon" />
 
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,6 +64,50 @@
 
 
       </div>
+    </div>
+
+    <!-- show all reviews -->
+    <div class="hide container" id="show_all_reviews">
+      <div class="row">
+        <% for(var i = 0; i < reviews.length; i++) { %>
+            <div style="text-align: center;align-items: center;justify-content: center;width: 100%;height: 100%;background-image: url('<%= reviews[i].review_image %>');box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;flex-direction: column;margin-top: 20px;display: flex;" class="col-md-4 mt-5">
+              <h1>REVIEW FOR <%= reviews[i].food.name %></h1>
+              <h1>REVIEW LINK:</h1>
+              <a href=" <%= reviews[i].review_link %>">Review Link</a>
+
+              <a data-review-id="<%= reviews[i]._id  %>" id="delete_review" href="#" style="text-align: center;color: red;margin-top: 10px;">DELETE</a>
+              
+            </div>
+           
+        <% } %>
+      </div>
+     
+    </div>
+    <!-- end show reviews -->
+
+    <div class="hide" id="create_review">
+      <form action="#"
+      style="display: flex;justify-content: center;align-items: center;height: 100%;width: 100%;flex-direction: column;padding: 30px;">
+
+      <label for="category">FOOD NAME <em>&#x2a;</em></label>
+
+      <input id="food_id" name="category" required="" type="text" />
+
+      <label for="name">REVIEW LINK <em>&#x2a;</em></label>
+
+      <input id="review_link" name="name" required="" type="text" />
+
+      
+      <label for="image">IMAGE</label>
+
+      <input id="review_image" name="image" type="file" multiple class="input-field upload_widget_review" accept="image/*" />
+
+
+      <button id="create-review">CREATE</button>
+
+
+
+    </form>
     </div>
 
     <!-- all completed orders -->
@@ -187,9 +232,18 @@
           CREATE PRODUCT
         </div>
 
+        <div id="create_review_link" class="col-md-4 mt-5"
+          style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;padding: 10px;cursor: pointer;width: 100vw;text-align: center;">
+          CREATE REVIEW
+        </div>
+
         <div id="all_products_link" class="col-md-4 mt-5"
           style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;padding: 10px;cursor: pointer;width: 100vw;text-align: center;">
           SHOW ALL PRODUCTS
+        </div>
+        <div id="all_reviews_link" class="col-md-4 mt-5"
+          style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;padding: 10px;cursor: pointer;width: 100vw;text-align: center;">
+          SHOW ALL REVIEWS
         </div>
 
         <div id="all_booked_orders_link" class="col-md-4 mt-5"

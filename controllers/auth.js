@@ -4,6 +4,8 @@ const Cart = require("../modals/Cart");
 const Order = require("../modals/Order");
 const Report = require("../modals/Report");
 const BookedOrder = require("../modals/BookedOrder");
+const Food = require("../modals/Product");
+const FoodReview = require("../modals/FOODREVIEW");
 
 
 const signup = async (req,res) => {
@@ -209,9 +211,9 @@ const editBookedOrder = async (req,res) => {
 
     pusher.trigger('notifications', 'order_status', {data:order});
     
-    // global.io.on('connection', function (socket) {
-    //     socket.emit('statusUpdated' , order);
-    // });
+    global.io.on('connection', function (socket) {
+        socket.emit('statusUpdated' , order);
+    });
 
   
     // global.pusher.trigger("my-channel", "my-event", {
@@ -440,6 +442,54 @@ const bookOrder = async (req,res) => {
     res.status(200).json({success:true , msg:`WE BOOK YOUR ORDER SUCCESSFULLY!` , order:order});
 }
 
+const makeReview = async (req,res) => {
+    const {id} = req.params;
+    const {review_link , review_img} = req.body;
+
+    const food = await Food.find({name:id});
+
+    
+    if(food.lenght === 0){
+        return res.status(404).json({msg:"Food Not Found" , success:false});
+    }
+
+    const review = await FoodReview.create({
+        food:food[0]._id,
+        review_link , review_img
+    })
+
+    res.status(201).json({success:true,msg:"Review Created Successfully" , review})
+}
+
+const getFoodReviews = async (req,res) => {
+    const {id} = req.params;
+    const food = await Food.find({_id:id});
+    
+    if(food.lenght === 0){
+        return res.status(404).json({msg:"Food Not Found" , success:false});
+    }
+
+    const reviews = await FoodReview.find({food:id});
+
+
+    res.status(200).json({success:true, reviews})
+
+}
+
+const deleteReview = async (req,res) => {
+    const {id} = req.params;
+
+    const review = await FoodReview.find({_id:id});
+
+    if(review.lenght === 0){
+        return res.status(404).json({msg:"review Not Found" , success:false});
+    }
+
+    await FoodReview.findOneAndDelete({_id:id});
+
+    res.status(200).json({success:true, msg:"Review Deleted Successfully"})
+}
+
 module.exports = {
     signup,
     login,
@@ -470,5 +520,8 @@ module.exports = {
     getBookedOrder,
     getAllBookedOrderWithStatus,
     deleteAllCompletedOrders,
-    editBookedOrder
+    editBookedOrder,
+    makeReview,
+    getFoodReviews,
+    deleteReview
 }

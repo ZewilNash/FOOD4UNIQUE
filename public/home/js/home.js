@@ -147,13 +147,36 @@ document.querySelector("#search-btn").addEventListener("click", (e) => {
 const socket = io();
 
 socket.on('statusUpdated', async function (data) {
-    new Notification("New message", {
+
+    console.log(data);
+    
+    let user = JSON.parse(localStorage.getItem("user"));
+  const notify =  new Notification("New message", {
         tag: "FOOD4UNIQUE",
-        body: `YOU HAVE AN ORDER COMPLETED TRACK YOUR ORDERS`,
+        body: `YOU HAVE AN ORDER COMPLETED ,  ${data.order_num ? "ORDER NUMBER IS " +  data.order_num : ""}, TRACK YOUR ORDERS CLICK TRACK YOUR ORDER STATUS IN THE WEBSITE MENU`,
         icon: "./images/food4unique.png",
         image: "./images/food4unique.png",
         vibrate: 500,
     });
+
+  
+
+  
+});
+
+socket.on('foodadded', async function (data) {
+    // let user = JSON.parse(localStorage.getItem("user"));
+   const notify =  new Notification("New message", {
+        tag: "FOOD4UNIQUE",
+        body: `WE ADDED NEW FOOD${data.name ? "FOOD NAME IS " + data.name : ""}PLEASE CHECK IT`,
+        icon: "./images/food4unique.png",
+        image: "./images/food4unique.png",
+        vibrate: 500,
+    });
+
+    
+
+   
 });
 
 

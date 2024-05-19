@@ -9,6 +9,7 @@ const Cart = require("./modals/Cart");
 const Order = require("./modals/Order");
 const BOOKOrder = require("./modals/BookedOrder");
 const Report = require("./modals/Report");
+const Reviews = require("./modals/FOODREVIEW");
 
 // const Pusher = require("pusher");
 
@@ -349,13 +350,18 @@ app.get("/4unique-admin", async (req, res) => {
     
     const products = await Product.find({}).sort("-createdAt");
 
+    const reviews = await Reviews.find({}).populate("food").sort("-createdAt")
+
+
+    
+
     const users = await User.find({}).sort("-createdAt");;
     const usersLength = users.length
 
     const productsLength = products.length;
 
     // check passwords
-    res.render("pages/4unique-admin/index", { products: products,ordersLength,productsLength,reportsLength , orders:orders,carts:carts,foods:foods,reports:reports,usersLength,users:users,canceledOrders,pendingOrders,deliveredOrders,bookedOrders:bookedOrders,completedOrders:completedOrders,bookedordersLength });
+    res.render("pages/4unique-admin/index", { products: products,ordersLength,productsLength,reportsLength , orders:orders,carts:carts,foods:foods,reports:reports,usersLength,users:users,canceledOrders,pendingOrders,deliveredOrders,bookedOrders:bookedOrders,completedOrders:completedOrders,bookedordersLength,reviews:reviews });
 });
 
 // app.get("/4unique-admin/:name" ,async (req,res) => {

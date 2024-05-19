@@ -62,6 +62,14 @@ document.querySelector(".upload_widget").addEventListener(
     false
 );
 
+document.querySelector(".upload_widget_review").addEventListener(
+    "click",
+    function () {
+        myWidget.open();
+    },
+    false
+);
+
 document.querySelector(".upload_widget_edit").addEventListener(
     "click",
     function () {
@@ -79,6 +87,8 @@ document.querySelector("#create_product_link").addEventListener("click", (e) => 
     document.querySelector("#all_completed_orders_container").classList.add("hide")
     document.querySelector("#all_users_container").classList.add("hide")
     document.querySelector("#all_users_reports_container").classList.add("hide")
+    document.querySelector("#create_review").classList.add("hide")
+    document.querySelector("#show_all_reviews").classList.add("hide")
 })
 
 document.querySelector("#create_product_link").addEventListener("dbclick", (e) => {
@@ -88,7 +98,9 @@ document.querySelector("#create_product_link").addEventListener("dbclick", (e) =
     document.querySelector("#all_completed_orders_container").classList.add("hide")
     document.querySelector("#all_users_container").classList.add("hide")
     document.querySelector("#all_users_reports_container").classList.add("hide")
+    document.querySelector("#create_review").classList.add("hide")
 
+    document.querySelector("#show_all_reviews").classList.add("hide")
 })
 
 
@@ -99,6 +111,37 @@ document.querySelector("#all_products_link").addEventListener("click", (e) => {
     document.querySelector("#all_completed_orders_container").classList.add("hide")
     document.querySelector("#all_users_container").classList.add("hide")
     document.querySelector("#all_users_reports_container").classList.add("hide")
+    document.querySelector("#create_review").classList.add("hide")
+    document.querySelector("#show_all_reviews").classList.add("hide")
+})
+
+document.querySelector("#create_review_link").addEventListener("click", (e) => {
+    document.querySelector("#create_product_container").classList.add("hide")
+    document.querySelector("#all_products_container").classList.add("hide")
+    document.querySelector("#booked_orders_container").classList.add("hide")
+    document.querySelector("#all_completed_orders_container").classList.add("hide")
+    document.querySelector("#all_users_container").classList.add("hide")
+
+    document.querySelector("#all_users_reports_container").classList.add("hide")
+
+    // document.querySelector("#all_users_reports_container").classList.add("hide")
+
+    document.querySelector("#create_review").classList.toggle("hide")
+    document.querySelector("#show_all_reviews").classList.add("hide")
+})
+document.querySelector("#create_review_link").addEventListener("dbclick", (e) => {
+    document.querySelector("#create_product_container").classList.add("hide")
+    document.querySelector("#all_products_container").classList.add("hide")
+    document.querySelector("#booked_orders_container").classList.add("hide")
+    document.querySelector("#all_completed_orders_container").classList.add("hide")
+    document.querySelector("#all_users_container").classList.add("hide")
+
+    document.querySelector("#all_users_reports_container").classList.add("hide")
+
+    // document.querySelector("#all_users_reports_container").classList.add("hide")
+
+    document.querySelector("#create_review").classList.toggle("hide")
+    document.querySelector("#show_all_reviews").classList.add("hide")
 })
 
 document.querySelector("#all_products_link").addEventListener("dbclick", (e) => {
@@ -108,6 +151,9 @@ document.querySelector("#all_products_link").addEventListener("dbclick", (e) => 
     document.querySelector("#all_completed_orders_container").classList.add("hide")
     document.querySelector("#all_users_container").classList.add("hide")
     document.querySelector("#all_users_reports_container").classList.add("hide")
+
+    document.querySelector("#create_review").classList.add("hide")
+    document.querySelector("#show_all_reviews").classList.add("hide")
 })
 
 
@@ -118,6 +164,8 @@ document.querySelector("#all_booked_orders_link").addEventListener("click", (e) 
     document.querySelector("#all_completed_orders_container").classList.add("hide")
     document.querySelector("#all_users_container").classList.add("hide")
     document.querySelector("#all_users_reports_container").classList.add("hide")
+    document.querySelector("#create_review").classList.add("hide")
+    document.querySelector("#show_all_reviews").classList.add("hide")
 })
 
 document.querySelector("#all_booked_orders_link").addEventListener("dbclick", (e) => {
@@ -127,6 +175,8 @@ document.querySelector("#all_booked_orders_link").addEventListener("dbclick", (e
     document.querySelector("#all_completed_orders_container").classList.add("hide")
     document.querySelector("#all_users_container").classList.add("hide")
     document.querySelector("#all_users_reports_container").classList.add("hide")
+    document.querySelector("#create_review").classList.add("hide")
+    document.querySelector("#show_all_reviews").classList.add("hide")
 })
 
 
@@ -137,6 +187,8 @@ document.querySelector("#all_completed_orders_link").addEventListener("click", (
     document.querySelector("#all_completed_orders_container").classList.toggle("hide")
     document.querySelector("#all_users_container").classList.add("hide")
     document.querySelector("#all_users_reports_container").classList.add("hide")
+    document.querySelector("#create_review").classList.add("hide")
+    document.querySelector("#show_all_reviews").classList.add("hide")
 })
 document.querySelector("#all_completed_orders_link").addEventListener("dbclick", (e) => {
     document.querySelector("#create_product_container").classList.add("hide")
@@ -145,6 +197,8 @@ document.querySelector("#all_completed_orders_link").addEventListener("dbclick",
     document.querySelector("#all_completed_orders_container").classList.toggle("hide")
     document.querySelector("#all_users_container").classList.add("hide")
     document.querySelector("#all_users_reports_container").classList.add("hide")
+    document.querySelector("#create_review").classList.add("hide")
+    document.querySelector("#show_all_reviews").classList.add("hide")
 })
 
 document.querySelector("#all_users_link").addEventListener("click", (e) => {
@@ -154,6 +208,8 @@ document.querySelector("#all_users_link").addEventListener("click", (e) => {
     document.querySelector("#all_completed_orders_container").classList.add("hide")
     document.querySelector("#all_users_container").classList.toggle("hide")
     document.querySelector("#all_users_reports_container").classList.add("hide")
+    document.querySelector("#create_review").classList.add("hide")
+    document.querySelector("#show_all_reviews").classList.add("hide")
 })
 document.querySelector("#all_users_link").addEventListener("dbclick", (e) => {
     document.querySelector("#create_product_container").classList.add("hide")
@@ -162,6 +218,8 @@ document.querySelector("#all_users_link").addEventListener("dbclick", (e) => {
     document.querySelector("#all_completed_orders_container").classList.add("hide")
     document.querySelector("#all_users_container").classList.toggle("hide")
     document.querySelector("#all_users_reports_container").classList.add("hide")
+    document.querySelector("#create_review").classList.add("hide")
+    document.querySelector("#show_all_reviews").classList.add("hide")
 })
 
 document.querySelector("#all_users_reports_link").addEventListener("click", (e) => {
@@ -171,6 +229,8 @@ document.querySelector("#all_users_reports_link").addEventListener("click", (e) 
     document.querySelector("#all_completed_orders_container").classList.add("hide")
     document.querySelector("#all_users_container").classList.add("hide")
     document.querySelector("#all_users_reports_container").classList.toggle("hide")
+    document.querySelector("#create_review").classList.add("hide")
+    document.querySelector("#show_all_reviews").classList.add("hide")
 })
 document.querySelector("#all_users_reports_link").addEventListener("dbclick", (e) => {
     document.querySelector("#create_product_container").classList.add("hide")
@@ -179,7 +239,89 @@ document.querySelector("#all_users_reports_link").addEventListener("dbclick", (e
     document.querySelector("#all_completed_orders_container").classList.add("hide")
     document.querySelector("#all_users_container").classList.add("hide")
     document.querySelector("#all_users_reports_container").classList.toggle("hide")
+    document.querySelector("#create_review").classList.add("hide")
+    document.querySelector("#show_all_reviews").classList.add("hide")
 })
+document.querySelector("#all_reviews_link").addEventListener("click", (e) => {
+    document.querySelector("#create_product_container").classList.add("hide")
+    document.querySelector("#all_products_container").classList.add("hide")
+    document.querySelector("#booked_orders_container").classList.add("hide")
+    document.querySelector("#all_completed_orders_container").classList.add("hide")
+    document.querySelector("#all_users_container").classList.add("hide")
+    document.querySelector("#all_users_reports_container").classList.add("hide")
+    document.querySelector("#create_review").classList.add("hide")
+    document.querySelector("#show_all_reviews").classList.toggle("hide")
+})
+document.querySelector("#all_reviews_link").addEventListener("dbclick", (e) => {
+    document.querySelector("#create_product_container").classList.add("hide")
+    document.querySelector("#all_products_container").classList.add("hide")
+    document.querySelector("#booked_orders_container").classList.add("hide")
+    document.querySelector("#all_completed_orders_container").classList.add("hide")
+    document.querySelector("#all_users_container").classList.add("hide")
+    document.querySelector("#all_users_reports_container").classList.add("hide")
+    document.querySelector("#create_review").classList.add("hide")
+    document.querySelector("#show_all_reviews").classList.toggle("hide")
+})
+
+function createReview() {
+    let user = JSON.parse(localStorage.getItem("user"));
+
+    let food_id = document.querySelector("#food_id").value;
+
+    let review_link = document.querySelector("#review_link").value;
+
+    // let images = document.querySelector("#images").files;
+    let review_img = url_images[0];
+
+
+    // logic to upload to mongodb
+
+    let url = document.URL.split("4unique-admin")[0];
+
+    axios.post(String(url) + `api/v1/auth/make_review/${food_id}`, {
+        review_img,
+        review_link
+    }, {
+        headers: {
+            Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+        }
+    }
+
+    ).then(res => {
+        // success
+        let msg = res.data.msg;
+        document.querySelector("#create-btn").disabled = true;
+
+        let HTML = `<p class="success-message">${msg}</p>`;
+
+        document.querySelector("#success").innerHTML += HTML;
+
+        setTimeout(() => {
+            document.querySelector("#success").innerHTML = "";
+            document.querySelector("#create-btn").disabled = false;
+
+            window.location.href = "/home";
+
+        }, 3000)
+
+    }).catch(err => {
+        let errors = err.response.data.msg.split(",");
+
+        errors.forEach(err => {
+            let HTML = `<p class="error-message">${err}</p>`;
+
+            document.querySelector("#errors").innerHTML += HTML;
+
+
+        });
+
+        setTimeout(() => {
+            document.querySelector("#errors").innerHTML = "";
+        }, 3000)
+
+    })
+
+}
 
 function createProduct() {
     let user = JSON.parse(localStorage.getItem("user"));
@@ -588,26 +730,13 @@ document.querySelectorAll("#edit_booked_order_btn").forEach(btn => {
         });
 
 
-
-        // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
         myPopup.show();
 
-        // document.querySelector("#span_booked_order_id").innerText = e.target.dataset.orderId;
 
-        // document.querySelector("#edit_booked_order").classList.remove("hide");
-        // // document.querySelector("#edit_order").classList.add("hide");
-
-        // document.querySelector("#edit_booked_order").style.display = "block";
-
-        // document.querySelector("#booked_order_page").classList.add("hide");
-        // document.querySelector("#order_page").classList.add("hide");
 
         document.querySelector("#edit_booked_order_submit").addEventListener("click", (e) => {
             e.preventDefault();
-            /*
-        order_status
-        order_paid
-            */
+
 
             let status = document.querySelector("#order_status").value;
 
@@ -921,8 +1050,7 @@ document.querySelectorAll("#completedOrder_show_more").forEach(btn => {
             }
         }).then(res => {
 
-            // document.querySelector("#booked_order_item").classList.remove("hide");
-            // document.querySelector("#booked_order_page").classList.add("hide");
+
 
             let order = res.data.order;
             let total = [];
@@ -940,7 +1068,6 @@ document.querySelectorAll("#completedOrder_show_more").forEach(btn => {
 
 
 
-                // document.querySelector("#total_booked_order_price").innerText = total_order;
 
                 let HTML = `
                 <div style="display-flex;flex-direction:column;gap-3;justify-content-center-align-items-center;height:auto;overflow-y:scroll" class="col-md-12 mt-5">
@@ -983,26 +1110,7 @@ document.querySelectorAll("#completedOrder_show_more").forEach(btn => {
 
 
 
-                // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
                 myPopup.show();
-
-                // const myPopup2 = new Popup({
-                //     id: "my-popup",
-                //     title: "FOOD4UNIQUE",
-                //     content: `TOTAL ORDER PRICE : ${total_order}`,
-                //     showImmediately: true,
-                //     textColor: "black",
-                //     heightMultiplier: 0.8,
-                //     disableScroll: false,
-                //     hideTitle: true
-                // });
-
-
-
-                // // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
-                // myPopup2.show();
-                // // document.querySelector("#booked_order_item").querySelector(".row").innerHTML += HTML
-
 
 
 
@@ -1018,6 +1126,13 @@ document.querySelectorAll("#completedOrder_show_more").forEach(btn => {
         })
 
     })
+})
+
+
+// create review
+document.querySelector("#create-review").addEventListener("click", (e) => {
+    e.preventDefault()
+    createReview();
 })
 
 document.querySelectorAll("#completedOrder_delete").forEach(btn => {
@@ -1113,10 +1228,6 @@ document.querySelectorAll("#edit_user").forEach(btn => {
 
             let user_ob = res.data.user;
 
-            // document.querySelector(".not-edit").classList.add("hide");
-            // document.querySelector("#all_users").classList.add("hide");
-            // document.querySelector("#admin-dashboard").classList.add("hide");
-            // document.querySelector("#edit_user_form").classList.toggle("hide");
 
 
             const myPopup = new Popup({
@@ -1138,7 +1249,6 @@ document.querySelectorAll("#edit_user").forEach(btn => {
 
 
 
-            // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
             myPopup.show();
 
 
@@ -1309,34 +1419,34 @@ document.querySelector("#report_text_Search").addEventListener("input", (e) => {
         document.querySelectorAll("#delete_report").forEach(btn => {
             btn.addEventListener("click", (e) => {
                 let URL = document.URL.split("4unique-admin")[0];
-        
-        
-        
+
+
+
                 const user = JSON.parse(localStorage.getItem("user"));
-        
+
                 let { orderId } = e.target.dataset;
-        
+
                 axios.delete(URL + `api/v1/auth/delete_report/${orderId}`, {
                     headers: {
                         Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
                     }
                 }).then(res => {
                     let msg = res.data.msg;
-        
+
                     let HTML = `<p class="success-message">${msg}</p>`;
-        
+
                     document.querySelector("#success").innerHTML += HTML;
-        
+
                     setTimeout(() => {
                         document.querySelector("#success").innerHTML = "";
-        
+
                         // window.location.href = "/home";
-        
+
                     }, 3000)
                     window.location.reload();
                 }).catch(err => {
                     console.log(err);
-        
+
                 })
             })
         })
@@ -1344,341 +1454,15 @@ document.querySelector("#report_text_Search").addEventListener("input", (e) => {
     }).catch(err => {
         console.log(err);
         document.querySelector("#con_report").style.display = "block"
-    document.querySelector("#report_container_search").style.display = "none"
-    })
-
-})
-
-document.querySelectorAll("#update_link").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-        e.preventDefault()
-        let { foodId } = e.target.dataset;
-        console.log(foodId);
-
-        let food = getSingleFood(foodId);
-
-
-        // edit not-edit
-        document.querySelector(".edit").classList.toggle("hide");
-        document.querySelector(".not-edit").classList.toggle("hide");
-    })
-})
-
-document.querySelector("#show_text_edit").addEventListener("click", (e) => {
-    // edit not-edit
-    document.querySelector(".edit").classList.toggle("hide");
-    document.querySelector(".not-edit").classList.toggle("hide");
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-document.querySelector("#order_id_text").addEventListener("input", (e) => {
-    let text = e.target.value;
-    let URL = document.URL.split("4unique-admin")[0];
-
-
-    const user = JSON.parse(localStorage.getItem("user"));
-
-    if (!text) {
-        alert("enter id")
-    }
-
-    axios.post(URL + 'api/v1/auth/get_order', { text }, {
-        headers: {
-            Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
-        }
-    }).then(res => {
-        console.log(res);
-        document.querySelector("#con").style.display = "none";
-        const order = res.data.order;
-
-        document.querySelector("#order_container_search").innerHTML = `
-        <p style="text-align: center;">ORDER ID: ${  order._id}</p>
-
-        <p style="text-align: center;">Made By : ${  order.name}</p>
-        <p style="text-align: center;">Order Owner Email : ${  order.email}</p>
-        <p style="text-align: center;">Order Owner phone : ${  order.phone}</p>
-        <p style="text-align: center;">Order Owner address : ${  order.address}</p>
-
-        <div style="font-size: 22px;" class="d-flex gap-3 mt-3">
-          <span style="font-size:15px;text-align: center;">owner state: ${  order.state}</span >
-          <span style="font-size:15px;text-align: center;">owner country: ${  order.country}</span>
-          <span style="font-size:15px;text-align: center;">owner village: ${  order.village}</span>
-          <span style="font-size:15px;text-align: center;">owner leisure: ${  order.leisure}</span>
-        </div>
-
-        <div style="font-size: 18px;" class="d-flex gap-3 mt-3">
-          <span>order Owner Zip Code: ${  order.zip_code}</span>
-          <span>order status: ${  order.status}</span>
-          <span>order isPaid: ${  order.isPaid}</span>
-          
-        </div>
-
-        <p style="text-align: center;">Order Date : ${  order.createdAt}</p>
-
-        <div style="font-size: 20px;" class="d-flex gap-3 mt-3">
-          <a data-order-id="${ order._id}" id="order_show_more" href="#" style="color:green">Show More</a>
-          <a data-order-id="${ order._id}"  href="#" id="delete_order" style="color:red;">Delete Order</a>
-          <a data-order-id="${ order._id}" id="edit_order_btn" href="#">Edit Order</a>
-          
-        </div>
-
-        `
-        document.querySelectorAll("#edit_order_btn").forEach(btn => {
-            btn.addEventListener("click", (e) => {
-                document.querySelector("#span_order_id").innerText = e.target.dataset.orderId;
-
-                document.querySelector("#edit_order").classList.toggle("hide");
-
-                document.querySelector("#edit_order").style.display = "block";
-
-                document.querySelector("#order_page").classList.add("hide");
-
-            })
-        })
-
-        //         document.querySelectorAll(".booked_order_show").forEach(btn => {
-
-        //             console.log(btn);
-
-
-        //             btn.addEventListener("click", (e) => {
-        //                 // document.querySelector(".not-edit").classList.toggle("hide");
-        //                 e.preventDefault();
-        //                 console.log("hi");
-        //                 let URL = document.URL.split("4unique-admin")[0];
-
-
-
-        //                 const user = JSON.parse(localStorage.getItem("user"));
-
-        //                 let order_id = e.target.dataset.orderId;
-        // // get_booked_order
-        //                 axios.get(URL + `api/v1/auth/get_booked_order/${order_id}`, {
-        //                     headers: {
-        //                         Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
-        //                     }
-        //                 }).then(res => {
-
-        //                     document.querySelector("#booked_order_item").classList.toggle("hide");
-        //                     document.querySelector("#booked_order_page").classList.add("hide");
-
-        //                     let order = res.data.order;
-        //                     let total = [];
-        //                     order[0].cart.forEach(c => {
-
-
-
-
-        //                         total.push(Number(c.food.price) * Number(c.qty))
-
-        //                         console.log(total);
-
-
-        //                         let total_order = total.reduce((a, b) => a + b);
-
-        //                         document.querySelector("#total_order_price").innerText = total_order;
-
-        //                         let HTML = `
-        //                         <div style="display-flex;flex-direction:column;gap-3;justify-content-center-align-items-center" class="col-md-12 mt-5">
-        //                             <img style="width:100%;height:350px;object-fit:contain" src="${c.food.images[0]}" />
-        //                             <p>Quantity: ${c.qty}</p>
-        //                             <p>Food Name: ${c.food.name}</p>
-        //                             <p>Food price: ${c.food.price}</p>
-        //                             <p>Food Total Price: ${Number(c.food.price) * Number(c.qty)}</p>
-        //                         </div>
-        //                        `
-
-        //                         document.querySelector("#booked_order_item").querySelector(".row").innerHTML += HTML
-
-
-
-        //                     })
-
-        //                     //    document.querySelector("#go_back_orders").addEventListener("click" , (e) => {
-
-
-        //                     //     document.querySelector("#order_item").classList.add("hide");
-        //                     //     document.querySelector("#order_page").classList.toggle("hide");
-
-
-        //                     // })
-
-
-
-        //                 }).catch(err => {
-        //                     console.log(err);
-
-        //                 })
-
-
-        //             })
-        //         })
-
-        document.querySelectorAll("#order_show_more").forEach(btn => {
-            btn.addEventListener("click", (e) => {
-                // document.querySelector(".not-edit").classList.toggle("hide");
-
-                let URL = document.URL.split("4unique-admin")[0];
-
-
-
-                const user = JSON.parse(localStorage.getItem("user"));
-
-                let order_id = e.target.dataset.orderId;
-
-                axios.get(URL + `api/v1/auth/get_order/${order_id}`, {
-                    headers: {
-                        Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
-                    }
-                }).then(res => {
-
-                    document.querySelector("#order_item").classList.remove("hide");
-                    document.querySelector("#order_page").classList.add("hide");
-
-                    let order = res.data.order;
-                    let total = [];
-                    order[0].cart.forEach(c => {
-
-
-
-
-                        total.push(Number(c.food.price) * Number(c.qty))
-
-                        console.log(total);
-
-
-                        let total_order = total.reduce((a, b) => a + b);
-
-                        document.querySelector("#total_order_price").innerText = total_order;
-
-                        let HTML = `
-                       
-                        <div style="display-flex;flex-direction:column;gap-3;justify-content-center-align-items-center" class="col-md-12 mt-5">
-                            <img style="width:100%;height:350px;object-fit:contain" src="${c.food.images[0]}" />
-                            <p>Quantity: ${c.qty}</p>
-                            <p>Food Name: ${c.food.name}</p>
-                            <p>Food price: ${c.food.price}</p>
-                            <p>Food Total Price: ${Number(c.food.price) * Number(c.qty)}</p>
-                        </div>
-                       `
-
-                        document.querySelector("#order_item").querySelector(".row").innerHTML += HTML
-
-
-
-                    })
-
-                    //    document.querySelector("#go_back_orders").addEventListener("click" , (e) => {
-
-
-                    //     document.querySelector("#order_item").classList.add("hide");
-                    //     document.querySelector("#order_page").classList.toggle("hide");
-
-
-                    // })
-
-
-
-                }).catch(err => {
-                    console.log(err);
-
-                })
-
-
-            })
-        })
-
-        // document.querySelector("#back_orders").addEventListener("click" , (e) => {
-
-
-        //     document.querySelector("#order_item").classList.add("hide");
-        //     document.querySelector("#order_page").classList.remove("hide");
-        // })
-
-        document.querySelector("#delete_order").addEventListener("click", (e) => {
-            let URL = document.URL.split("4unique-admin")[0];
-
-
-
-            const user = JSON.parse(localStorage.getItem("user"));
-
-            let { orderId } = e.target.dataset;
-
-            axios.delete(URL + `api/v1/auth/delete_order/${orderId}`, {
-                headers: {
-                    Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
-                }
-            }).then(res => {
-                let msg = res.data.msg;
-
-                let HTML = `<p class="success-message">${msg}</p>`;
-
-                document.querySelector(".success").innerHTML += HTML;
-
-                setTimeout(() => {
-                    document.querySelector(".success").innerHTML = "";
-
-                    // window.location.href = "/home";
-
-                }, 3000)
-                window.location.reload();
-            }).catch(err => {
-                console.log(err);
-
-            })
-        })
-
-
-    }).catch(err => {
-
-        console.log(err);
+        document.querySelector("#report_container_search").style.display = "none"
     })
 
 })
 
 
-
-document.querySelector("#show_orders").addEventListener("click", (e) => {
-    document.querySelector(".edit").classList.add("hide");
-    document.querySelector(".not-edit").classList.add("hide");
-    document.querySelector("#order_page").classList.toggle("hide");
-
-})
-
-document.querySelector("#show_booked_orders").addEventListener("click", (e) => {
-    document.querySelector(".edit").classList.add("hide");
-    document.querySelector(".not-edit").classList.add("hide");
-    document.querySelector("#booked_order_page").classList.toggle("hide");
-})
-
-document.querySelector("#back_from_orders").addEventListener("click", (e) => {
-
-    document.querySelector(".not-edit").classList.toggle("hide");
-    document.querySelector("#order_page").classList.add("hide");
-})
-
-document.querySelector("#back_from_booked_orders").addEventListener("click", (e) => {
-
-    document.querySelector(".not-edit").classList.toggle("hide");
-    document.querySelector("#booked_order_page").classList.add("hide");
-})
-
-// /get_order/:id  order_item .row
-
-document.querySelectorAll("#deliveredOrder_show_more").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-        // document.querySelector(".not-edit").classList.toggle("hide");
+document.querySelectorAll("#delete_review").forEach(rev => {
+    rev.addEventListener("click", (e) => {
+        const { reviewId } = e.target.dataset;
 
         let URL = document.URL.split("4unique-admin")[0];
 
@@ -1686,478 +1470,9 @@ document.querySelectorAll("#deliveredOrder_show_more").forEach(btn => {
 
         const user = JSON.parse(localStorage.getItem("user"));
 
-        let order_id = e.target.dataset.orderId;
 
-        axios.get(URL + `api/v1/auth/get_order/${order_id}`, {
-            headers: {
-                Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
-            }
-        }).then(res => {
 
-            document.querySelector("#order_item").classList.toggle("hide");
-            document.querySelector("#all_delivered_orders").classList.add("hide");
-
-            let order = res.data.order;
-            let total = [];
-            order[0].cart.forEach(c => {
-
-
-
-
-                total.push(Number(c.food.price) * Number(c.qty))
-
-                console.log(total);
-
-
-                let total_order = total.reduce((a, b) => a + b);
-
-                document.querySelector("#total_order_price").innerText = total_order;
-
-                let HTML = `
-                <div style="display-flex;flex-direction:column;gap-3;justify-content-center-align-items-center" class="col-md-12 mt-5">
-                    <img style="width:100%;height:350px;object-fit:contain" src="${c.food.images[0]}" />
-                    <p>Quantity: ${c.qty}</p>
-                    <p>Food Name: ${c.food.name}</p>
-                    <p>Food price: ${c.food.price}</p>
-                    <p>Food Total Price: ${Number(c.food.price) * Number(c.qty)}</p>
-                </div>
-               `
-
-                document.querySelector("#order_item").querySelector(".row").innerHTML += HTML
-
-
-
-            })
-
-            //    document.querySelector("#go_back_orders").addEventListener("click" , (e) => {
-
-
-            //     document.querySelector("#order_item").classList.add("hide");
-            //     document.querySelector("#order_page").classList.toggle("hide");
-
-
-            // })
-
-
-
-        }).catch(err => {
-            console.log(err);
-
-        })
-
-
-    })
-})
-
-document.querySelectorAll("#canceledOrder_show_more").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-        // document.querySelector(".not-edit").classList.toggle("hide");
-
-        let URL = document.URL.split("4unique-admin")[0];
-
-
-
-        const user = JSON.parse(localStorage.getItem("user"));
-
-        let order_id = e.target.dataset.orderId;
-
-        axios.get(URL + `api/v1/auth/get_order/${order_id}`, {
-            headers: {
-                Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
-            }
-        }).then(res => {
-
-            document.querySelector("#order_item").classList.toggle("hide");
-            document.querySelector("#all_canceled_orders").classList.add("hide");
-
-            let order = res.data.order;
-            let total = [];
-            order[0].cart.forEach(c => {
-
-
-
-
-                total.push(Number(c.food.price) * Number(c.qty))
-
-                console.log(total);
-
-
-                let total_order = total.reduce((a, b) => a + b);
-
-                document.querySelector("#total_order_price").innerText = total_order;
-
-                let HTML = `
-                <div style="display-flex;flex-direction:column;gap-3;justify-content-center-align-items-center" class="col-md-12 mt-5">
-                    <img style="width:100%;height:350px;object-fit:contain" src="${c.food.images[0]}" />
-                    <p>Quantity: ${c.qty}</p>
-                    <p>Food Name: ${c.food.name}</p>
-                    <p>Food price: ${c.food.price}</p>
-                    <p>Food Total Price: ${Number(c.food.price) * Number(c.qty)}</p>
-                </div>
-               `
-
-                document.querySelector("#order_item").querySelector(".row").innerHTML += HTML
-
-
-
-            })
-
-            //    document.querySelector("#go_back_orders").addEventListener("click" , (e) => {
-
-
-            //     document.querySelector("#order_item").classList.add("hide");
-            //     document.querySelector("#order_page").classList.toggle("hide");
-
-
-            // })
-
-
-
-        }).catch(err => {
-            console.log(err);
-
-        })
-
-
-    })
-})
-
-
-document.querySelectorAll("#pendingOrder_show_more").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-        // document.querySelector(".not-edit").classList.toggle("hide");
-
-        let URL = document.URL.split("4unique-admin")[0];
-
-
-
-        const user = JSON.parse(localStorage.getItem("user"));
-
-        let order_id = e.target.dataset.orderId;
-
-        axios.get(URL + `api/v1/auth/get_order/${order_id}`, {
-            headers: {
-                Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
-            }
-        }).then(res => {
-
-            document.querySelector("#order_item").classList.toggle("hide");
-            document.querySelector("#all_pending_orders").classList.add("hide");
-
-            let order = res.data.order;
-            let total = [];
-            order[0].cart.forEach(c => {
-
-
-
-
-                total.push(Number(c.food.price) * Number(c.qty))
-
-                console.log(total);
-
-
-                let total_order = total.reduce((a, b) => a + b);
-
-                document.querySelector("#total_order_price").innerText = total_order;
-
-                let HTML = `
-                <div style="display-flex;flex-direction:column;gap-3;justify-content-center-align-items-center" class="col-md-12 mt-5">
-                    <img style="width:100%;height:350px;object-fit:contain" src="${c.food.images[0]}" />
-                    <p>Quantity: ${c.qty}</p>
-                    <p>Food Name: ${c.food.name}</p>
-                    <p>Food price: ${c.food.price}</p>
-                    <p>Food Total Price: ${Number(c.food.price) * Number(c.qty)}</p>
-                </div>
-               `
-
-                document.querySelector("#order_item").querySelector(".row").innerHTML += HTML
-
-
-
-            })
-
-            //    document.querySelector("#go_back_orders").addEventListener("click" , (e) => {
-
-
-            //     document.querySelector("#order_item").classList.add("hide");
-            //     document.querySelector("#order_page").classList.toggle("hide");
-
-
-            // })
-
-
-
-        }).catch(err => {
-            console.log(err);
-
-        })
-
-
-    })
-})
-
-document.querySelectorAll(".booked_order_show").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-        // document.querySelector(".not-edit").classList.toggle("hide");
-
-        let URL = document.URL.split("4unique-admin")[0];
-
-
-
-        const user = JSON.parse(localStorage.getItem("user"));
-
-        let order_id = e.target.dataset.orderId;
-
-        axios.get(URL + `api/v1/auth/get_booked_order/${order_id}`, {
-            headers: {
-                Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
-            }
-        }).then(res => {
-            console.log(res);
-
-            document.querySelector("#booked_order_item").classList.remove("hide");
-            document.querySelector("#booked_order_page").classList.add("hide");
-
-            let order = res.data.order;
-
-            // console.log(order[0].cart);
-
-
-            let total = [];
-            order?.cart.forEach(c => {
-
-                total.push(Number(c.food.price) * Number(c.qty))
-
-                console.log(total);
-
-
-                let total_order = total.reduce((a, b) => a + b);
-
-                document.querySelector("#total_booked_order_price").innerText = total_order;
-
-                let HTML = `
-                <div style="display-flex;flex-direction:column;gap-3;justify-content-center-align-items-center" class="col-md-12 mt-5">
-
-                    <h1>BOOKED ORDER ID : ${order._id}</h1>
-
-                    <img style="width:100%;height:350px;object-fit:contain" src="${c.food.images[0]}" />
-                    <p>Quantity: ${c.qty}</p>
-                    <p>Food Name: ${c.food.name}</p>
-                    <p>Food price: ${c.food.price}</p>
-                    <p>Food Total Price: ${Number(c.food.price) * Number(c.qty)}</p>
-                </div>
-               `
-
-                document.querySelector("#booked_order_item").querySelector(".row").innerHTML += HTML
-
-
-                // document.querySelector("#back_booked_orders").addEventListener("click", (e) => {
-
-
-                //     document.querySelector("#booked_order_item").classList.add("hide");
-                //     document.querySelector("#booked_order_page").classList.remove("hide");
-                // })
-
-            })
-
-            //    document.querySelector("#go_back_orders").addEventListener("click" , (e) => {
-
-
-            //     document.querySelector("#order_item").classList.add("hide");
-            //     document.querySelector("#order_page").classList.toggle("hide");
-
-
-            // })
-
-
-
-        }).catch(err => {
-            console.log(err);
-
-        })
-
-
-    })
-})
-
-// asddddddddddddddddddddddddddddd
-document.querySelectorAll("#order_show_more").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-        // document.querySelector(".not-edit").classList.toggle("hide");
-
-        let URL = document.URL.split("4unique-admin")[0];
-
-
-
-        const user = JSON.parse(localStorage.getItem("user"));
-
-        let order_id = e.target.dataset.orderId;
-
-        axios.get(URL + `api/v1/auth/get_order/${order_id}`, {
-            headers: {
-                Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
-            }
-        }).then(res => {
-
-            document.querySelector("#order_item").classList.remove("hide");
-            document.querySelector("#order_page").classList.add("hide");
-
-            let order = res.data.order;
-            let total = [];
-            order[0].cart.forEach(c => {
-
-
-
-
-                total.push(Number(c.food.price) * Number(c.qty))
-
-                console.log(total);
-
-
-                let total_order = total.reduce((a, b) => a + b);
-
-
-
-                document.querySelector("#total_order_price").innerText = total_order;
-
-                let HTML = `
-                <div style="display-flex;flex-direction:column;gap-3;justify-content-center-align-items-center" class="col-md-12 mt-5">
-                    <img style="width:100%;height:350px;object-fit:contain" src="${c.food.images[0]}" />
-                    <p>Quantity: ${c.qty}</p>
-                    <p>Food Name: ${c.food.name}</p>
-                    <p>Food price: ${c.food.price}</p>
-                    <p>Food Total Price: ${Number(c.food.price) * Number(c.qty)}</p>
-                </div>
-               `
-
-                document.querySelector("#order_item").querySelector(".row").innerHTML += HTML
-
-                // document.querySelector("#back_orders_btn").addEventListener("click", (e) => {
-
-
-                //     document.querySelector("#order_item").classList.add("hide");
-                //     document.querySelector("#order_page").classList.remove("hide");
-                // })
-
-
-
-            })
-
-            //    document.querySelector("#go_back_orders").addEventListener("click" , (e) => {
-
-
-            //     document.querySelector("#order_item").classList.add("hide");
-            //     document.querySelector("#order_page").classList.toggle("hide");
-
-
-            // })
-
-
-
-        }).catch(err => {
-            console.log(err);
-
-        })
-
-
-    })
-})
-
-
-
-document.querySelectorAll("#edit_order_btn").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-        document.querySelector("#span_order_id").innerText = e.target.dataset.orderId;
-
-        document.querySelector("#edit_order").classList.toggle("hide");
-
-        document.querySelector("#edit_order").style.display = "block";
-
-        document.querySelector("#order_page").classList.add("hide");
-
-    })
-})
-
-
-
-// document.querySelector("#back_orders").addEventListener("click", (e) => {
-
-//     document.querySelector("#edit_order").classList.toggle("hide");
-
-//     document.querySelector("#edit_order").style.display = "none";
-
-//     document.querySelector("#order_page").classList.toggle("hide");
-// })
-document.querySelector("#back_booked_orders").addEventListener("click", (e) => {
-
-    document.querySelector("#edit_booked_order").classList.toggle("hide");
-
-    document.querySelector("#edit_booked_order").style.display = "none";
-
-    document.querySelector("#booked_order_page").classList.toggle("hide");
-})
-
-
-
-// document.querySelector("#edit_order_submit").addEventListener("click", (e) => {
-//     e.preventDefault();
-//     /*
-// order_status
-// order_paid
-//     */
-
-//     let status = document.querySelector("#order_status").value;
-
-//     let isPaid = document.querySelector("#order_paid").value === "true" ? true : false;
-
-
-//     let URL = document.URL.split("4unique-admin")[0];
-
-
-
-//     const user = JSON.parse(localStorage.getItem("user"));
-
-//     let order_id_span = document.querySelector("#span_order_id").innerText;
-
-//     axios.patch(URL + `api/v1/auth/edit_order/${order_id_span}`, { status, isPaid }, {
-//         headers: {
-//             Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
-//         }
-//     }).then(res => {
-//         let msg = res.data.msg;
-
-//         let HTML = `<p class="success-message">${msg}</p>`;
-
-//         document.querySelector(".success").innerHTML += HTML;
-
-//         setTimeout(() => {
-//             document.querySelector(".success").innerHTML = "";
-
-//             // window.location.href = "/home";
-
-//         }, 3000)
-//         window.location.reload();
-//     }).catch(err => {
-//         console.log(err);
-
-//     })
-
-
-
-// })
-
-
-document.querySelectorAll("#delete_order").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-        let URL = document.URL.split("4unique-admin")[0];
-
-
-
-        const user = JSON.parse(localStorage.getItem("user"));
-
-        let { orderId } = e.target.dataset;
-
-        axios.delete(URL + `api/v1/auth/delete_order/${orderId}`, {
+        axios.delete(URL + `api/v1/auth/delete_review/${reviewId}`, {
             headers: {
                 Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
             }
@@ -2166,10 +1481,10 @@ document.querySelectorAll("#delete_order").forEach(btn => {
 
             let HTML = `<p class="success-message">${msg}</p>`;
 
-            document.querySelector(".success").innerHTML += HTML;
+            document.querySelector("#success").innerHTML += HTML;
 
             setTimeout(() => {
-                document.querySelector(".success").innerHTML = "";
+                document.querySelector("#success").innerHTML = "";
 
                 // window.location.href = "/home";
 
@@ -2180,323 +1495,4 @@ document.querySelectorAll("#delete_order").forEach(btn => {
 
         })
     })
-})
-document.querySelectorAll("#delete_booked_order").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-        let URL = document.URL.split("4unique-admin")[0];
-
-
-
-        const user = JSON.parse(localStorage.getItem("user"));
-
-        let { orderId } = e.target.dataset;
-
-        axios.delete(URL + `api/v1/auth/delete_booked_order/${orderId}`, {
-            headers: {
-                Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
-            }
-        }).then(res => {
-            let msg = res.data.msg;
-
-            let HTML = `<p class="success-message">${msg}</p>`;
-
-            document.querySelector(".success").innerHTML += HTML;
-
-            setTimeout(() => {
-                document.querySelector(".success").innerHTML = "";
-
-                // window.location.href = "/home";
-
-            }, 3000)
-            window.location.reload();
-        }).catch(err => {
-            console.log(err);
-
-        })
-    })
-})
-
-document.querySelectorAll("#canceledOrder_delete").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-        let URL = document.URL.split("4unique-admin")[0];
-
-
-
-        const user = JSON.parse(localStorage.getItem("user"));
-
-        let { orderId } = e.target.dataset;
-
-        axios.delete(URL + `api/v1/auth/delete_order/${orderId}`, {
-            headers: {
-                Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
-            }
-        }).then(res => {
-            let msg = res.data.msg;
-
-            let HTML = `<p class="success-message">${msg}</p>`;
-
-            document.querySelector(".success").innerHTML += HTML;
-
-            setTimeout(() => {
-                document.querySelector(".success").innerHTML = "";
-
-                // window.location.href = "/home";
-
-            }, 3000)
-            window.location.reload();
-        }).catch(err => {
-            console.log(err);
-
-        })
-    })
-})
-document.querySelectorAll("#deliveredOrder_delete").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-        let URL = document.URL.split("4unique-admin")[0];
-
-
-
-        const user = JSON.parse(localStorage.getItem("user"));
-
-        let { orderId } = e.target.dataset;
-
-        axios.delete(URL + `api/v1/auth/delete_order/${orderId}`, {
-            headers: {
-                Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
-            }
-        }).then(res => {
-            let msg = res.data.msg;
-
-            let HTML = `<p class="success-message">${msg}</p>`;
-
-            document.querySelector(".success").innerHTML += HTML;
-
-            setTimeout(() => {
-                document.querySelector(".success").innerHTML = "";
-
-                // window.location.href = "/home";
-
-            }, 3000)
-            window.location.reload();
-        }).catch(err => {
-            console.log(err);
-
-        })
-    })
-})
-
-
-document.querySelectorAll("#pendingOrder_delete").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-        let URL = document.URL.split("4unique-admin")[0];
-
-
-
-        const user = JSON.parse(localStorage.getItem("user"));
-
-        let { orderId } = e.target.dataset;
-
-        axios.delete(URL + `api/v1/auth/delete_order/${orderId}`, {
-            headers: {
-                Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
-            }
-        }).then(res => {
-            let msg = res.data.msg;
-
-            let HTML = `<p class="success-message">${msg}</p>`;
-
-            document.querySelector(".success").innerHTML += HTML;
-
-            setTimeout(() => {
-                document.querySelector(".success").innerHTML = "";
-
-                // window.location.href = "/home";
-
-            }, 3000)
-            window.location.reload();
-        }).catch(err => {
-            console.log(err);
-
-        })
-    })
-})
-
-
-document.querySelector("#show_reports").addEventListener("click", (e) => {
-    document.querySelector(".edit").classList.add("hide");
-    document.querySelector(".not-edit").classList.add("hide");
-    document.querySelector("#order_page").classList.add("hide");
-    document.querySelector("#reports").classList.toggle("hide");
-})
-
-document.querySelector("#back_reports").addEventListener("click", (e) => {
-
-    document.querySelector(".not-edit").classList.toggle("hide");
-    document.querySelector("#reports").classList.toggle("hide");
-})
-
-
-
-
-
-/*
-all_pending
-all_delivered
-all_canceled
-
-*/
-
-// #order_container_search
-document.querySelector("#admin-dashboard-link").addEventListener("click", (e) => {
-    document.querySelector(".not-edit").classList.toggle("hide");
-    document.querySelector("#admin-dashboard").classList.toggle("hide");
-})
-
-document.querySelector("#back_from_dashboard").addEventListener("click", (e) => {
-    document.querySelector(".not-edit").classList.toggle("hide");
-    document.querySelector("#admin-dashboard").classList.toggle("hide");
-})
-document.querySelector("#back_from_pending").addEventListener("click", (e) => {
-    document.querySelector("#all_pending_orders").classList.toggle("hide");
-    document.querySelector("#admin-dashboard").classList.toggle("hide");
-})
-document.querySelector("#back_from_delivered").addEventListener("click", (e) => {
-    document.querySelector("#all_delivered_orders").classList.toggle("hide");
-    document.querySelector("#admin-dashboard").classList.toggle("hide");
-})
-document.querySelector("#back_from_canceled").addEventListener("click", (e) => {
-    document.querySelector("#all_canceled_orders").classList.toggle("hide");
-    document.querySelector("#admin-dashboard").classList.toggle("hide");
-})
-document.querySelector("#back_from_users").addEventListener("click", (e) => {
-    document.querySelector(".not-edit").classList.add("hide");
-    document.querySelector("#all_users").classList.add("hide");
-    document.querySelector("#admin-dashboard").classList.toggle("hide");
-})
-document.querySelector("#back_from__edit_users").addEventListener("click", (e) => {
-    document.querySelector(".not-edit").classList.add("hide");
-    document.querySelector("#all_users").classList.toggle("hide");
-    document.querySelector("#admin-dashboard").classList.add("hide");
-    document.querySelector("#edit_user_form").classList.add("hide");
-})
-document.querySelector("#show_all_users").addEventListener("click", (e) => {
-    document.querySelector(".not-edit").classList.add("hide");
-    document.querySelector("#all_users").classList.toggle("hide");
-    document.querySelector("#admin-dashboard").classList.add("hide");
-})
-document.querySelector("#show_pending_orders").addEventListener("click", (e) => {
-    document.querySelector(".not-edit").classList.add("hide");
-    document.querySelector("#all_users").classList.add("hide");
-    document.querySelector("#admin-dashboard").classList.add("hide");
-    document.querySelector("#all_pending_orders").classList.toggle("hide");
-})
-document.querySelector("#show_delivered_orders").addEventListener("click", (e) => {
-    document.querySelector(".not-edit").classList.add("hide");
-    document.querySelector("#all_users").classList.add("hide");
-    document.querySelector("#admin-dashboard").classList.add("hide");
-    document.querySelector("#all_delivered_orders").classList.toggle("hide");
-})
-document.querySelector("#show_canceled_orders").addEventListener("click", (e) => {
-    document.querySelector(".not-edit").classList.add("hide");
-    document.querySelector("#all_users").classList.add("hide");
-    document.querySelector("#admin-dashboard").classList.add("hide");
-    document.querySelector("#all_canceled_orders").classList.toggle("hide");
-})
-
-
-
-
-
-
-document.querySelector("#delete_all_canceled").addEventListener("click", (e) => {
-    // delivered_all_delete
-    let URL = document.URL.split("4unique-admin")[0];
-
-
-
-    const user = JSON.parse(localStorage.getItem("user"));
-
-
-
-    axios.delete(URL + `api/v1/auth/canceled_all_delete`, {
-        headers: {
-            Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
-        }
-    }).then(res => {
-        console.log(res);
-
-        let msg = res.data.msg;
-
-        let HTML = `<p class="success-message">${msg}</p>`;
-
-        document.querySelector(".success").innerHTML += HTML;
-
-        setTimeout(() => {
-            document.querySelector(".success").innerHTML = "";
-
-            // window.location.href = "/home";
-
-        }, 3000)
-        window.location.reload();
-
-
-    }).catch(err => {
-        console.log(err);
-
-    })
-})
-document.querySelector("#delete_all_delivered").addEventListener("click", (e) => {
-    // delivered_all_delete
-    let URL = document.URL.split("4unique-admin")[0];
-
-
-
-    const user = JSON.parse(localStorage.getItem("user"));
-
-
-
-    axios.delete(URL + `api/v1/auth/delivered_all_delete`, {
-        headers: {
-            Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
-        }
-    }).then(res => {
-        console.log(res);
-
-        let msg = res.data.msg;
-
-        let HTML = `<p class="success-message">${msg}</p>`;
-
-        document.querySelector(".success").innerHTML += HTML;
-
-        setTimeout(() => {
-            document.querySelector(".success").innerHTML = "";
-
-            // window.location.href = "/home";
-
-        }, 3000)
-        window.location.reload();
-
-
-    }).catch(err => {
-        console.log(err);
-
-    })
-})
-
-
-
-
-
-
-
-
-
-document.querySelector("#show_booked_orders_with_completed").addEventListener("click", (e) => {
-    // all_completed_orders
-    document.querySelector("#all_completed_orders").classList.toggle("hide");
-})
-
-document.querySelector("#back_from_completed").addEventListener("click", (e) => {
-    // all_completed_orders
-    document.querySelector("#all_completed_orders").classList.toggle("hide");
 })

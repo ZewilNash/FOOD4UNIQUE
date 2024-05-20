@@ -25,7 +25,12 @@
 </head>
 
 <body>
+<!-- 
 
+    quantity
+alsoLike
+reviewTile
+ -->
 
     <%- include("loader.ejs") %>
 
@@ -58,6 +63,7 @@
                                 class="fa-solid fa-heart"></i>
     
                                 <input 
+                                data-lang="quantity"
                                 style="width: 50%;"
                                 placeholder="quantity" id="food_qty" 
                                 data-food-name="<%= food.name %>"
@@ -109,7 +115,7 @@
 
         <% if(alsoLike.length > 0){ %>
         <div class="alsolike container mt-5" style="margin-top: 30px;">
-            <h1 style="font-size: 40px;text-decoration: underline;text-align: center;margin-top: 50px;"
+            <h1 data-lang="alsoLike" style="font-size: 40px;text-decoration: underline;text-align: center;margin-top: 50px;"
                 class="mt-5 mb-5">YOU MAY ALSO LIKE</h1>
             <div class="row alsolike-container mt-5">
 
@@ -130,6 +136,7 @@
                             <i data-food-id="<%= alsoLike[i]._id %>" id="fav_btn" class="fa-solid fa-heart"></i>
     
                             <input 
+                            data-lang="quantity"
                             style="width: 50%;"
                             placeholder="quantity" id="food_qty" 
                             data-food-name="<%= alsoLike[i].name %>" 

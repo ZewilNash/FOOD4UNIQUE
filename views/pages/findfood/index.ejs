@@ -47,16 +47,17 @@
 
         <% if(msg){ %>
             <h1 
+            data-lang="find_1"
             class="mt-5"
             style="text-align: center;"><%= msg %></h1>
 
-            <a style="text-align: center;color: #000;margin-top: 10px;font-size: 25px;" href="/food">DISCOVER ALL FOOD</a>
+            <a data-lang="find_2" style="text-align: center;color: #000;margin-top: 10px;font-size: 25px;" href="/food">DISCOVER ALL FOOD</a>
 
           <% } else if (products.length > 0){ %> 
             
             <h1 
             class="mt-5"
-            style="text-align: center;">Results:<%= products.length %></h1>
+            style="text-align: center;"><span data-lang="find_3">Results</span>:<%= products.length %></h1>
             
             <% for(var i = 0; i < products.length; i++) { %>
                 <div class="col-md-4 food-item">
@@ -78,6 +79,7 @@
                         >
         
                         <input 
+                        data-lang="quantity"
                         style="width: 50%;"
                         placeholder="quantity" id="food_qty" 
                         data-food-name="<%= products[i].name %>"

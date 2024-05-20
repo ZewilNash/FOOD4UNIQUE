@@ -6,6 +6,7 @@ const Report = require("../modals/Report");
 const BookedOrder = require("../modals/BookedOrder");
 const Food = require("../modals/Product");
 const FoodReview = require("../modals/FOODREVIEW");
+const Category = require("../modals/CATEGORY");
 
 
 const signup = async (req,res) => {
@@ -464,7 +465,7 @@ const makeReview = async (req,res) => {
 const getFoodReviews = async (req,res) => {
     const {id} = req.params;
     const food = await Food.find({_id:id});
-    
+
     if(food.lenght === 0){
         return res.status(404).json({msg:"Food Not Found" , success:false});
     }
@@ -488,6 +489,63 @@ const deleteReview = async (req,res) => {
     await FoodReview.findOneAndDelete({_id:id});
 
     res.status(200).json({success:true, msg:"Review Deleted Successfully"})
+}
+
+const createCategory = async (req,res) => {
+    const {category , image} = req.body;
+
+    const foodCategories = await Food.find({}, { category: 1, _id: 0 })
+
+
+    const found = foodCategories.some(el => el.category === category);
+
+    if (found){
+        return res.status(400).json({msg:"Category already exists" , success:false});
+    }
+
+    const categoryItem = await Category.create({
+        category,
+        image
+    });
+
+    res.status(201).json({success:true,msg:"Category Has Been Added Successfully" , category:categoryItem})
+
+
+}
+
+const getCategory = async (req,res) => {
+    const categories = await Category.find({});
+
+    res.status(200).json({success:true,categories})
+}
+
+const deleteCategory = async (req,res) => {
+    const {category} = req.params;
+
+    const check = await Category.find({category:category});
+
+    if(check.length === 0){
+        return res.status(404).json({msg:"category Not Found" , success:false});
+    }
+
+    await Category.findOneAndDelete({category:category});
+
+    res.status(200).json({success:true,msg:"Category Deleted Successfully"});
+}
+
+const updateCategory = async (req,res) => {
+    const {category} = req.params;
+    const {categoryItem , image} = req.body;
+
+    const check = await Category.find({category:category});
+
+    if(check.length === 0){
+        return res.status(404).json({msg:"category Not Found" , success:false});
+    }
+
+    await Category.findOneAndUpdate({category:category} , {category:categoryItem , image} , {useFindAndModify:false});
+
+    res.status(200).json({success:true,msg:"Category Updated Successfully"});
 }
 
 module.exports = {
@@ -523,5 +581,9 @@ module.exports = {
     editBookedOrder,
     makeReview,
     getFoodReviews,
-    deleteReview
+    deleteReview,
+    createCategory,
+    getCategory,
+    deleteCategory,
+    updateCategory
 }

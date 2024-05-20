@@ -53,7 +53,7 @@
                <div class="row" style="width: 100%;height: 100%;">
                    <div style="display: flex;justify-content: center;align-items: center;flex-direction: column;height: 100%;width: 100%;" class="col-md-12">
                        <img style="width: auto;height: auto;object-fit: cover;" src="./images/cart_empty.gif" alt="">
-                       <a class="mt-5" style="font-size: 25px;color: #000;" href="/food">Explore & Add To Cart</a>
+                       <a data-lang="cart_1" class="mt-5" style="font-size: 25px;color: #000;" href="/food">Explore & Add To Cart</a>
                    </div>
                </div>
            </div>
@@ -83,7 +83,7 @@
                             style="outline: none;border-top: none;border-left: none;border-right: none;border-bottom: 1px solid #000;font-size: 20px;"
                             placeholder="quantity" id="update_qty" type="number" min="1">
                         <button 
-    
+                        data-lang="cart_2"
                         data-food-id="<%= products[i].food._id %>"
                         id="update_item"
                         style="padding: 10px;outline: none;border: none;font-size: 20px;"
@@ -91,7 +91,7 @@
     
     
                         </div>
-                        <button data-food-id="<%= products[i].food._id %>" id="remove_item" style="padding: 10px;outline: none;border: none;background-color: red;color: #fff;font-size: 20px;">Remove From Cart</button>
+                        <button data-lang="cart_3" data-food-id="<%= products[i].food._id %>" id="remove_item" style="padding: 10px;outline: none;border: none;background-color: red;color: #fff;font-size: 20px;">Remove From Cart</button>
                     </div>
     
                  
@@ -104,14 +104,14 @@
             <% } %>
 
             <div style="display: flex;justify-content: space-between;margin-top: 10px;" class="summery">
-                <h1>TOTAL</h1>
+                <h1 data-lang="cart_4">TOTAL</h1>
                 <h1><%= total %></h1>
             </div>
         
             <div class="container">
                 <div class="row">
                     <div class="col-md-12" style="display: flex;justify-content: center;width: 100vw;margin-top: 10px;">
-                        <button id="order_btn" style="color: #fff;background-color: #000;padding: 10px;width: 80%;font-size: 20px;">Order Now</button>
+                        <button data-lang="cart_5" id="order_btn" style="color: #fff;background-color: #000;padding: 10px;width: 80%;font-size: 20px;">Order Now</button>
                     </div>
                 </div>
             </div>
@@ -132,25 +132,25 @@
     <div class="" style="display: flex;justify-content: space-around;width: 100%;margin-top: 20px;">
         <h1 style="font-size: 30px;">TOTAL: <%= total %></h1>
         <input id="amount" type="text" hidden value="<%= total %>" >
-        <span id="back-to-cart" style="font-size: 20px;cursor: pointer;">Back To Cart</span>
+        <span data-lang="cart_6" id="back-to-cart" style="font-size: 20px;cursor: pointer;">Back To Cart</span>
     </div>
     <!-- form for order details -->
     <div class="container">
         <div class="row">
             <form class="col-md-12">
                 
-                <label for="name">This Ordered By (Confirm Your Name)?</label>
+                <label data-lang="cart_7" for="name">This Ordered By (Confirm Your Name)?</label>
                 <input type="text" name="" id="order_name">
 
-                <label for="email"> Email (Email To Inform You About Your Order)?</label>
+                <label data-lang="cart_8" for="email"> Email (Email To Inform You About Your Order)?</label>
                 
                 <input type="email" name="" id="order_email">
 
-                <label for="phone"> Phone Number (Phone Number To Inform You About Your Order)?</label>
+                <label data-lang="cart_9" for="phone"> Phone Number (Phone Number To Inform You About Your Order)?</label>
                 
                 <input type="tel" name="" id="order_phone">
 
-                <label for="address">Your Address</label>
+                <label data-lang="cart_10" for="address">Your Address</label>
                 
                 <input 
                 type="text" name="" id="order_address">
@@ -161,18 +161,26 @@
 
                 </select>
 
-                <div class="state_city_zip">
-                    <input id="order_state" placeholder="Your Province " type="text">
-                    <input id="order_country" placeholder="Your Country" type="text">
-                    <input id="order_zip_code" placeholder="Your Zip Code" type="number">
+                <div style="display: flex;flex-direction: column;" class="state_city_zip">
+                    <label data-lang="cart_11" for="address">Your Province</label>
+                
+                    <input  id="order_state" type="text">
+
+                    <label data-lang="cart_12" for="address">Your Country</label>
+                    <input id="order_country" type="text">
+
+                    <label data-lang="cart_13" for="address">Your Zip Code</label>
+                    <input id="order_zip_code"  type="number">
                 </div>
 
-                <input id="order_road" placeholder="Your Road" type="text">
+                <label data-lang="cart_14" for="address">Your Road</label>
+                <input id="order_road" type="text">
 
-                <div class="state_city_zip">
-                    
-                    <input id="order_village" placeholder="Your Village" type="text">
-                    <input id="order_leisure" placeholder="Your Leisure" type="text">
+                <div style="display: flex;flex-direction: column;" class="state_city_zip">
+                    <label data-lang="cart_15" for="address">Your Village</label>
+                    <input id="order_village" type="text">
+                    <label data-lang="cart_16" for="address">Your Leisure</label>
+                    <input id="order_leisure" type="text">
                     
                 </div>
 
@@ -181,14 +189,14 @@
 
             </form>
 
-            <button id="auto_fill_btn" style="color: #fff;background-color: #000;outline: none;border: none;padding: 4px;width: 100%;font-size: 18px;display: flex;justify-content: center;align-items: center;">Fill Most Of Info Automatically</button>
-            <small style="text-align: center;font-size: 15px;">Turn On Location!</small>
-            <small style="text-align: center;font-size: 15px;">This Sevice May Not Working Well In The Future</small>
-            <small style="text-align: center;font-size: 15px;">If This Happen You Need To Fill Your Info Manually</small>
+            <button data-lang="cart_17" id="auto_fill_btn" style="color: #fff;background-color: #000;outline: none;border: none;padding: 4px;width: 100%;font-size: 18px;display: flex;justify-content: center;align-items: center;">Fill Most Of Info Automatically</button>
+            <small data-lang="cart_18" style="text-align: center;font-size: 15px;">Turn On Location!</small>
+            <small data-lang="cart_19" style="text-align: center;font-size: 15px;">This Sevice May Not Working Well In The Future</small>
+            <small data-lang="cart_20" style="text-align: center;font-size: 15px;">If This Happen You Need To Fill Your Info Manually</small>
 
-            <p class="mt-5" style="text-align: center;border-bottom: 1px solid gray;font-size: 18px;">Choose Payment Method</p>
+            <p data-lang="cart_21" class="mt-5" style="text-align: center;border-bottom: 1px solid gray;font-size: 18px;">Choose Payment Method</p>
 
-            <button  data-bs-toggle="modal" data-bs-target="#book_order_modal" class="mt-5" id="book_a_food" style="color: #fff;background-color: #000;outline: none;border: none;padding: 10px;width: 100%;font-size: 18px;display: flex;justify-content: center;align-items: center;">PAY & BOOK AN ORDER & TAKEAWAY FROM OUR PLACE</button>
+            <button data-lang="cart_22" data-bs-toggle="modal" data-bs-target="#book_order_modal" class="mt-5" id="book_a_food" style="color: #fff;background-color: #000;outline: none;border: none;padding: 10px;width: 100%;font-size: 18px;display: flex;justify-content: center;align-items: center;">PAY & BOOK AN ORDER & TAKEAWAY FROM OUR PLACE</button>
 
             <!-- <button style="outline: none;border: none;background-color: ;" class="mt-3">Calculate Delivery Cost</button>
             <small style="text-align: center;">
@@ -214,21 +222,21 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-         <h1 style="text-align: center;margin-bottom: 10px;">OUR PLACE:</h1>
+         <h1 data-lang="cart_23" style="text-align: center;margin-bottom: 10px;">OUR PLACE:</h1>
          <p style="text-align: center;padding: 10px;background-color: #000;font-size: 20px;color: #fff;">
             Jalan Lidah Wetan Gang V No. 43, RT 04 RW 02, Lidah Wetan, Lakarsantri, Surabaya, East Java, Java, 60213, Indonesia
         </p>
           <form style="display: flex;justify-content: center;align-items: center;padding: 20px;flex-direction: column;gap: 20px;font-size: 20px;">
-            <label style="text-align: center;" for="book_food_date">YOU WANT US TO PREPARE YOUR FOOD AT?</label>
+            <label data-lang="cart_24" style="text-align: center;" for="book_food_date">YOU WANT US TO PREPARE YOUR FOOD AT?</label>
             <input type="date" id="book_food_date">
 
-            <label style="text-align: center;" for="book_food_time">YOU WILL COME TO TAKE YOUR FOOD AT WHAT TIME?</label>
+            <label data-lang="cart_25" style="text-align: center;" for="book_food_time">YOU WILL COME TO TAKE YOUR FOOD AT WHAT TIME?</label>
 
             <input type="time" id="book_food_time">
 
            
 
-            <button  id="pay-button_book" class="mt-5" id="auto_fill_btn" style="color: #fff;background-color: #000;outline: none;border: none;padding: 10px;width: 100%;font-size: 18px;display: flex;justify-content: center;align-items: center;">PAY WITH DANA,VIRTUAL ACCOUNT AND MORE..</button>
+            <button data-lang="cart_26" id="pay-button_book" class="mt-5" id="auto_fill_btn" style="color: #fff;background-color: #000;outline: none;border: none;padding: 10px;width: 100%;font-size: 18px;display: flex;justify-content: center;align-items: center;">PAY WITH DANA,VIRTUAL ACCOUNT AND MORE..</button>
 
           </form>
         </div>

@@ -42,9 +42,27 @@ window.onload = () => {
 
         if(userOrders.length > 0){
             document.querySelector("#track_orders").setAttribute("href" , `/user_orders/${user.user._id}`);
+
+            document.querySelector("#track_orders").setAttribute("data-lang" , `track`);
+
             document.querySelector("#track_orders").innerText = "Track Your Orders Status"
             document.querySelector(".track").classList.toggle("hide")
         }
+
+        const setLanguage = (language) => {
+          document.querySelectorAll("[data-lang]").forEach(element => {
+            const translationKey = element.getAttribute("data-lang")
+        
+            if (element.getAttribute('id') === "food_qty") {
+              element.placeholder = translations[language][translationKey]
+            } else {
+              element.innerText = translations[language][translationKey]
+            }
+          })
+        }
+        
+        const langParams = localStorage.getItem("lang") || "en"
+        setLanguage(langParams)
         
     }).catch(err => {
         console.log(err);
@@ -224,3 +242,68 @@ document.querySelectorAll("#add_to_cart_btn").forEach(btn => {
      
     })
   })
+
+
+  // language setup
+const translations = {
+  en: {
+    search: "Search Food By Name",
+    discover: "DISCOVER ALL",
+    categories: "CATEGORIES",
+    egyptian: "EGYPTIAN",
+    indonesian: "INSONESIAN",
+    egyindo: "EGYINDO",
+    vip: "VIP",
+    desserts: "DESSERTS",
+    about: "ABOUT",
+    contact: "CONTACT",
+    track: "TRACK YOUR ORDERS STATUS",
+    favourites: "MY FAVOURITES",
+    quantity: "quantity",
+    alsoLike: "YOU MAY ALSO LIKE",
+    reviewTile: "SOME OF OUR CUSTOMERS REVIEWS",
+    fav_1:"YOU DIDN'T ADD TO FAVOURITE",
+    fav_2:"Explore & Add To Favourite"
+  },
+
+  in: {
+    search: "Cari Makanan Berdasarkan Nama",
+    discover: "TEMUKAN SEMUA",
+    categories: "KATEGORI",
+    egyptian: "MESIR",
+    indonesian: "INDONESIA",
+    egyindo: "MESIR&INDONESIA",
+    vip: "VIP",
+    desserts: "HIDANGAN PENUTUP",
+    about: "TENTANG KAMI",
+    // HUBUNGI KAMI
+    contact: "HUBUNGI KAMI",
+    // MELACAK STATUS PESANAN ANDA
+    track: "MELACAK STATUS PESANAN ANDA",
+    // FAVORIT SAYA
+    favourites: "FAVORIT SAYA",
+    quantity: "kuantitas",
+    alsoLike: "ANDA MUNGKIN JUGA SUKA",
+    reviewTile: "BEBERAPA ULASAN PELANGGAN",
+    fav_1:"ANDA TIDAK MENAMBAHKAN KE FAVORIT",
+    fav_2:"Jelajahi & Tambahkan Ke Favorit"
+  }
+}
+
+// load the select images
+
+
+const setLanguage = (language) => {
+  document.querySelectorAll("[data-lang]").forEach(element => {
+    const translationKey = element.getAttribute("data-lang")
+
+    if (element.getAttribute('id') === "food_qty") {
+      element.placeholder = translations[language][translationKey]
+    } else {
+      element.innerText = translations[language][translationKey]
+    }
+  })
+}
+
+const langParams = localStorage.getItem("lang") || "en"
+setLanguage(langParams)

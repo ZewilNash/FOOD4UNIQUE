@@ -52,9 +52,27 @@ window.onload = () => {
 
         if(userOrders.length > 0){
             document.querySelector("#track_orders").setAttribute("href" , `/user_orders/${user.user._id}`);
+
+            document.querySelector("#track_orders").setAttribute("data-lang" , `track`);
+
             document.querySelector("#track_orders").innerText = "Track Your Orders Status"
             document.querySelector(".track").classList.toggle("hide")
         }
+
+        const setLanguage = (language) => {
+            document.querySelectorAll("[data-lang]").forEach(element => {
+              const translationKey = element.getAttribute("data-lang")
+          
+              if (element.getAttribute('id') === "food_qty") {
+                element.placeholder = translations[language][translationKey]
+              } else {
+                element.innerText = translations[language][translationKey]
+              }
+            })
+          }
+          
+          const langParams = localStorage.getItem("lang") || "en"
+          setLanguage(langParams)
         
     }).catch(err => {
         console.log(err);
@@ -109,3 +127,75 @@ document.querySelector("#sendReport").addEventListener("click", (e) => {
     })
     
 })
+
+// language setup
+const translations = {
+    en: {
+      search: "Search Food By Name",
+      discover: "DISCOVER ALL",
+      categories: "CATEGORIES",
+      egyptian: "EGYPTIAN",
+      indonesian: "INSONESIAN",
+      egyindo: "EGYINDO",
+      vip: "VIP",
+      desserts: "DESSERTS",
+      about: "ABOUT",
+      contact: "CONTACT",
+      track: "TRACK YOUR ORDERS STATUS",
+      favourites: "MY FAVOURITES",
+      quantity: "quantity",
+      alsoLike: "YOU MAY ALSO LIKE",
+      reviewTile: "SOME OF OUR CUSTOMERS REVIEWS",
+      contact_1:"ORDER ID",
+      contact_2:"HOW WE CAN HELP YOU?",
+      contact_3:"Please provide all the information about your issue.",
+      contact_4:"Whatsapp us",
+      contact_5:"Before You Whatsapp us please keep your order id,we will ask you about before you apply your report",
+      contact_6:"SUBMIT"
+    },
+  
+    in: {
+      search: "Cari Makanan Berdasarkan Nama",
+      discover: "TEMUKAN SEMUA",
+      categories: "KATEGORI",
+      egyptian: "MESIR",
+      indonesian: "INDONESIA",
+      egyindo: "MESIR&INDONESIA",
+      vip: "VIP",
+      desserts: "HIDANGAN PENUTUP",
+      about: "TENTANG KAMI",
+      // HUBUNGI KAMI
+      contact: "HUBUNGI KAMI",
+      // MELACAK STATUS PESANAN ANDA
+      track: "MELACAK STATUS PESANAN ANDA",
+      // FAVORIT SAYA
+      favourites: "FAVORIT SAYA",
+      quantity: "kuantitas",
+      alsoLike: "ANDA MUNGKIN JUGA SUKA",
+      reviewTile: "BEBERAPA ULASAN PELANGGAN",
+      contact_1:"ID PEMESANAN",
+      contact_2:"BAGAIMANA KAMI DAPAT MEMBANTU ANDA?",
+      contact_3:"Harap berikan semua informasi tentang masalah Anda.",
+      contact_4:"Whatsapp kami",
+      contact_5:"Sebelum Anda Whatsapp kami, harap simpan id pesanan Anda, kami akan menanyakannya kepada Anda sebelum Anda menerapkan laporan Anda",
+      contact_6:"KIRIM"
+    }
+  }
+  
+  // load the select images
+  
+  
+  const setLanguage = (language) => {
+    document.querySelectorAll("[data-lang]").forEach(element => {
+      const translationKey = element.getAttribute("data-lang")
+  
+      if (element.getAttribute('id') === "food_qty") {
+        element.placeholder = translations[language][translationKey]
+      } else {
+        element.innerText = translations[language][translationKey]
+      }
+    })
+  }
+  
+  const langParams = localStorage.getItem("lang") || "en"
+  setLanguage(langParams)

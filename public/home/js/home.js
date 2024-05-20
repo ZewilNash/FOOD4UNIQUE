@@ -22,10 +22,30 @@ window.onload = () => {
         console.log(userOrders);
 
         if (userOrders.length > 0) {
+            
             document.querySelector("#track_orders").setAttribute("href", `/user_orders/${user.user._id}`);
+
+            document.querySelector("#track_orders").setAttribute("data-lang", `track`);
+
+
             document.querySelector("#track_orders").innerText = "Track Your Orders Status"
             document.querySelector(".track").classList.toggle("hide")
         }
+
+        const setLanguage = (language) => {
+            document.querySelectorAll("[data-lang]").forEach(element => {
+              const translationKey = element.getAttribute("data-lang")
+          
+              if (element.getAttribute('id') === "food_qty") {
+                element.placeholder = translations[language][translationKey]
+              } else {
+                element.innerText = translations[language][translationKey]
+              }
+            })
+          }
+          
+          const langParams = localStorage.getItem("lang") || "en"
+          setLanguage(langParams)
 
     }).catch(err => {
         console.log(err);
@@ -62,6 +82,23 @@ window.onload = () => {
         console.log(err);
 
     })
+
+    const setLanguage = (language) => {
+        document.querySelectorAll("[data-lang]").forEach(element => {
+            const translationKey = element.getAttribute("data-lang")
+            
+            if(element.getAttribute('id') === "search-food-text"){
+                element.placeholder = translations[language][translationKey]
+            }else {
+                element.innerText = translations[language][translationKey]
+            }
+        })
+    }
+
+    if(localStorage.getItem("lang")){
+        setLanguage(localStorage.getItem("lang"))
+    }
+
 }
 
 const categories = [
@@ -103,9 +140,9 @@ let HTML = "";
 
 categories.forEach(cat => {
     HTML += `
-        <a href="/food/${cat.name.toLowerCase()}"class="col-md-4 category mt-5">
+        <a style="text-align:center;font-size:17px" href="/food/${cat.name.toLowerCase()}"class="col-md-4 category mt-5">
             <img style="width:100%;height:350px;object-fit-contain" src="${cat.image}" />
-            <p>${cat.name === "BEST FOOD" ? "NEW" : cat.name.split(" ")[0]}</p>
+            <p data-lang="${cat.name.split(" ")[0].toLowerCase()}">${cat.name === "BEST FOOD" ? "NEW" : cat.name.split(" ")[0]}</p>
         </a>
     `;
 
@@ -226,4 +263,60 @@ pusher.subscribe('notifications')
         }
 });
 
+// translation section
+
+const translations = {
+    en:{
+       search:"Search Food By Name",
+       discover:"DISCOVER ALL",
+       categories:"CATEGORIES",
+       egyptian:"EGYPTIAN",
+       indonesian:"INSONESIAN",
+       egyindo:"EGYINDO",
+       vip:"VIP",
+       desserts:"DESSERTS",
+       about:"ABOUT",
+       contact:"CONTACT",
+       track:"TRACK YOUR ORDERS STATUS",
+       favourites:"MY FAVOURITES",
+       quantity:"quantity"
+    }, 
+
+    in:{
+        search:"Cari Makanan Berdasarkan Nama",
+        discover:"TEMUKAN SEMUA",
+        categories:"KATEGORI",
+        egyptian:"MESIR",
+        indonesian:"INDONESIA",
+        egyindo:"MESIR&INDONESIA",
+        vip:"VIP",
+        desserts:"HIDANGAN PENUTUP",
+        about:"TENTANG KAMI",
+        // HUBUNGI KAMI
+        contact:"HUBUNGI KAMI",
+        // MELACAK STATUS PESANAN ANDA
+        track:"MELACAK STATUS PESANAN ANDA",
+        // FAVORIT SAYA
+        favourites:"FAVORIT SAYA",
+        quantity:"kuantitas"
+    }
+}
+
+// load the select images
+document.querySelector("#country-select").addEventListener("change" , (e) => {
+    setLanguage(e.target.value)
+    localStorage.setItem("lang" , e.target.value)
+  })
+
+const setLanguage = (language) => {
+    document.querySelectorAll("[data-lang]").forEach(element => {
+        const translationKey = element.getAttribute("data-lang")
+        
+        if(element.getAttribute('id') === "search-food-text"){
+            element.placeholder = translations[language][translationKey]
+        }else {
+            element.innerText = translations[language][translationKey]
+        }
+    })
+}
 

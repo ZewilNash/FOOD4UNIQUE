@@ -355,7 +355,7 @@ app.get("/4unique-admin", async (req, res) => {
 
     
 
-    const users = await User.find({}).sort("-createdAt");;
+    const users = await User.find({}).sort("-createdAt");
     const usersLength = users.length
 
     const productsLength = products.length;

@@ -20,7 +20,7 @@
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 
     <link rel="stylesheet" href="./css/home.css">
-
+  
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -58,6 +58,10 @@
 
         <main>
 
+            <select style="position: absolute;top: 48px;left: 50%;transform: translate(-50%,-50%);outline: none;border: none;padding: 10px;display: flex;background-color: #000;color: #fff;font-size: 18px;" id="country-select">
+                <option value="en">bahasa inggris</option>
+                <option value="in">bahasa Indonesia</option>
+            </select>
 
             <%- include("section1.ejs") %>
 

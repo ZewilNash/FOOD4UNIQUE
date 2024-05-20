@@ -178,7 +178,7 @@ document.querySelectorAll("#food_qty").forEach(btn => {
         id: "my-popup",
         title: "FOOD4UNIQUE",
         content: `
-        THE MINIMUM TO ADD TO CART IS 1`,
+        ${localStorage.getItem("lang") === "in" ? "MINIMAL UNTUK TAMBAHKAN KE KERANJANG ADALAH 1" : "THE MINIMUM TO ADD TO CART IS 1"}`,
             showImmediately: true,
             textColor:"red"
     });
@@ -195,7 +195,7 @@ document.querySelectorAll("#food_qty").forEach(btn => {
         id: "my-popup",
         title: "FOOD4UNIQUE",
         content: `
-        THE MINIMUM TO ADD TO CART IS 1`,
+        ${localStorage.getItem("lang") === "in" ? "MINIMAL UNTUK TAMBAHKAN KE KERANJANG ADALAH 1" : "THE MINIMUM TO ADD TO CART IS 1"}`,
             showImmediately: true,
             textColor:"red"
     });
@@ -247,7 +247,7 @@ document.querySelectorAll("#fav_btn").forEach(b => {
       const myPopup = new Popup({
         id: "my-popup",
         title: "FOOD4UNIQUE",
-        content: `${msg_data}`,
+        content: `${localStorage.getItem("lang") === "in" ? "ITEM BERHASIL DITAMBAHKAN KE FAVORIT" : msg_data}`,
             showImmediately: true,
             textColor:"green"
     });
@@ -264,7 +264,7 @@ document.querySelectorAll("#fav_btn").forEach(b => {
       const myPopup = new Popup({
         id: "my-popup",
         title: "FOOD4UNIQUE",
-        content: `${msg}`,
+        content: `${localStorage.getItem("lang") === "in" ? "ITEM SUDAH DITAMBAHKAN KE FAVORIT" : msg}`,
             showImmediately: true,
             textColor:"red"
     });
@@ -296,7 +296,7 @@ document.querySelectorAll("#add_to_cart_btn").forEach(btn => {
       const myPopup = new Popup({
         id: "my-popup",
         title: "FOOD4UNIQUE",
-        content: `THE MINIMUM TO ADD TO CART IS 1`,
+        content: `${localStorage.getItem("lang") === "in" ? "MINIMAL UNTUK TAMBAHKAN KE KERANJANG ADALAH 1" : "THE MINIMUM TO ADD TO CART IS 1"}`,
             showImmediately: true,
             textColor:"red"
     });

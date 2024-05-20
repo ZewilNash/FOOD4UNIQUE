@@ -269,7 +269,7 @@ document.querySelectorAll("#update_qty_container").forEach(elem => {
       const myPopup = new Popup({
         id: "my-popup",
         title: "FOOD4UNIQUE",
-        content: `THE MINIMUM TO ADD TO CART IS 1`,
+        content: `${localStorage.getItem("lang") === "in" ? "MINIMAL UNTUK TAMBAHKAN KE KERANJANG ADALAH 1" : "THE MINIMUM TO ADD TO CART IS 1"}`,
         showImmediately: true,
         textColor: "red"
       });
@@ -704,7 +704,8 @@ document.querySelector("#order_phone").addEventListener("focusout", (event) => {
     const myPopup = new Popup({
       id: "my-popup",
       title: "FOOD4UNIQUE",
-      content: `PLEASE ENTER A VALID NUMBER (EX:+62212341234)`,
+      content: `${localStorage.getItem("lang") === "in" ? `HARAP MASUKKAN NOMOR YANG VALID (CONTOH:+62212341234)
+      ` : "PLEASE ENTER A VALID NUMBER (EX:+62212341234)"}`,
       showImmediately: true,
       textColor: "red"
     });
@@ -729,7 +730,7 @@ document.querySelectorAll("#update_qty").forEach(btn => {
       const myPopup = new Popup({
         id: "my-popup",
         title: "FOOD4UNIQUE",
-        content: `THE MINIMUM TO ADD TO CART IS 1`,
+        content: `${localStorage.getItem("lang") === "in" ? "MINIMAL UNTUK TAMBAHKAN KE KERANJANG ADALAH 1" : "THE MINIMUM TO ADD TO CART IS 1"}`,
         showImmediately: true,
         textColor: "red"
       });
@@ -746,7 +747,7 @@ document.querySelectorAll("#update_qty").forEach(btn => {
         id: "my-popup",
         title: "FOOD4UNIQUE",
         content: `
-        THE MINIMUM TO ADD TO CART IS 1`,
+        ${localStorage.getItem("lang") === "in" ? "MINIMAL UNTUK TAMBAHKAN KE KERANJANG ADALAH 1" : "THE MINIMUM TO ADD TO CART IS 1"}`,
         showImmediately: true,
         textColor: "red"
       });
@@ -772,7 +773,7 @@ document.querySelector("#order_email").addEventListener("focusout", (event) => {
     const myPopup = new Popup({
       id: "my-popup",
       title: "FOOD4UNIQUE",
-      content: `PLEASE ENTER A VALID EMIAL (EX:example@email.com)`,
+      content: `${localStorage.getItem("lang") === "in" ? "HARAP MASUKKAN EMIAL YANG VALID (Contoh:example@email.com)" : "PLEASE ENTER A VALID EMIAL (EX:example@email.com)"}`,
       showImmediately: true,
       textColor: "red"
     });
@@ -798,7 +799,8 @@ document.querySelector("#order_name").addEventListener("focusout", (event) => {
     const myPopup = new Popup({
       id: "my-popup",
       title: "FOOD4UNIQUE",
-      content: `PLEASE ENTER A VALID NAME (EX:John Doe)`,
+      content: `${localStorage.getItem("lang") === "in" ? `
+      HARAP MASUKKAN NAMA YANG VALID (CONTOH: John Doe)` : "PLEASE ENTER A VALID NAME (EX:John Doe)"}`,
       showImmediately: true,
       textColor: "red"
     });
@@ -982,7 +984,7 @@ document.querySelector("#pay-button_book").addEventListener("click", (e) => {
     const myPopup = new Popup({
       id: "my-popup",
       title: "FOOD4UNIQUE",
-      content: `PLEASE PROVIDE ALL MISSING ORDER DETAILS (required: email , name , phone , address,date,time)`,
+      content: `${localStorage.getItem("lang") === "in" ? "HARAP MEMBERIKAN DETAIL PESANAN YANG HILANG (wajib: email, nama, telepon, alamat, tanggal, waktu)":"PLEASE PROVIDE ALL MISSING ORDER DETAILS (required: email , name , phone , address,date,time)"}`,
       showImmediately: true,
       textColor: "red"
     });

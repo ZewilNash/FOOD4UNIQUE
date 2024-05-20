@@ -145,7 +145,7 @@ document.querySelectorAll("#add_to_cart_btn").forEach(btn => {
           id: "my-popup",
           title: "FOOD4UNIQUE",
           content: `
-          THE MINIMUM TO ADD TO CART IS 1`,
+          ${localStorage.getItem("lang") === "in" ? "MINIMAL UNTUK TAMBAHKAN KE KERANJANG ADALAH 1" : "THE MINIMUM TO ADD TO CART IS 1"}`,
               showImmediately: true,
               textColor:"red"
       });
@@ -210,7 +210,7 @@ document.querySelectorAll("#add_to_cart_btn").forEach(btn => {
           id: "my-popup",
           title: "FOOD4UNIQUE",
           content: `
-          THE MINIMUM TO ADD TO CART IS 1`,
+          ${localStorage.getItem("lang") === "in" ? "MINIMAL UNTUK TAMBAHKAN KE KERANJANG ADALAH 1" : "THE MINIMUM TO ADD TO CART IS 1"}`,
               showImmediately: true,
               textColor:"red"
       });
@@ -227,7 +227,7 @@ document.querySelectorAll("#add_to_cart_btn").forEach(btn => {
           id: "my-popup",
           title: "FOOD4UNIQUE",
           content: `
-          THE MINIMUM TO ADD TO CART IS 1`,
+          ${localStorage.getItem("lang") === "in" ? "MINIMAL UNTUK TAMBAHKAN KE KERANJANG ADALAH 1" : "THE MINIMUM TO ADD TO CART IS 1"}`,
               showImmediately: true,
               textColor:"red"
       });

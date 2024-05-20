@@ -1,24 +1,35 @@
-<div class="form container hide">
-    <div class="row">
+<div class="form container hide" style="height: 100vh;overflow-y: scroll;">
+    <div class="row" style="height: 100%;overflow-y: scroll;">
         
         <div class="col-md-6">
             <img style="width: 100px;height: 100px;object-fit: contain;" src="./images/food4unique.png" alt="">
-            <h1 style="font-size: 40px;text-align: center;">YOU ARE ALMOST THERE</h1>
-            <p style="font-size:30px;text-align: center;">Login To Your Account</p>
-            <small style="font-size: 20px;text-align: center;">WE'RE WAITING FOR YOUR ORDER</small>
+            <h1 data-lang="up_1" style="font-size: 40px;text-align: center;">YOU ARE ALMOST THERE</h1>
+            <p data-lang="up_2" style="font-size:30px;text-align: center;">Login To Your Account</p>
+            <small data-lang="up_3"  style="font-size: 20px;text-align: center;">WE'RE WAITING FOR YOUR ORDER</small>
         </div>
         
         
         <div class="col-md-6">
-            <form>
-                <input
+            <form style="display: flex;justify-content: center;align-items: center;">
+               
+                <label data-lang="up_5" for="">
+                    email
+                </label>
+
+                <input 
                 id="email"
-                placeholder="email" type="text">
+                type="text">
+                
+                <label data-lang="up_6" for="">
+                    password
+                </label>
                 <input 
                 id="password"
-                placeholder="password" type="password">
-                <button id="login-btn">Login</button>
-                <small>Don't Have an account ? <a href="/signuppage">Sign Up</a></small>
+                type="password">
+                <button data-lang="up_7" id="login-btn">Login</button>
+                <small><span data-lang="up_8">
+                    Don't Have an account ?
+                </span> <a data-lang="up_9" href="/signuppage">Sign Up</a></small>
             </form>
         </div>
 

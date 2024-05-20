@@ -190,7 +190,7 @@ socket.on('statusUpdated', async function (data) {
     let user = JSON.parse(localStorage.getItem("user"));
   const notify =  new Notification("New message", {
         tag: "FOOD4UNIQUE",
-        body: `YOU HAVE AN ORDER COMPLETED ,  ${data.order_num ? "ORDER NUMBER IS " +  data.order_num : ""}, TRACK YOUR ORDERS CLICK TRACK YOUR ORDER STATUS IN THE WEBSITE MENU`,
+        body: `${localStorage.getItem("lang") === "in" ? "ANDA SUDAH SELESAI PESANAN, LACAKAN PESANAN ANDA : KLIK LACAKAN STATUS PESANAN ANDA DI MENU WEBSITE" : "YOU HAVE AN ORDER COMPLETED , TRACK YOUR ORDERS :  CLICK TRACK YOUR ORDER STATUS IN THE WEBSITE MENU"}`,
         icon: "./images/food4unique.png",
         image: "./images/food4unique.png",
         vibrate: 500,
@@ -205,7 +205,7 @@ socket.on('foodadded', async function (data) {
     // let user = JSON.parse(localStorage.getItem("user"));
    const notify =  new Notification("New message", {
         tag: "FOOD4UNIQUE",
-        body: `WE ADDED NEW FOOD${data.name ? "FOOD NAME IS " + data.name : ""}PLEASE CHECK IT`,
+        body: `${localStorage.getItem("lang") === "in" ? "KAMI MENAMBAHKAN MAKANAN BARU, SILAHKAN LIHAT DI TEMUKAN SEMUA TAB DI NAVBAR" : "WE ADDED NEW FOOD , PLEASE CHECK IT OUT IN DISCOVER ALL TAB IN THE NAVBAR"}`,
         icon: "./images/food4unique.png",
         image: "./images/food4unique.png",
         vibrate: 500,

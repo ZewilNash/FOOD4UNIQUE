@@ -103,22 +103,26 @@ document.querySelector("#sendReport").addEventListener("click", (e) => {
         Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
       }
     }).then(res => {
+      document.querySelector("#sendReport").disabled = true;
         const msg_data = res.data.msg;
 
-        document.querySelector(".success").innerText = `${msg_data}`;
+        document.querySelector(".success").innerText = `${localStorage.getItem("lang") === "in" ? "LAPORAN ANDA TELAH TERKIRIM DENGAN SUKSES" : msg_data}`;
   
   
         setTimeout(() => {
           document.querySelector(".success").innerText = ``;
+
         }, 2000);
         
-        window.location.reload()
+        setTimeout(() => {
+          window.location.reload()
+        },2000)
 
     }).catch(err => {
         const msg = err.response.data.msg;
 
       // do something
-      document.querySelector(".errors").innerText = `${msg}`;
+      document.querySelector(".errors").innerText = `${localStorage.getItem("lang") === "in" ? "ANDA HARUS MENGISI SEMUA BIDANG & MEMBERIKAN ID PESANAN YANG TEPAT!" : msg}`;
 
       setTimeout(() => {
         document.querySelector(".errors").innerText = ``;

@@ -251,7 +251,7 @@ document.querySelectorAll("#add_to_cart_btn").forEach(btn => {
         console.log(res);
         const msg_data = res.data.msg;
 
-        document.querySelector(".success").innerText = `${msg_data}`;
+        document.querySelector(".success").innerText = `${localStorage.getItem("lang") === "in" ? "BARANG BERHASIL DITAMBAHKAN KE KERANJANG" : msg_data}`;
 
         e.target.style.color = "green";
 

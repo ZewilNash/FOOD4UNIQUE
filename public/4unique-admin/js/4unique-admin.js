@@ -78,6 +78,51 @@ document.querySelector(".upload_widget_edit").addEventListener(
     false
 );
 
+document.querySelector(".upload_widget_category").addEventListener(
+    "click",
+    function () {
+        myWidget.open();
+    },
+    false
+);
+
+if(document.querySelector("#upload_widget_category")){
+    document.querySelector("#upload_widget_category").addEventListener(
+        "click",
+        function () {
+            myWidget.open();
+        },
+        false
+    );
+}
+
+
+
+
+document.querySelector("#all_categories_link").addEventListener("click", (e) => {
+    document.querySelector("#create_product_container").classList.add("hide")
+    document.querySelector("#all_products_container").classList.add("hide")
+    document.querySelector("#booked_orders_container").classList.add("hide")
+    document.querySelector("#all_completed_orders_container").classList.add("hide")
+    document.querySelector("#all_users_container").classList.add("hide")
+    document.querySelector("#all_users_reports_container").classList.add("hide")
+    document.querySelector("#create_review").classList.add("hide")
+    document.querySelector("#show_all_reviews").classList.add("hide")
+    document.querySelector("#create_category_container").classList.add("hide")
+    document.querySelector("#all_categories_container").classList.toggle("hide")
+})
+document.querySelector("#all_categories_link").addEventListener("dbclick", (e) => {
+    document.querySelector("#create_product_container").classList.add("hide")
+    document.querySelector("#all_products_container").classList.add("hide")
+    document.querySelector("#booked_orders_container").classList.add("hide")
+    document.querySelector("#all_completed_orders_container").classList.add("hide")
+    document.querySelector("#all_users_container").classList.add("hide")
+    document.querySelector("#all_users_reports_container").classList.add("hide")
+    document.querySelector("#create_review").classList.add("hide")
+    document.querySelector("#show_all_reviews").classList.add("hide")
+    document.querySelector("#create_category_container").classList.add("hide")
+    document.querySelector("#all_categories_container").classList.toggle("hide")
+})
 
 
 document.querySelector("#create_product_link").addEventListener("click", (e) => {
@@ -89,6 +134,33 @@ document.querySelector("#create_product_link").addEventListener("click", (e) => 
     document.querySelector("#all_users_reports_container").classList.add("hide")
     document.querySelector("#create_review").classList.add("hide")
     document.querySelector("#show_all_reviews").classList.add("hide")
+    document.querySelector("#create_category_container").classList.add("hide")
+    document.querySelector("#all_categories_container").classList.add("hide")
+})
+
+document.querySelector("#create_category_link").addEventListener("dbclick", (e) => {
+    document.querySelector("#create_product_container").classList.add("hide")
+    document.querySelector("#all_products_container").classList.add("hide")
+    document.querySelector("#booked_orders_container").classList.add("hide")
+    document.querySelector("#all_completed_orders_container").classList.add("hide")
+    document.querySelector("#all_users_container").classList.add("hide")
+    document.querySelector("#all_users_reports_container").classList.add("hide")
+    document.querySelector("#create_review").classList.add("hide")
+    document.querySelector("#show_all_reviews").classList.add("hide")
+    document.querySelector("#create_category_container").classList.toggle("hide")
+    document.querySelector("#all_categories_container").classList.add("hide")
+})
+document.querySelector("#create_category_link").addEventListener("click", (e) => {
+    document.querySelector("#create_product_container").classList.add("hide")
+    document.querySelector("#all_products_container").classList.add("hide")
+    document.querySelector("#booked_orders_container").classList.add("hide")
+    document.querySelector("#all_completed_orders_container").classList.add("hide")
+    document.querySelector("#all_users_container").classList.add("hide")
+    document.querySelector("#all_users_reports_container").classList.add("hide")
+    document.querySelector("#create_review").classList.add("hide")
+    document.querySelector("#show_all_reviews").classList.add("hide")
+    document.querySelector("#create_category_container").classList.toggle("hide")
+    document.querySelector("#all_categories_container").classList.add("hide")
 })
 
 document.querySelector("#create_product_link").addEventListener("dbclick", (e) => {
@@ -101,6 +173,8 @@ document.querySelector("#create_product_link").addEventListener("dbclick", (e) =
     document.querySelector("#create_review").classList.add("hide")
 
     document.querySelector("#show_all_reviews").classList.add("hide")
+    document.querySelector("#create_category_container").classList.add("hide")
+    document.querySelector("#all_categories_container").classList.add("hide")
 })
 
 
@@ -113,6 +187,8 @@ document.querySelector("#all_products_link").addEventListener("click", (e) => {
     document.querySelector("#all_users_reports_container").classList.add("hide")
     document.querySelector("#create_review").classList.add("hide")
     document.querySelector("#show_all_reviews").classList.add("hide")
+    document.querySelector("#create_category_container").classList.add("hide")
+    document.querySelector("#all_categories_container").classList.add("hide")
 })
 
 document.querySelector("#create_review_link").addEventListener("click", (e) => {
@@ -128,6 +204,8 @@ document.querySelector("#create_review_link").addEventListener("click", (e) => {
 
     document.querySelector("#create_review").classList.toggle("hide")
     document.querySelector("#show_all_reviews").classList.add("hide")
+    document.querySelector("#create_category_container").classList.add("hide")
+    document.querySelector("#all_categories_container").classList.add("hide")
 })
 document.querySelector("#create_review_link").addEventListener("dbclick", (e) => {
     document.querySelector("#create_product_container").classList.add("hide")
@@ -142,6 +220,8 @@ document.querySelector("#create_review_link").addEventListener("dbclick", (e) =>
 
     document.querySelector("#create_review").classList.toggle("hide")
     document.querySelector("#show_all_reviews").classList.add("hide")
+    document.querySelector("#create_category_container").classList.add("hide")
+    document.querySelector("#all_categories_container").classList.add("hide")
 })
 
 document.querySelector("#all_products_link").addEventListener("dbclick", (e) => {
@@ -154,6 +234,8 @@ document.querySelector("#all_products_link").addEventListener("dbclick", (e) => 
 
     document.querySelector("#create_review").classList.add("hide")
     document.querySelector("#show_all_reviews").classList.add("hide")
+    document.querySelector("#create_category_container").classList.add("hide")
+    document.querySelector("#all_categories_container").classList.add("hide")
 })
 
 
@@ -166,6 +248,8 @@ document.querySelector("#all_booked_orders_link").addEventListener("click", (e) 
     document.querySelector("#all_users_reports_container").classList.add("hide")
     document.querySelector("#create_review").classList.add("hide")
     document.querySelector("#show_all_reviews").classList.add("hide")
+    document.querySelector("#create_category_container").classList.add("hide")
+    document.querySelector("#all_categories_container").classList.add("hide")
 })
 
 document.querySelector("#all_booked_orders_link").addEventListener("dbclick", (e) => {
@@ -177,6 +261,8 @@ document.querySelector("#all_booked_orders_link").addEventListener("dbclick", (e
     document.querySelector("#all_users_reports_container").classList.add("hide")
     document.querySelector("#create_review").classList.add("hide")
     document.querySelector("#show_all_reviews").classList.add("hide")
+    document.querySelector("#create_category_container").classList.add("hide")
+    document.querySelector("#all_categories_container").classList.add("hide")
 })
 
 
@@ -189,6 +275,8 @@ document.querySelector("#all_completed_orders_link").addEventListener("click", (
     document.querySelector("#all_users_reports_container").classList.add("hide")
     document.querySelector("#create_review").classList.add("hide")
     document.querySelector("#show_all_reviews").classList.add("hide")
+    document.querySelector("#create_category_container").classList.add("hide")
+    document.querySelector("#all_categories_container").classList.add("hide")
 })
 document.querySelector("#all_completed_orders_link").addEventListener("dbclick", (e) => {
     document.querySelector("#create_product_container").classList.add("hide")
@@ -199,6 +287,8 @@ document.querySelector("#all_completed_orders_link").addEventListener("dbclick",
     document.querySelector("#all_users_reports_container").classList.add("hide")
     document.querySelector("#create_review").classList.add("hide")
     document.querySelector("#show_all_reviews").classList.add("hide")
+    document.querySelector("#create_category_container").classList.add("hide")
+    document.querySelector("#all_categories_container").classList.add("hide")
 })
 
 document.querySelector("#all_users_link").addEventListener("click", (e) => {
@@ -210,6 +300,8 @@ document.querySelector("#all_users_link").addEventListener("click", (e) => {
     document.querySelector("#all_users_reports_container").classList.add("hide")
     document.querySelector("#create_review").classList.add("hide")
     document.querySelector("#show_all_reviews").classList.add("hide")
+    document.querySelector("#create_category_container").classList.add("hide")
+    document.querySelector("#all_categories_container").classList.add("hide")
 })
 document.querySelector("#all_users_link").addEventListener("dbclick", (e) => {
     document.querySelector("#create_product_container").classList.add("hide")
@@ -220,6 +312,8 @@ document.querySelector("#all_users_link").addEventListener("dbclick", (e) => {
     document.querySelector("#all_users_reports_container").classList.add("hide")
     document.querySelector("#create_review").classList.add("hide")
     document.querySelector("#show_all_reviews").classList.add("hide")
+    document.querySelector("#create_category_container").classList.add("hide")
+    document.querySelector("#all_categories_container").classList.add("hide")
 })
 
 document.querySelector("#all_users_reports_link").addEventListener("click", (e) => {
@@ -231,6 +325,8 @@ document.querySelector("#all_users_reports_link").addEventListener("click", (e) 
     document.querySelector("#all_users_reports_container").classList.toggle("hide")
     document.querySelector("#create_review").classList.add("hide")
     document.querySelector("#show_all_reviews").classList.add("hide")
+    document.querySelector("#create_category_container").classList.add("hide")
+    document.querySelector("#all_categories_container").classList.add("hide")
 })
 document.querySelector("#all_users_reports_link").addEventListener("dbclick", (e) => {
     document.querySelector("#create_product_container").classList.add("hide")
@@ -241,6 +337,8 @@ document.querySelector("#all_users_reports_link").addEventListener("dbclick", (e
     document.querySelector("#all_users_reports_container").classList.toggle("hide")
     document.querySelector("#create_review").classList.add("hide")
     document.querySelector("#show_all_reviews").classList.add("hide")
+    document.querySelector("#create_category_container").classList.add("hide")
+    document.querySelector("#all_categories_container").classList.add("hide")
 })
 document.querySelector("#all_reviews_link").addEventListener("click", (e) => {
     document.querySelector("#create_product_container").classList.add("hide")
@@ -251,6 +349,8 @@ document.querySelector("#all_reviews_link").addEventListener("click", (e) => {
     document.querySelector("#all_users_reports_container").classList.add("hide")
     document.querySelector("#create_review").classList.add("hide")
     document.querySelector("#show_all_reviews").classList.toggle("hide")
+    document.querySelector("#create_category_container").classList.add("hide")
+    document.querySelector("#all_categories_container").classList.add("hide")
 })
 document.querySelector("#all_reviews_link").addEventListener("dbclick", (e) => {
     document.querySelector("#create_product_container").classList.add("hide")
@@ -261,7 +361,116 @@ document.querySelector("#all_reviews_link").addEventListener("dbclick", (e) => {
     document.querySelector("#all_users_reports_container").classList.add("hide")
     document.querySelector("#create_review").classList.add("hide")
     document.querySelector("#show_all_reviews").classList.toggle("hide")
+    document.querySelector("#create_category_container").classList.add("hide")
+    document.querySelector("#all_categories_container").classList.add("hide")
 })
+
+document.querySelectorAll("#update-category-btn").forEach(cat => {
+    cat.addEventListener("click" , (e) => {
+        e.preventDefault();
+        const category = document.querySelector("#up_cat_name").value;
+        const {categoryName} = e.target.dataset;
+        let user = JSON.parse(localStorage.getItem("user"));
+        let url = document.URL.split("4unique-admin")[0];
+        let cat_img = url_images[0];
+
+        axios.patch(String(url) + `api/v1/auth/update_category/${categoryName}`,{
+            categoryItem:category,
+            image:cat_img
+        }, {
+            headers: {
+                Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+            }
+        }
+    
+        ).then(res => {
+            // success
+            let msg = res.data.msg;
+            document.querySelector("#create-btn").disabled = true;
+    
+            let HTML = `<p class="success-message">${msg}</p>`;
+    
+            document.querySelector("#success").innerHTML += HTML;
+    
+            setTimeout(() => {
+                document.querySelector("#success").innerHTML = "";
+                document.querySelector("#create-btn").disabled = false;
+    
+                window.location.href = "/home";
+    
+            }, 3000)
+    
+        }).catch(err => {
+            let errors = err.response.data.msg.split(",");
+    
+            errors.forEach(err => {
+                let HTML = `<p class="error-message">${err}</p>`;
+    
+                document.querySelector("#errors").innerHTML += HTML;
+    
+    
+            });
+    
+            setTimeout(() => {
+                document.querySelector("#errors").innerHTML = "";
+            }, 3000)
+    
+        })
+
+    })
+})
+
+document.querySelectorAll("#delete_category").forEach(cat => {
+    cat.addEventListener("click" , (e) => {
+        // category-name
+        const {categoryName} = e.target.dataset;
+        let user = JSON.parse(localStorage.getItem("user"));
+        let url = document.URL.split("4unique-admin")[0];
+
+
+        axios.delete(String(url) + `api/v1/auth/delete_category/${categoryName}`, {
+            headers: {
+                Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+            }
+        }
+    
+        ).then(res => {
+            // success
+            let msg = res.data.msg;
+            document.querySelector("#create-btn").disabled = true;
+    
+            let HTML = `<p class="success-message">${msg}</p>`;
+    
+            document.querySelector("#success").innerHTML += HTML;
+    
+            setTimeout(() => {
+                document.querySelector("#success").innerHTML = "";
+                document.querySelector("#create-btn").disabled = false;
+    
+                window.location.href = "/home";
+    
+            }, 3000)
+    
+        }).catch(err => {
+            let errors = err.response.data.msg.split(",");
+    
+            errors.forEach(err => {
+                let HTML = `<p class="error-message">${err}</p>`;
+    
+                document.querySelector("#errors").innerHTML += HTML;
+    
+    
+            });
+    
+            setTimeout(() => {
+                document.querySelector("#errors").innerHTML = "";
+            }, 3000)
+    
+        })
+
+    })
+})
+
 
 function createReview() {
     let user = JSON.parse(localStorage.getItem("user"));
@@ -291,6 +500,62 @@ function createReview() {
         // success
         let msg = res.data.msg;
         document.querySelector("#create-btn").disabled = true;
+
+        let HTML = `<p class="success-message">${msg}</p>`;
+
+        document.querySelector("#success").innerHTML += HTML;
+
+        setTimeout(() => {
+            document.querySelector("#success").innerHTML = "";
+            document.querySelector("#create-btn").disabled = false;
+
+            window.location.href = "/home";
+
+        }, 3000)
+
+    }).catch(err => {
+        let errors = err.response.data.msg.split(",");
+
+        errors.forEach(err => {
+            let HTML = `<p class="error-message">${err}</p>`;
+
+            document.querySelector("#errors").innerHTML += HTML;
+
+
+        });
+
+        setTimeout(() => {
+            document.querySelector("#errors").innerHTML = "";
+        }, 3000)
+
+    })
+
+}
+
+
+// create category
+
+function createCategory() {
+    // category image
+    let user = JSON.parse(localStorage.getItem("user"));
+    let category = document.querySelector("#cat_name").value;
+
+    let image = url_images[0];
+
+    let url = document.URL.split("4unique-admin")[0];
+
+    axios.post(String(url) + `api/v1/auth/create_category`, {
+        category, image
+    }, {
+        headers: {
+            Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+        }
+    }
+
+    ).then(res => {
+        // success
+        let msg = res.data.msg;
+        document.querySelector("#create-category-btn").disabled = true;
 
         let HTML = `<p class="success-message">${msg}</p>`;
 
@@ -391,6 +656,8 @@ function createProduct() {
 }
 
 
+
+
 function updateProduct() {
     let user = JSON.parse(localStorage.getItem("user"));
     let name = document.querySelector("#name_edit").value;
@@ -466,11 +733,13 @@ function updateProduct() {
 
 
 
+document.querySelector("#create-category-btn").addEventListener("click", (e) => {
+    e.preventDefault();
+    createCategory();
+})
 
 document.querySelector("#create-btn-edit").addEventListener("click", (e) => {
     e.preventDefault();
-    console.log("hello");
-
     updateProduct();
 })
 

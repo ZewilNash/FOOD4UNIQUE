@@ -5,7 +5,7 @@ const router = express.Router();
 const authenticatedRoute = require("../middleware/auth");
 const isAdminRoute = require("../middleware/isAdmin");
  
-const {signup , login , getUserCartLength,deleteFromCart,updateCartQty,makeOrder,getCart,deleteCart,sendReport,getAllOrders,getOrder,editOrder,deleteOrder,findOrder,deleteReport,findReport,getAllOrderWithStatus,deleteUser,updateUser,getUser,deleteAllDeliveredOrders,deleteAllCanceledOrders,getUserOrders,bookOrder,findBookedOrder,deleteBookedOrder,getBookedOrder,getAllBookedOrderWithStatus,deleteAllCompletedOrders,editBookedOrder,makeReview,getFoodReviews,deleteReview,createCategory,getCategory,deleteCategory,updateCategory} = require("../controllers/auth");
+const {signup , login , getUserCartLength,deleteFromCart,updateCartQty,makeOrder,getCart,deleteCart,sendReport,getAllOrders,getOrder,editOrder,deleteOrder,findOrder,deleteReport,findReport,getAllOrderWithStatus,deleteUser,updateUser,getUser,deleteAllDeliveredOrders,deleteAllCanceledOrders,getUserOrders,bookOrder,findBookedOrder,deleteBookedOrder,getBookedOrder,getAllBookedOrderWithStatus,deleteAllCompletedOrders,editBookedOrder,makeReview,getFoodReviews,deleteReview,createCategory,getCategory,deleteCategory,updateCategory,getSingleCategory} = require("../controllers/auth");
 
 router.route("/signup").post(signup);
 router.route("/login").post(login);
@@ -44,7 +44,8 @@ router.route("/get_booked_order").post(authenticatedRoute,isAdminRoute,findBooke
 router.route("/create_category").post(authenticatedRoute,isAdminRoute,createCategory);
 
 
-router.route("/get_category").get(authenticatedRoute,isAdminRoute,getCategory);
+router.route("/get_category").get(authenticatedRoute,getCategory);
+router.route("/get_single_category/:category").get(authenticatedRoute,isAdminRoute,getSingleCategory);
 
 router.route("/delete_category/:category").delete(authenticatedRoute,isAdminRoute,deleteCategory);
 

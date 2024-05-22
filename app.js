@@ -10,6 +10,7 @@ const Order = require("./modals/Order");
 const BOOKOrder = require("./modals/BookedOrder");
 const Report = require("./modals/Report");
 const Reviews = require("./modals/FOODREVIEW");
+const Category = require("./modals/CATEGORY");
 
 // const Pusher = require("pusher");
 
@@ -119,18 +120,20 @@ app.get("/loginpage", (req, res) => {
     res.render("pages/loginpage/index");
 });
 
-app.get("/home", (req, res) => {
-    res.render("pages/home/index");
+app.get("/home", async (req, res) => {
+    const categories = await Category.find({})
+    res.render("pages/home/index" , {categories});
 });
 
 app.get("/food", async (req, res) => {
-
+    const categories = await Category.find({})
     const products = await Product.find({}).sort("createdAt");
 
-    res.render("pages/food/index", { product: [], products: products });
+    res.render("pages/food/index", { product: [], products: products,categories });
 });
 
 app.get("/cart/:id", async (req, res) => {
+    const categories = await Category.find({})
 
     const user = await User.findOne({ _id: req.params.id });
 
@@ -157,19 +160,20 @@ app.get("/cart/:id", async (req, res) => {
 
         const total = array.reduce((a, b) => a + b);
 
-        return res.render("pages/cart/index", { products: products, user_id: user._id, total: total });
+        return res.render("pages/cart/index", { products: products, user_id: user._id, total: total,categories });
 
     }
 
 
 
-res.render("pages/cart/index", { products: [], user_id: user._id, total: 0 });
+res.render("pages/cart/index", { products: [], user_id: user._id, total: 0 , categories });
 
 
     
 });
 
 app.get("/findfood/:text", async (req, res) => {
+    const categories = await Category.find({})
 
     const { text } = req.params
 
@@ -178,13 +182,14 @@ app.get("/findfood/:text", async (req, res) => {
 
     if (products.length === 0) {
 
-        return res.render("pages/findfood/index", { msg: "NO RESULT FOUND MATCHING YOUR SEARCH", products: [] });
+        return res.render("pages/findfood/index", { msg: "NO RESULT FOUND MATCHING YOUR SEARCH", products: [],categories });
     }
 
-    res.render("pages/findfood/index", { products: products, msg: "" });
+    res.render("pages/findfood/index", { products: products, msg: "",categories });
 });
 
 app.get("/food/:cat", async (req, res) => {
+    const categories = await Category.find({})
 
     const { cat } = req.params;
 
@@ -197,10 +202,11 @@ app.get("/food/:cat", async (req, res) => {
         return res.redirect("/notfound");
     }
 
-    res.render("pages/food/index", { product: product });
+    res.render("pages/food/index", { product: product,categories });
 });
 
 app.get("/fooddetail/:id", async (req, res) => {
+    const categories = await Category.find({})
 
     const { id } = req.params;
 
@@ -214,17 +220,21 @@ app.get("/fooddetail/:id", async (req, res) => {
     let may_like = await Product.find({ category: food.category, _id: { $ne: food._id } });
 
 
-    res.render("pages/fooddetail/index", { food: food, alsoLike: may_like });
+    res.render("pages/fooddetail/index", { food: food, alsoLike: may_like,categories });
 });
 
-app.get("/aboutus", (req, res) => {
-    res.render("pages/aboutus/index");
+app.get("/aboutus", async(req, res) => {
+    const categories = await Category.find({})
+
+    res.render("pages/aboutus/index" , {categories});
 });
 
 app.get("/notfound", (req, res) => {
     res.render("pages/notfound/index");
 });
 app.get("/order_success/:id", async (req, res) => {
+    const categories = await Category.find({})
+
     const {id} = req.params;
 
     const order = await Order.findOne({_id:id});
@@ -233,10 +243,12 @@ app.get("/order_success/:id", async (req, res) => {
         return res.redirect("/notfound");
     }
 
-    res.render("pages/order_success/index" , {id:id});
+    res.render("pages/order_success/index" , {id:id , categories});
 });
 
 app.get("/book_order_success/:id", async (req, res) => {
+    const categories = await Category.find({})
+
     const {id} = req.params;
 
     const order = await BOOKOrder.findOne({_id:id});
@@ -245,11 +257,12 @@ app.get("/book_order_success/:id", async (req, res) => {
         return res.redirect("/notfound");
     }
 
-    res.render("pages/book_order_success/index" , {order:order});
+    res.render("pages/book_order_success/index" , {order:order , categories});
 });
 
 
 app.get("/favourites/:id", async (req, res) => {
+    const categories = await Category.find({})
 
     const { id } = req.params;
 
@@ -261,14 +274,17 @@ app.get("/favourites/:id", async (req, res) => {
 
     let user_favoutites = user.favourites;
 
-    res.render("pages/favourites/index", { favourites: user_favoutites });
+    res.render("pages/favourites/index", { favourites: user_favoutites,categories });
 });
 
-app.get("/contactus", (req, res) => {
-    res.render("pages/contactus/index");
+app.get("/contactus", async (req, res) => {
+    const categories = await Category.find({})
+
+    res.render("pages/contactus/index" , {categories});
 });
 
 app.get("/user_orders/:id", async (req, res) => {
+    const categories = await Category.find({})
 
     const {id} = req.params;
     const user = await User.find({_id:id});
@@ -296,10 +312,10 @@ app.get("/user_orders/:id", async (req, res) => {
      
 
      if(userOrders.length === 0){
-       return res.render("pages/user_orders/index" , {msg:"You Have No Orders Yet To Track"});
+       return res.render("pages/user_orders/index" , {msg:"You Have No Orders Yet To Track" , categories});
      }
 
-    res.render("pages/user_orders/index" , {userOrders,carts});
+    res.render("pages/user_orders/index" , {userOrders,carts,categories});
 });
 
 
@@ -352,6 +368,7 @@ app.get("/4unique-admin", async (req, res) => {
 
     const reviews = await Reviews.find({}).populate("food").sort("-createdAt")
 
+    const categories = await Category.find({}).sort("-createdAt");
 
     
 
@@ -361,7 +378,7 @@ app.get("/4unique-admin", async (req, res) => {
     const productsLength = products.length;
 
     // check passwords
-    res.render("pages/4unique-admin/index", { products: products,ordersLength,productsLength,reportsLength , orders:orders,carts:carts,foods:foods,reports:reports,usersLength,users:users,canceledOrders,pendingOrders,deliveredOrders,bookedOrders:bookedOrders,completedOrders:completedOrders,bookedordersLength,reviews:reviews });
+    res.render("pages/4unique-admin/index", { products: products,ordersLength,productsLength,reportsLength , orders:orders,carts:carts,foods:foods,reports:reports,usersLength,users:users,canceledOrders,pendingOrders,deliveredOrders,bookedOrders:bookedOrders,completedOrders:completedOrders,bookedordersLength,reviews:reviews,categories:categories });
 });
 
 // app.get("/4unique-admin/:name" ,async (req,res) => {

@@ -193,6 +193,10 @@ const editBookedOrder = async (req,res) => {
     const {id} = req.params;
     const {status , isPaid} = req.body;
 
+    if(!status || !isPaid){
+        return res.status(400).json({msg:"YOU MUST PROVIDE STATUS && ISPAID" , success:false});
+    }
+
     const order = await BookedOrder.find({_id:id});
     
     if(order.lenght === 0){
@@ -228,6 +232,10 @@ const editBookedOrder = async (req,res) => {
 const editOrder = async (req,res) => {
     const {id} = req.params;
     const {status , isPaid} = req.body;
+
+    if(!status || !isPaid){
+        return res.status(400).json({msg:"YOU MUST PROVIDE STATUS && ISPAID" , success:false});
+    }
 
     const order = await Order.find({_id:id});
     
@@ -365,6 +373,10 @@ const deleteUser = async (req,res) => {
 const updateUser = async (req,res) => {
     const {id} = req.params;
     const {fullname,email,role} = req.body;
+
+    if(!fullname || !email || !role){
+        return res.status(400).json({msg:"YOU MUST PROVIDE FULLNAME && EMAIL && ROLE" , success:false});
+    }
 
     const user = await User.find({_id:id});
 
@@ -519,6 +531,19 @@ const getCategory = async (req,res) => {
     res.status(200).json({success:true,categories})
 }
 
+const getSingleCategory = async (req,res) => {
+    const {category} = req.params;
+
+    const categoryItem = await Category.find({category:category});
+
+
+    if (categoryItem.length === 0){
+        return res.status(404).json({msg:"category Not Found" , success:false});
+    }
+
+    res.status(200).json({success:true,category:categoryItem[0]})
+}
+
 const deleteCategory = async (req,res) => {
     const {category} = req.params;
 
@@ -530,12 +555,20 @@ const deleteCategory = async (req,res) => {
 
     await Category.findOneAndDelete({category:category});
 
+    await Food.deleteMany({category:category})
+
     res.status(200).json({success:true,msg:"Category Deleted Successfully"});
 }
 
 const updateCategory = async (req,res) => {
     const {category} = req.params;
     const {categoryItem , image} = req.body;
+
+
+    if(!categoryItem || !image){
+        return res.status(400).json({msg:"YOU MUST PROVIDE IMAGE && CATEGORY NAME" , success:false});
+    }
+
 
     const check = await Category.find({category:category});
 
@@ -585,5 +618,6 @@ module.exports = {
     createCategory,
     getCategory,
     deleteCategory,
-    updateCategory
+    updateCategory,
+    getSingleCategory
 }

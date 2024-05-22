@@ -22,7 +22,7 @@ window.onload = () => {
         console.log(userOrders);
 
         if (userOrders.length > 0) {
-            
+
             document.querySelector("#track_orders").setAttribute("href", `/user_orders/${user.user._id}`);
 
             document.querySelector("#track_orders").setAttribute("data-lang", `track`);
@@ -34,18 +34,18 @@ window.onload = () => {
 
         const setLanguage = (language) => {
             document.querySelectorAll("[data-lang]").forEach(element => {
-              const translationKey = element.getAttribute("data-lang")
-          
-              if (element.getAttribute('id') === "food_qty") {
-                element.placeholder = translations[language][translationKey]
-              } else {
-                element.innerText = translations[language][translationKey]
-              }
+                const translationKey = element.getAttribute("data-lang")
+
+                if (element.getAttribute('id') === "food_qty") {
+                    element.placeholder = translations[language][translationKey]
+                } else {
+                    element.innerText = translations[language][translationKey]
+                }
             })
-          }
-          
-          const langParams = localStorage.getItem("lang") || "en"
-          setLanguage(langParams)
+        }
+
+        const langParams = localStorage.getItem("lang") || "en"
+        setLanguage(langParams)
 
     }).catch(err => {
         console.log(err);
@@ -86,16 +86,16 @@ window.onload = () => {
     const setLanguage = (language) => {
         document.querySelectorAll("[data-lang]").forEach(element => {
             const translationKey = element.getAttribute("data-lang")
-            
-            if(element.getAttribute('id') === "search-food-text"){
+
+            if (element.getAttribute('id') === "search-food-text") {
                 element.placeholder = translations[language][translationKey]
-            }else {
+            } else {
                 element.innerText = translations[language][translationKey]
             }
         })
     }
 
-    if(localStorage.getItem("lang")){
+    if (localStorage.getItem("lang")) {
         setLanguage(localStorage.getItem("lang"))
     }
 
@@ -104,50 +104,85 @@ window.onload = () => {
 const categories = [
 
     {
-        name: "EGYPTIAN FOOD",
+        category: "EGYPTIAN FOOD",
         image: "./images/categories/egyptian.jpg"
     },
 
 
     {
-        name: "INDONESIAN FOOD",
+        category: "INDONESIAN FOOD",
         image: "./images/categories/indonisian.jpg"
     },
 
     {
-        name: "EGYINDO FOOD",
+        category: "EGYINDO FOOD",
         image: "./images/categories/egyindo.jpg"
     },
 
     {
-        name: "VIP FOOD",
+        category: "VIP FOOD",
         image: "./images/categories/vip.jpg"
     },
     // {
-    //     name: "BEST FOOD",
+    //     category: "BEST FOOD",
     //     image: "./images/categories/best.jpg"
     // },
     {
-        name: "DESSERTS",
+        category: "DESSERTS",
         image: "./images/categories/dessert.jpg"
     },
 
 ]
 
-let categoryContainer = document.querySelector(".cat-con");
 
-let HTML = "";
+let user = JSON.parse(localStorage.getItem("user"));
+let URL = document.URL.split("home")[0];
 
-categories.forEach(cat => {
-    HTML += `
-        <a style="text-align:center;font-size:17px" href="/food/${cat.name.toLowerCase()}"class="col-md-4 category mt-5">
+axios.get(URL + `api/v1/auth/get_category`, {
+    headers: {
+        Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+    }
+}).then(res => {
+    const categoriesItems = res.data.categories;
+
+    categoriesItems.forEach(cat => {
+        categories.push({
+            category: cat.category,
+            image: cat.image
+        })
+    })
+
+
+    let categoryContainer = document.querySelector(".cat-con");
+
+    let HTML = "";
+
+
+    categories.forEach(cat => {
+
+        HTML += `
+        <a style="text-align:center;font-size:17px" href="/food/${cat.category.toLowerCase()}"class="col-md-4 category mt-5">
             <img style="width:100%;height:350px;object-fit-contain" src="${cat.image}" />
-            <p data-lang="${cat.name.split(" ")[0].toLowerCase()}">${cat.name === "BEST FOOD" ? "NEW" : cat.name.split(" ")[0]}</p>
+
+            ${cat.category.includes("(") ? `
+            <p>${cat.category}</p> 
+            ` : `<p data-lang="${cat.category.split(" ")[0].toLowerCase()}">${cat.category === "BEST FOOD" ? "NEW" : cat.category.split(" ")[0]}</p>`  }
+            
+            
         </a>
     `;
 
-    categoryContainer.innerHTML = HTML;
-});
+        categoryContainer.innerHTML = HTML;
+    });
+
+
+}).catch(err => {
+    console.log(err);
+
+})
+
+
+
 
 document.querySelector("#logout").addEventListener("click", () => logout());
 
@@ -186,9 +221,9 @@ const socket = io();
 socket.on('statusUpdated', async function (data) {
 
     console.log(data);
-    
+
     let user = JSON.parse(localStorage.getItem("user"));
-  const notify =  new Notification("New message", {
+    const notify = new Notification("New message", {
         tag: "FOOD4UNIQUE",
         body: `${localStorage.getItem("lang") === "in" ? "ANDA SUDAH SELESAI PESANAN, LACAKAN PESANAN ANDA : KLIK LACAKAN STATUS PESANAN ANDA DI MENU WEBSITE" : "YOU HAVE AN ORDER COMPLETED , TRACK YOUR ORDERS :  CLICK TRACK YOUR ORDER STATUS IN THE WEBSITE MENU"}`,
         icon: "./images/food4unique.png",
@@ -196,14 +231,14 @@ socket.on('statusUpdated', async function (data) {
         vibrate: 500,
     });
 
-  
 
-  
+
+
 });
 
 socket.on('foodadded', async function (data) {
     // let user = JSON.parse(localStorage.getItem("user"));
-   const notify =  new Notification("New message", {
+    const notify = new Notification("New message", {
         tag: "FOOD4UNIQUE",
         body: `${localStorage.getItem("lang") === "in" ? "KAMI MENAMBAHKAN MAKANAN BARU, SILAHKAN LIHAT DI TEMUKAN SEMUA TAB DI NAVBAR" : "WE ADDED NEW FOOD , PLEASE CHECK IT OUT IN DISCOVER ALL TAB IN THE NAVBAR"}`,
         icon: "./images/food4unique.png",
@@ -211,9 +246,9 @@ socket.on('foodadded', async function (data) {
         vibrate: 500,
     });
 
-    
 
-   
+
+
 });
 
 
@@ -232,28 +267,28 @@ Notification.requestPermission();
 pusher.subscribe('notifications')
     .bind('food_added', function (data) {
         console.log(data.food);
-        
+
         // if we're on the home page, show an "Updated" badge
-        
-        var notification = new Notification("NEW FOOD ADDED" ,  {
+
+        var notification = new Notification("NEW FOOD ADDED", {
             body: data.food.name + "has been added to our food list. Check it out.",
             icon: "./images/food4unique.png",
-          });
+        });
         notification.onclick = function (event) {
             window.location.href = `/fooddetail/${data.food._id}`
             event.preventDefault();
             notification.close();
         }
-});
+    });
 
 pusher.subscribe('notifications')
     .bind('order_status', function (data) {
         console.log(data.order);
-        
+
         // if we're on the home page, show an "Updated" badge
         let user = JSON.parse(localStorage.getItem("user"));
-        var notification = new Notification("ONE ORDER IS READY" , {
-            body:"Order Number" + data.order.order_num + "is ready for you to come & take. check also your order list.",
+        var notification = new Notification("ONE ORDER IS READY", {
+            body: "Order Number" + data.order.order_num + "is ready for you to come & take. check also your order list.",
             icon: "./images/food4unique.png",
         });
         notification.onclick = function (event) {
@@ -261,60 +296,60 @@ pusher.subscribe('notifications')
             event.preventDefault();
             notification.close();
         }
-});
+    });
 
 // translation section
 
 const translations = {
-    en:{
-       search:"Search Food By Name",
-       discover:"DISCOVER ALL",
-       categories:"CATEGORIES",
-       egyptian:"EGYPTIAN",
-       indonesian:"INSONESIAN",
-       egyindo:"EGYINDO",
-       vip:"VIP",
-       desserts:"DESSERTS",
-       about:"ABOUT",
-       contact:"CONTACT",
-       track:"TRACK YOUR ORDERS STATUS",
-       favourites:"MY FAVOURITES",
-       quantity:"quantity"
-    }, 
+    en: {
+        search: "Search Food By Name",
+        discover: "DISCOVER ALL",
+        categories: "CATEGORIES",
+        egyptian: "EGYPTIAN",
+        indonesian: "INSONESIAN",
+        egyindo: "EGYINDO",
+        vip: "VIP",
+        desserts: "DESSERTS",
+        about: "ABOUT",
+        contact: "CONTACT",
+        track: "TRACK YOUR ORDERS STATUS",
+        favourites: "MY FAVOURITES",
+        quantity: "quantity"
+    },
 
-    in:{
-        search:"Cari Makanan Berdasarkan Nama",
-        discover:"TEMUKAN SEMUA",
-        categories:"KATEGORI",
-        egyptian:"MESIR",
-        indonesian:"INDONESIA",
-        egyindo:"MESIR&INDONESIA",
-        vip:"VIP",
-        desserts:"HIDANGAN PENUTUP",
-        about:"TENTANG KAMI",
+    in: {
+        search: "Cari Makanan Berdasarkan Nama",
+        discover: "TEMUKAN SEMUA",
+        categories: "KATEGORI",
+        egyptian: "MESIR",
+        indonesian: "INDONESIA",
+        egyindo: "MESIR&INDONESIA",
+        vip: "VIP",
+        desserts: "HIDANGAN PENUTUP",
+        about: "TENTANG KAMI",
         // HUBUNGI KAMI
-        contact:"HUBUNGI KAMI",
+        contact: "HUBUNGI KAMI",
         // MELACAK STATUS PESANAN ANDA
-        track:"MELACAK STATUS PESANAN ANDA",
+        track: "MELACAK STATUS PESANAN ANDA",
         // FAVORIT SAYA
-        favourites:"FAVORIT SAYA",
-        quantity:"kuantitas"
+        favourites: "FAVORIT SAYA",
+        quantity: "kuantitas"
     }
 }
 
 // load the select images
-document.querySelector("#country-select").addEventListener("change" , (e) => {
+document.querySelector("#country-select").addEventListener("change", (e) => {
     setLanguage(e.target.value)
-    localStorage.setItem("lang" , e.target.value)
-  })
+    localStorage.setItem("lang", e.target.value)
+})
 
 const setLanguage = (language) => {
     document.querySelectorAll("[data-lang]").forEach(element => {
         const translationKey = element.getAttribute("data-lang")
-        
-        if(element.getAttribute('id') === "search-food-text"){
+
+        if (element.getAttribute('id') === "search-food-text") {
             element.placeholder = translations[language][translationKey]
-        }else {
+        } else {
             element.innerText = translations[language][translationKey]
         }
     })

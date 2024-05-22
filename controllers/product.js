@@ -21,6 +21,10 @@ const createProduct = async (req,res) => {
 const updateProduct = async (req,res) => {
     const {name,price,category,size,description,images} = req.body;
 
+    if(!name || !price || !category || !size || !description || !images){
+        return res.status(400).json({success:false, msg:"FILL ALL FIELDS BEFORE UPDATING"});
+    }
+
     const {foodId} = req.params;
 
     const edit_product = await Product.findOne({_id:foodId});
@@ -149,7 +153,7 @@ const addToCart = async (req,res) => {
 
 
 
-    if(!user && !product){
+    if(!user || !product){
         return res.status(404).json({msg:"No Food Found!" , success:false})
     }
 

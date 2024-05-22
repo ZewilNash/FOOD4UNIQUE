@@ -103,7 +103,7 @@ document.querySelectorAll("#del_btn").forEach(btn => {
       console.log(res);
       const msg_data = res.data.msg;
 
-      document.querySelector(".success").innerText = `${msg_data}`;
+      document.querySelector(".success").innerText = `${localStorage.getItem("lang") === "in" ? "ITEM BERHASIL DIHAPUS DARI FAVORIT" : msg_data}`;
 
       setTimeout(() => {
         document.querySelector(".success").innerText = ``;
@@ -117,7 +117,7 @@ document.querySelectorAll("#del_btn").forEach(btn => {
       const msg = err.response.data.msg;
 
       // do something
-      document.querySelector(".error").innerText = `${msg}`;
+      document.querySelector(".error").innerText = `${localStorage.getItem("lang") === "in" ? "ADA YANG SALAH COBA LAGI KEMUDIAN" : msg}`;
 
       setTimeout(() => {
         document.querySelector(".error").innerText = ``;
@@ -165,7 +165,7 @@ document.querySelectorAll("#add_to_cart_btn").forEach(btn => {
           console.log(res);
           const msg_data = res.data.msg;
     
-          document.querySelector(".success").innerText = `${msg_data}`;
+          document.querySelector(".success").innerText = `${localStorage.getItem("lang") === "in" ? "BARANG BERHASIL DITAMBAHKAN KE KERANJANG" : msg_data}`;
   
           e.target.style.color = "green";
   

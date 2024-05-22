@@ -11,7 +11,7 @@
             <span></span>
         </label>
     </div>
-    <ul>
+    <ul id="nav_list">
 
        
 
@@ -22,6 +22,10 @@
         
         <li><a data-lang="vip" href="/food/vip%20food">VIP</a></li>
         <li><a data-lang="desserts" href="/food/desserts">DESSERTS</a></li>
+
+        <% for(var i = 0; i < categories.length; i++) { %>
+            <li><a href="/food/<%= categories[i].category %>"><%= categories[i].category.toUpperCase() %></a></li>
+        <% } %>
 
         <li><a data-lang="about" href="/aboutus">ABOUT </a></li>
 

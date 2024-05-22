@@ -33,8 +33,8 @@
 
   <div id="secure">
 
-    <div id="success"></div>
-    <div id="errors"></div>
+    <div style="position: fixed;" id="success"></div>
+    <div id="errors" style="position: fixed;"></div>
 
     <div class="container mt-5">
       <div class="row">
@@ -61,8 +61,6 @@
         </div>
 
 
-
-
       </div>
     </div>
 
@@ -70,159 +68,277 @@
     <div class="hide container" id="show_all_reviews">
       <div class="row">
         <% for(var i = 0; i < reviews.length; i++) { %>
-            <div style="text-align: center;align-items: center;justify-content: center;width: 100%;height: 100%;background-image: url('<%= reviews[i].review_image %>');box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;flex-direction: column;margin-top: 20px;display: flex;" class="col-md-4 mt-5">
-              <h1>REVIEW FOR <%= reviews[i].food.name %></h1>
-              <h1>REVIEW LINK:</h1>
-              <a href=" <%= reviews[i].review_link %>">Review Link</a>
+        <div
+          style="text-align: center;align-items: center;justify-content: center;width: 100%;height: 100%;background-image: url('<%= reviews[i].review_image %>');box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;flex-direction: column;margin-top: 20px;display: flex;"
+          class="col-md-4 mt-5">
+          <h1>REVIEW FOR <%= reviews[i].food.name %></h1>
+          <h1>REVIEW LINK:</h1>
+          <a href=" <%= reviews[i].review_link %>">Review Link</a>
 
-              <a data-review-id="<%= reviews[i]._id  %>" id="delete_review" href="#" style="text-align: center;color: red;margin-top: 10px;">DELETE</a>
-              
-            </div>
-           
+          <a data-review-id="<%= reviews[i]._id  %>" id="delete_review" href="#"
+            style="text-align: center;color: red;margin-top: 10px;">DELETE</a>
+
+        </div>
+
         <% } %>
       </div>
-     
+
     </div>
     <!-- end show reviews -->
 
     <div class="hide" id="create_review">
       <form action="#"
-      style="display: flex;justify-content: center;align-items: center;height: 100%;width: 100%;flex-direction: column;padding: 30px;">
+        style="display: flex;justify-content: center;align-items: center;height: 100%;width: 100%;flex-direction: column;padding: 30px;">
 
-      <label for="category">FOOD NAME <em>&#x2a;</em></label>
+        <label for="category">FOOD NAME <em>&#x2a;</em></label>
 
-      <input id="food_id" name="category" required="" type="text" />
+        <input id="food_id" name="category" required="" type="text" />
 
-      <label for="name">REVIEW LINK <em>&#x2a;</em></label>
+        <label for="name">REVIEW LINK <em>&#x2a;</em></label>
 
-      <input id="review_link" name="name" required="" type="text" />
-
-      
-      <label for="image">IMAGE</label>
-
-      <input id="review_image" name="image" type="file" multiple class="input-field upload_widget_review" accept="image/*" />
+        <input id="review_link" name="name" required="" type="text" />
 
 
-      <button id="create-review">CREATE</button>
+        <label for="image">IMAGE</label>
+
+        <input id="review_image" name="image" type="file" multiple class="input-field upload_widget_review"
+          accept="image/*" />
+
+
+        <button id="create-review">CREATE</button>
 
 
 
-    </form>
+      </form>
     </div>
 
     <!-- all completed orders -->
     <div id="all_completed_orders_container" class="hide">
       <div class="container">
-          <div class="row">
-            <a id="delete_all_completed" style="color: red;font-size: 30px;margin-top: 20px;margin-bottom: 20px;" href="#">DELETE ALL</a>
-            <% for(var i = 0; i < completedOrders.length; i++) { %>
-              <div id="order_container" style="width: 100vw;height: auto;display: flex;justify-content: center;align-items: center;flex-direction: column;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;" class="col-md-12 mt-4">
-                <p style="text-align: center;">ORDER NUMBER: <%=  completedOrders[i].order_num %></p>
-                <p style="text-align: center;">ORDER ID: <%=  completedOrders[i]._id %></p>
-                <p style="text-align: center;">ORDER DATE: <%=  completedOrders[i].date %></p>
-                <p style="text-align: center;">ORDER TIME: <%=  completedOrders[i].time %></p>
-      
-                <p style="text-align: center;">Made By : <%=  completedOrders[i].name %></p>
-                <p style="text-align: center;">Order Owner Email : <%=  completedOrders[i].email %></p>
-                <p style="text-align: center;">Order Owner phone : <%=  completedOrders[i].phone %></p>
-                <p style="text-align: center;">Order Owner address : <%=  completedOrders[i].address %></p>
-      
-                <div style="font-size: 22px;" class="d-flex gap-3 mt-3">
-                  <span style="font-size:15px;text-align: center;">owner state: <%=  completedOrders[i].state %></span >
-                  <span style="font-size:15px;text-align: center;">owner country: <%=  completedOrders[i].country %></span>
-                  <span style="font-size:15px;text-align: center;">owner village: <%=  completedOrders[i].village %></span>
-                  <span style="font-size:15px;text-align: center;">owner leisure: <%=  completedOrders[i].leisure %></span>
-                </div>
-      
-                <div style="font-size: 18px;" class="d-flex gap-3 mt-3">
-                  <span>order Owner Zip Code: <%=  completedOrders[i].zip_code %></span>
-                  <span>order status: <%=  completedOrders[i].status %></span>
-                  <span>order isPaid: <%=  completedOrders[i].isPaid %></span>
-                  
-                </div>
-      
-                <p style="text-align: center;">Order Date & Time : <%=  completedOrders[i].createdAt %></p>
-      
-                <div style="font-size: 20px;" class="d-flex gap-3 mt-3">
-                  <a data-order-id="<%= completedOrders[i]._id %>" id="completedOrder_show_more" href="#" style="color:green">Show More</a>
-                  <a data-order-id="<%= completedOrders[i]._id %>"  href="#" id="completedOrder_delete" style="color:red;">Delete Order</a>
-                  
-                  
-                  
-                  
-                </div>
-      
-      
-      
-              </div>
-            <% } %>
+        <div class="row">
+          <a id="delete_all_completed" style="color: red;font-size: 30px;margin-top: 20px;margin-bottom: 20px;"
+            href="#">DELETE ALL</a>
+          <% for(var i = 0; i < completedOrders.length; i++) { %>
+          <div id="order_container"
+            style="width: 100vw;height: auto;display: flex;justify-content: center;align-items: center;flex-direction: column;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;"
+            class="col-md-12 mt-4">
+            <p style="text-align: center;">ORDER NUMBER: <%=  completedOrders[i].order_num %></p>
+            <p style="text-align: center;">ORDER ID: <%=  completedOrders[i]._id %></p>
+            <p style="text-align: center;">ORDER DATE: <%=  completedOrders[i].date %></p>
+            <p style="text-align: center;">ORDER TIME: <%=  completedOrders[i].time %></p>
+
+            <p style="text-align: center;">Made By : <%=  completedOrders[i].name %></p>
+            <p style="text-align: center;">Order Owner Email : <%=  completedOrders[i].email %></p>
+            <p style="text-align: center;">Order Owner phone : <%=  completedOrders[i].phone %></p>
+            <p style="text-align: center;">Order Owner address : <%=  completedOrders[i].address %></p>
+
+            <div style="font-size: 22px;" class="d-flex gap-3 mt-3">
+              <span style="font-size:15px;text-align: center;">owner state: <%=  completedOrders[i].state %></span>
+              <span style="font-size:15px;text-align: center;">owner country: <%=  completedOrders[i].country %></span>
+              <span style="font-size:15px;text-align: center;">owner village: <%=  completedOrders[i].village %></span>
+              <span style="font-size:15px;text-align: center;">owner leisure: <%=  completedOrders[i].leisure %></span>
+            </div>
+
+            <div style="font-size: 18px;" class="d-flex gap-3 mt-3">
+              <span>order Owner Zip Code: <%=  completedOrders[i].zip_code %></span>
+              <span>order status: <%=  completedOrders[i].status %></span>
+              <span>order isPaid: <%=  completedOrders[i].isPaid %></span>
+
+            </div>
+
+            <p style="text-align: center;">Order Date & Time : <%=  completedOrders[i].createdAt %></p>
+
+            <div style="font-size: 20px;" class="d-flex gap-3 mt-3">
+              <a data-order-id="<%= completedOrders[i]._id %>" id="completedOrder_show_more" href="#"
+                style="color:green">Show More</a>
+              <a data-order-id="<%= completedOrders[i]._id %>" href="#" id="completedOrder_delete"
+                style="color:red;">Delete Order</a>
+
+
+
+
+            </div>
+
+
+
           </div>
+          <% } %>
+        </div>
       </div>
-      
+
     </div>
 
     <!-- all users -->
     <div id="all_users_container" class="hide">
       <div class="container">
-          <div class="row">
-            <% for(var i = 0; i < users.length; i++) { %>
-            <div style="display: flex;justify-content: center;align-items: center;margin-top: 20px;flex-direction: column;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;" class="col-md-6">
-                <h1><%= users[i].fullname %></h1>
-                <h1><%= users[i].email %></h1>
-                <h1><%= users[i].role %></h1>
-                <div style="display: flex;width: 100%;justify-content: space-between;" class="">
-                  <a data-user-id="<%= users[i]._id %>" style="color: blue;font-size: 20px;" id="edit_user" href="#">Edit</a>
-                  <a data-user-id="<%= users[i]._id %>" style="color: red;font-size: 20px;" id="delete_user" href="#">Delete</a>
-                </div>
-                
+        <div class="row">
+          <% for(var i = 0; i < users.length; i++) { %>
+          <div
+            style="display: flex;justify-content: center;align-items: center;margin-top: 20px;flex-direction: column;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;"
+            class="col-md-6">
+            <h1><%= users[i].fullname %></h1>
+            <h1><%= users[i].email %></h1>
+            <h1><%= users[i].role %></h1>
+            <div style="display: flex;width: 100%;justify-content: space-between;" class="">
+              <a data-user-id="<%= users[i]._id %>" style="color: blue;font-size: 20px;" id="edit_user"
+                href="#">Edit</a>
+              <a data-user-id="<%= users[i]._id %>" style="color: red;font-size: 20px;" id="delete_user"
+                href="#">Delete</a>
             </div>
-            <% } %>
+
           </div>
+          <% } %>
+        </div>
       </div>
-      
+
     </div>
 
     <!-- reports -->
     <div id="all_users_reports_container" class="container hide">
       <div class="row">
-  
-        <input style="padding: 10px;" class="mt-5" id="report_text_Search" type="text" placeholder="SEARCH REPORT BY ORDER ID">
-  
+
+        <input style="padding: 10px;" class="mt-5" id="report_text_Search" type="text"
+          placeholder="SEARCH REPORT BY ORDER ID">
+
         <div id="report_container_search" class="hide">
-          
+
         </div>
-  
+
         <div id="con_report">
           <% for(var i = 0; i < reports.length; i++) { %>
-            
-    
-            <div id="report_container" style="width: 100vw;height: auto;display: flex;justify-content: center;align-items: center;flex-direction: column;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;" class="col-md-12 mt-4">
-              <p style="text-align: center;">ORDER ID: <%=  reports[i].order %></p>
-    
-              <p style="text-align: center;">Report Content : <%=  reports[i].report %></p>
-  
-              <p style="text-align: center;">Report Date & Time : <%=  reports[i].createdAt %></p>
-              
-    
-              <div style="font-size: 20px;" class="d-flex gap-3 mt-3">
-                
-                <a data-order-id="<%= reports[i]._id %>"  href="#" id="delete_report" style="color:red;">Delete Report</a>
-                
-                
-              </div>
-    
-    
-    
+
+
+          <div id="report_container"
+            style="width: 100vw;height: auto;display: flex;justify-content: center;align-items: center;flex-direction: column;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;"
+            class="col-md-12 mt-4">
+            <p style="text-align: center;">ORDER ID: <%=  reports[i].order %></p>
+
+            <p style="text-align: center;">Report Content : <%=  reports[i].report %></p>
+
+            <p style="text-align: center;">Report Date & Time : <%=  reports[i].createdAt %></p>
+
+
+            <div style="font-size: 20px;" class="d-flex gap-3 mt-3">
+
+              <a data-order-id="<%= reports[i]._id %>" href="#" id="delete_report" style="color:red;">Delete Report</a>
+
+
             </div>
-          
-          <% } %>
-          
+
+
+
           </div>
-  
+
+          <% } %>
+
+        </div>
+
       </div>
     </div>
 
+    <!-- create category section -->
+
+    <!-- end create category -->
+    <div style="height: 100vh;width: 100vw;" class="hide" id="create_category_container">
+      <form action="#"
+        style="display: flex;justify-content: center;align-items: center;height: 100%;width: 100%;flex-direction: column;padding: 30px;">
+
+        <label for="name">CATEGORY NAME <em>&#x2a;</em></label>
+
+        <input id="cat_name" name="name" required="" type="text" />
+
+        <label for="image">CATEGORY POSTER IMAGE</label>
+
+        <input id="cat_images" name="image" type="file" multiple class="input-field upload_widget_category"
+          accept="image/*" />
+
+
+        <button id="create-category-btn">CREATE CATEGORY</button>
+
+        <small style="text-align: center;font-size: 17px;">
+          WHEN YOU CREATE THE CATEGORY YOU NEED TO CREATE FOODS THAT UNDER THIS CATEGORY SO IT WILL NOT SHOW EMPTY TO
+          CUSTOMERS
+        </small>
+
+      </form>
+
+
+
+    </div>
     <!-- add product section -->
+
+    <!-- show all categories section -->
+
+    <div id="all_categories_container" class="hide">
+      <div class="container">
+        <div class="row">
+          <% for(var i = 0; i < categories.length; i++) { %>
+          <div
+            style="display: flex;justify-content: center;align-items: center;margin-top: 20px;flex-direction: column;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;"
+            class="col-md-6">
+            <img src="<%= categories[i].image %>" alt="" style="width: 100%;height: 200px;object-fit: contain;">
+            <h1><%= categories[i].category %></h1>
+
+            <div style="display: flex;width: 100%;justify-content: space-between;" class="">
+
+              <a data-bs-toggle="modal" data-bs-target="#editCat-<%= categories[i].category.split(' ')[0]  %>" data-category-name="<%= categories[i].category%>"
+                style="color: blue;font-size: 20px;" id="edit_category" href="#">EDIT</a>
+
+              <a data-category-name="<%= categories[i].category %>" style="color: red;font-size: 20px;"
+                id="delete_category" href="#">Delete</a>
+
+
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="editCat-<%= categories[i].category.split(' ')[0] %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+              aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">UPDATE <%= categories[i].category %></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form action="#"
+                    style="display: flex;justify-content: center;align-items: center;height: 100%;width: 100%;flex-direction: column;padding: 30px;">
+            
+                    <label for="name">CATEGORY NAME <em>&#x2a;</em></label>
+            
+                    <input value="<%= categories[i].category %>" id="up_cat_name" name="name" required="" type="text" />
+            
+                    <label for="image">CATEGORY POSTER IMAGE</label>
+            
+                    <input id="upload_widget_category" name="image" type="file" multiple class="input-field"
+                      accept="image/*" />
+            
+            
+                    <button 
+                    data-category-name="<%= categories[i].category %>"
+                    id="update-category-btn">UPDATE CATEGORY</button>
+            
+                    <small style="text-align: center;font-size: 17px;">
+                      WHEN YOU UPDATE THE CATEGORY YOU NEED TO FIRST UPLOAD THE CATEGORY POSTER DONT FORGET!!
+                    </small>
+            
+                  </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                   
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <% } %>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- end show all categories -->
 
     <div class="container mt-5">
       <div class="row">
@@ -237,13 +353,24 @@
           CREATE REVIEW
         </div>
 
+        <div id="create_category_link" class="col-md-4 mt-5"
+          style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;padding: 10px;cursor: pointer;width: 100vw;text-align: center;">
+          CREATE CATEGORY
+        </div>
+
         <div id="all_products_link" class="col-md-4 mt-5"
           style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;padding: 10px;cursor: pointer;width: 100vw;text-align: center;">
           SHOW ALL PRODUCTS
         </div>
+
         <div id="all_reviews_link" class="col-md-4 mt-5"
           style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;padding: 10px;cursor: pointer;width: 100vw;text-align: center;">
           SHOW ALL REVIEWS
+        </div>
+
+        <div id="all_categories_link" class="col-md-4 mt-5"
+          style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;padding: 10px;cursor: pointer;width: 100vw;text-align: center;">
+          SHOW ALL CATEGORIES
         </div>
 
         <div id="all_booked_orders_link" class="col-md-4 mt-5"
@@ -279,57 +406,57 @@
       <div id="booked_order_container_search"></div>
 
       <div id="booked_order_container">
-      <% for(var i = 0; i < bookedOrders.length; i++) { %>
+        <% for(var i = 0; i < bookedOrders.length; i++) { %>
 
 
-      <div id="booked_order_container"
-        style="width: 100vw;height: auto;display: flex;justify-content: center;align-items: center;flex-direction: column;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;"
-        class="col-md-12 mt-4">
-        <p style="text-align: center;">ORDER ID: <%=  bookedOrders[i]._id %></p>
-        <p style="text-align: center;">Order NUMBER : <%=  bookedOrders[i].order_num %></p>
-        <p style="text-align: center;">Order DATE : <%=  bookedOrders[i].date %></p>
-        <p style="text-align: center;">Order TIME : <%=  bookedOrders[i].time %></p>
-        <p style="text-align: center;">Made By : <%=  bookedOrders[i].name %></p>
-        <p style="text-align: center;">Order Owner Email : <%=  bookedOrders[i].email %></p>
-        <p style="text-align: center;">Order Owner phone : <%=  bookedOrders[i].phone %></p>
+        <div id="booked_order_container"
+          style="width: 100vw;height: auto;display: flex;justify-content: center;align-items: center;flex-direction: column;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;"
+          class="col-md-12 mt-4">
+          <p style="text-align: center;">ORDER ID: <%=  bookedOrders[i]._id %></p>
+          <p style="text-align: center;">Order NUMBER : <%=  bookedOrders[i].order_num %></p>
+          <p style="text-align: center;">Order DATE : <%=  bookedOrders[i].date %></p>
+          <p style="text-align: center;">Order TIME : <%=  bookedOrders[i].time %></p>
+          <p style="text-align: center;">Made By : <%=  bookedOrders[i].name %></p>
+          <p style="text-align: center;">Order Owner Email : <%=  bookedOrders[i].email %></p>
+          <p style="text-align: center;">Order Owner phone : <%=  bookedOrders[i].phone %></p>
 
-        <p style="text-align: center;">Order Owner address : <%=  bookedOrders[i].address %></p>
-
-
-        <span style="font-size:15px;text-align: center;">owner state: <%=  bookedOrders[i].state %></span>
-        <span style="font-size:15px;text-align: center;">owner country: <%=  bookedOrders[i].country %></span>
-        <span style="font-size:15px;text-align: center;">owner village: <%=  bookedOrders[i].village %></span>
-        <span style="font-size:15px;text-align: center;">owner leisure: <%=  bookedOrders[i].leisure %></span>
+          <p style="text-align: center;">Order Owner address : <%=  bookedOrders[i].address %></p>
 
 
+          <span style="font-size:15px;text-align: center;">owner state: <%=  bookedOrders[i].state %></span>
+          <span style="font-size:15px;text-align: center;">owner country: <%=  bookedOrders[i].country %></span>
+          <span style="font-size:15px;text-align: center;">owner village: <%=  bookedOrders[i].village %></span>
+          <span style="font-size:15px;text-align: center;">owner leisure: <%=  bookedOrders[i].leisure %></span>
 
-        <div style="font-size: 18px;" class="d-flex gap-3 mt-3">
-          <span>order Owner Zip Code: <%=  bookedOrders[i].zip_code %></span>
-          <span>order status: <%=  bookedOrders[i].status %></span>
-          <span>order isPaid: <%=  bookedOrders[i].isPaid %></span>
+
+
+          <div style="font-size: 18px;" class="d-flex gap-3 mt-3">
+            <span>order Owner Zip Code: <%=  bookedOrders[i].zip_code %></span>
+            <span>order status: <%=  bookedOrders[i].status %></span>
+            <span>order isPaid: <%=  bookedOrders[i].isPaid %></span>
+
+          </div>
+
+          <p style="text-align: center;">Order Date & Time : <%=  bookedOrders[i].createdAt %></p>
+
+          <div style="font-size: 20px;" class="d-flex gap-3 mt-3">
+
+            <a data-order-id="<%= bookedOrders[i]._id %>" id="booked_order_show_more" href="#" style="color:green">Show
+              More</a>
+
+            <a data-order-id="<%= bookedOrders[i]._id %>" href="#" id="delete_booked_order" style="color:red;">Delete
+              Order</a>
+
+            <a data-order-id="<%= bookedOrders[i]._id %>" id="edit_booked_order_btn" href="#">Edit Order</a>
+
+          </div>
+
+
 
         </div>
 
-        <p style="text-align: center;">Order Date & Time : <%=  bookedOrders[i].createdAt %></p>
-
-        <div style="font-size: 20px;" class="d-flex gap-3 mt-3">
-          
-          <a data-order-id="<%= bookedOrders[i]._id %>" id="booked_order_show_more" href="#" style="color:green">Show
-            More</a>
-
-          <a data-order-id="<%= bookedOrders[i]._id %>" href="#" id="delete_booked_order" style="color:red;">Delete
-            Order</a>
-
-          <a data-order-id="<%= bookedOrders[i]._id %>" id="edit_booked_order_btn" href="#">Edit Order</a>
-
-        </div>
-
-    
-
+        <% } %>
       </div>
-
-      <% } %>
-    </div>
     </div>
 
 
@@ -467,7 +594,7 @@
     </div>
 
   </div>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.jsdelivr.net/npm/@simondmc/popup-js@1.4.3/popup.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"

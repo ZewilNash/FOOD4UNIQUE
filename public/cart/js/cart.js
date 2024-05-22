@@ -232,7 +232,7 @@ document.querySelectorAll("#remove_item").forEach(btn => {
 
       const msg_data = res.data.msg;
 
-      document.querySelector(".success").innerText = `${msg_data}`;
+      document.querySelector(".success").innerText = `${localStorage.getItem("lang") === "in" ? "BARANG BERHASIL DIHAPUS DARI KERANJANG" : msg_data}`;
 
 
       setTimeout(() => {
@@ -245,7 +245,7 @@ document.querySelectorAll("#remove_item").forEach(btn => {
       const msg = err.response.data.msg;
 
       // do something
-      document.querySelector(".error").innerText = `${msg}`;
+      document.querySelector(".error").innerText = `${localStorage.getItem("lang") === "in" ? "ADA YANG SALAH COBA LAGI KEMUDIAN" : msg}`;
 
       setTimeout(() => {
         document.querySelector(".error").innerText = ``;
@@ -291,7 +291,7 @@ document.querySelectorAll("#update_qty_container").forEach(elem => {
 
         const msg_data = res.data.msg;
 
-        document.querySelector(".success").innerText = `${msg_data}`;
+        document.querySelector(".success").innerText = `${localStorage.getItem("lang") === "in" ? "JUMLAH BARANG BERHASIL DIPERBARUI" : msg_data}`;
 
 
         setTimeout(() => {
@@ -304,7 +304,7 @@ document.querySelectorAll("#update_qty_container").forEach(elem => {
         const msg = err.response.data.msg;
 
         // do something
-        document.querySelector(".error").innerText = `${msg}`;
+        document.querySelector(".error").innerText = `${localStorage.getItem("lang") === "in" ? "ADA YANG SALAH COBA LAGI KEMUDIAN" : msg}`;
 
         setTimeout(() => {
           document.querySelector(".error").innerText = ``;

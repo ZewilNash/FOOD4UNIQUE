@@ -129,7 +129,7 @@ app.get("/food", async (req, res) => {
     const categories = await Category.find({})
     const products = await Product.find({}).sort("createdAt");
 
-    res.render("pages/food/index", { product: [], products: products,categories });
+    res.render("pages/food/index", { product: [], products: products,categories , msg:"" });
 });
 
 app.get("/cart/:id", async (req, res) => {
@@ -199,10 +199,10 @@ app.get("/food/:cat", async (req, res) => {
 
     if (product.length === 0) {
         res.status(404);
-        return res.redirect("/notfound");
+        return res.render("pages/food/index", {msg:"NO PRODUCTS ADDED INTO THIS CATEGORY",product,categories });
     }
 
-    res.render("pages/food/index", { product: product,categories });
+    res.render("pages/food/index", { product: product,categories , msg:"" });
 });
 
 app.get("/fooddetail/:id", async (req, res) => {

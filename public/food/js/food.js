@@ -78,6 +78,16 @@ window.onload = () => {
       
   })
 
+
+  //  no-food
+// nofood-link
+
+document.querySelector("#no-food").innerText = localStorage.getItem("lang") === "in" ? "KAMI AKAN SEGERA MENAMBAHKAN KATEGORI INI. TOLONG TETAPKAN.." : "WE WILL ADD TO THIS CATEGORY SOON PLEASE STAY TUNE.."
+
+document.querySelector("#nofood-link").innerText = localStorage.getItem("lang") === "in" ? "JELAJAHI SEMUA MAKANAN KAMI" : "EXPLORE ALL OF OUR FOOD"
+
+
+
 }
 
 

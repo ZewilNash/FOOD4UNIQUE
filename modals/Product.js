@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const {pusher} = require("../app")
+const {pusher} = require("../api/app")
 
 const ProductSchema = new mongoose.Schema({
     name:{

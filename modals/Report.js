@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 var nodemailer = require('nodemailer');
-const {pusher} = require("../app")
+const {pusher} = require("../api/app")
 const dotenv = require('dotenv');
 dotenv.config();
 

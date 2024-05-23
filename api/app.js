@@ -4,13 +4,13 @@ require("express-async-errors");
 require("dotenv").config()
 const { readFileSync } = require("fs");
 const {createServer} = require("http")
-const User = require("./modals/User");
-const Cart = require("./modals/Cart");
-const Order = require("./modals/Order");
-const BOOKOrder = require("./modals/BookedOrder");
-const Report = require("./modals/Report");
-const Reviews = require("./modals/FOODREVIEW");
-const Category = require("./modals/CATEGORY");
+const User = require("../modals/User");
+const Cart = require("../modals/Cart");
+const Order = require("../modals/Order");
+const BOOKOrder = require("../modals/BookedOrder");
+const Report = require("../modals/Report");
+const Reviews = require("../modals/FOODREVIEW");
+const Category = require("../modals/CATEGORY");
 // const serverless = require("serverless-http");
 
 // const Pusher = require("pusher");
@@ -25,11 +25,11 @@ const Category = require("./modals/CATEGORY");
 
 
 
-const Product = require("./modals/Product");
+const Product = require("../modals/Product");
 
-const authRouter = require("./routes/auth");
+const authRouter = require("../routes/auth");
 const { Server } = require('socket.io');
-const productRouter = require("./routes/product");
+const productRouter = require("../routes/product");
 
 //security packages
 const helmet = require("helmet");
@@ -48,17 +48,17 @@ global.io = io;
 
 const cors = require("cors");
 
-const errorhandlerMiddleware = require("./middleware/errorHandler");
+const errorhandlerMiddleware = require("../middleware/errorHandler");
 
-const authenticatedRoute = require("./middleware/auth");
+const authenticatedRoute = require("../middleware/auth");
 
-const isAdminMiddleWare = require("./middleware/isAdmin");
+const isAdminMiddleWare = require("../middleware/isAdmin");
 
 const bodyParser = require("body-parser")
 
 
 
-const connectDB = require("./db/connection");
+const connectDB = require("../db/connection");
 
 
 
@@ -427,3 +427,5 @@ start();
 // https://www.appmysite.com/web-to-app-pricing/
 
 // r%vfbISG&6RNrU$gyFQE
+
+module.exports = app;

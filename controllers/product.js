@@ -193,8 +193,9 @@ const prepareOrder = async (req,res) => {
 // Create Snap API instance
 let snap = new midtransClient.Snap({
         // Set to true if you want Production Environment (accept real transaction).
-        isProduction : false,
-        serverKey : process.env.PAYMENT_SERVER_KEY
+        isProduction : true,
+        serverKey : process.env.PAYMENT_SERVER_KEY,
+        clientKey:process.env.PAYMENT_CLIENT_KEY
     });
 
 let parameter = {
@@ -231,6 +232,7 @@ await snap.createTransaction(parameter)
 if(!token){
     return res.status(400).json({success:false,msg:"Token Not generated!"})
 }
+
 
 res.status(200).json({success:true , token:token})
 

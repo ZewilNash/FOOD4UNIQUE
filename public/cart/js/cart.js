@@ -932,8 +932,8 @@ document.querySelector("#pay-button_book").addEventListener("click", (e) => {
         const myPopup = new Popup({
           id: "my-popup",
           title: "FOOD4UNIQUE",
-          content: `
-           Waiting Your Payment`,
+          content: `${localStorage.getItem("lang") === "in" ? `Menunggu Pembayaran Anda
+          ` : "Waiting Your Payment"}`,
           showImmediately: true,
           textColor: "red"
         });
@@ -949,7 +949,8 @@ document.querySelector("#pay-button_book").addEventListener("click", (e) => {
           id: "my-popup",
           title: "FOOD4UNIQUE",
           content: `
-           Payment Failed`,
+           ${localStorage.getItem("lang") === "in" ? `Pembayaran gagal
+           ` : "Payment Failed"}`,
           showImmediately: true,
           textColor: "red"
         });
@@ -965,7 +966,8 @@ document.querySelector("#pay-button_book").addEventListener("click", (e) => {
           id: "my-popup",
           title: "FOOD4UNIQUE",
           content: `
-            you closed the popup without finishing the payment!`,
+            ${localStorage.getItem("lang") === "in" ? `Anda menutup popup tanpa menyelesaikan pembayaran!
+            ` : "you closed the popup without finishing the payment!"}`,
           showImmediately: true,
           textColor: "red"
         });

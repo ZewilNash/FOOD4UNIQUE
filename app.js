@@ -11,6 +11,7 @@ const BOOKOrder = require("./modals/BookedOrder");
 const Report = require("./modals/Report");
 const Reviews = require("./modals/FOODREVIEW");
 const Category = require("./modals/CATEGORY");
+// const serverless = require("serverless-http");
 
 // const Pusher = require("pusher");
 
@@ -21,7 +22,6 @@ const Category = require("./modals/CATEGORY");
 //     cluster: "eu",
 //     useTLS: true
 // });
-
 
 
 
@@ -135,6 +135,8 @@ app.get("/food", async (req, res) => {
 app.get("/cart/:id", async (req, res) => {
     const categories = await Category.find({})
 
+    const client_key = process.env.PAYMENT_CLIENT_KEY
+
     const user = await User.findOne({ _id: req.params.id });
 
     if (!user) {
@@ -160,13 +162,13 @@ app.get("/cart/:id", async (req, res) => {
 
         const total = array.reduce((a, b) => a + b);
 
-        return res.render("pages/cart/index", { products: products, user_id: user._id, total: total,categories });
+        return res.render("pages/cart/index", { products: products, user_id: user._id, total: total,categories,client_key });
 
     }
 
 
 
-res.render("pages/cart/index", { products: [], user_id: user._id, total: 0 , categories });
+res.render("pages/cart/index", { products: [], user_id: user._id, total: 0 , categories,client_key });
 
 
     
@@ -419,3 +421,9 @@ const start = async () => {
 
 start();
 
+// app.use("/.netlify/functions/app", router);
+// module.exports.handler = serverless(app);
+
+// https://www.appmysite.com/web-to-app-pricing/
+
+// r%vfbISG&6RNrU$gyFQE

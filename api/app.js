@@ -115,6 +115,9 @@ app.get("/", (req, res) => {
 app.get("/signuppage", (req, res) => {
     res.render("pages/signuppage/index");
 });
+app.get("/forgotPass", (req, res) => {
+    res.render("pages/forgotPass/index");
+});
 
 app.get("/loginpage", (req, res) => {
     res.render("pages/loginpage/index");

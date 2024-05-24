@@ -6,8 +6,11 @@ const Report = require("../modals/Report");
 const BookedOrder = require("../modals/BookedOrder");
 const Food = require("../modals/Product");
 const FoodReview = require("../modals/FOODREVIEW");
+var nodemailer = require('nodemailer');
+const dotenv = require('dotenv');
+dotenv.config();
 const Category = require("../modals/CATEGORY");
-
+const generateUniqueId = require('generate-unique-id');
 
 const signup = async (req,res) => {
 
@@ -581,6 +584,99 @@ const updateCategory = async (req,res) => {
     res.status(200).json({success:true,msg:"Category Updated Successfully"});
 }
 
+
+const forgotPass = async (req,res) => {
+    const {email} = req.body;
+
+    const user = await User.find({email:email});
+
+   
+    
+
+    if(user.length === 0){
+        return res.status(404).json({msg:"THIS EMAIL IS NOT EXIST , ENTER AN EMAIL THAT EXISTS" , success:false});
+    }
+
+
+    const randomCode = generateUniqueId({
+        includeSymbols: ['@','#','|'],
+        excludeSymbols: ['0']
+      });
+
+    
+
+    const updated = await User.findOneAndUpdate({_id:user[0]._id},{code:randomCode},{useFindAndModify:false});
+
+ 
+
+    var transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+            user: process.env.GMAIL,
+            pass: process.env.GMAIL_PASS,
+        },
+
+    });
+
+    var mailOptions = {
+        from: process.env.GMAIL,
+        to: user[0].email,
+        subject: 'FOOD4UNIQUE FORGOT PASSWORD',
+        html: `<p>FOOD4UNIQUE SAYS: </p><h1>YOUR CODE IS : <b>${randomCode}</b></h1>`
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('');
+        }
+    });
+
+    res.status(200).json({msg:"WE HAVE SEND CODE TO YOUR EMAIL" , success:true})
+}
+
+
+const changePass = async (req,res) => {
+    const {email,code,newPass,confirmNewPass} = req.body;
+    const user = await User.find({email:email});
+
+   
+    
+
+    if(user.length === 0){
+        return res.status(404).json({msg:"THIS EMAIL IS NOT EXIST , ENTER AN EMAIL THAT EXISTS" , success:false});
+    }
+
+   
+    
+
+
+    if(user[0].code !== code){
+        return res.status(400).json({msg:"INVALID CODE!!" , success:false});
+    }
+
+    if(newPass.length < 8){
+        return res.status(400).json({msg:"PASSWORD LENGTH SHOULD BE AT LEAST 8 CHARACTERS LONG" , success:false});
+    }
+
+
+    if(newPass !== confirmNewPass){
+        return res.status(400).json({msg:"PASSWORD & CONFIRM PASSWORD SHOULD MATCH" , success:false});
+    }
+
+   const salt = await bcrypt.genSalt(10);
+   const hashedPass = await bcrypt.hash(newPass , salt);
+
+   const updated = await User.findOneAndUpdate({_id:user[0]._id},{password:hashedPass},{useFindAndModify:false});
+
+   res.status(200).json({msg:"WE HAVE UPDATED YOUR PASSWORD SUCCESSFULLY" , success:true})
+
+
+}
+
 module.exports = {
     signup,
     login,
@@ -619,5 +715,7 @@ module.exports = {
     getCategory,
     deleteCategory,
     updateCategory,
-    getSingleCategory
+    getSingleCategory,
+    forgotPass,
+    changePass
 }

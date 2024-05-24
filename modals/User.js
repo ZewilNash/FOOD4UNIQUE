@@ -37,7 +37,11 @@ const UserSchema = new mongoose.Schema({
             type:mongoose.Types.ObjectId,
             ref:"Product"
         }
-    ]
+    ],
+
+    code:{
+        type: String,
+    }
 
 } , {timestamps:true});
 

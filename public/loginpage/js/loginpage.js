@@ -145,7 +145,9 @@ const translations = {
       up_6:"password",
       up_7:"Login",
       up_8:" Don't Have an account ?",
-      up_9:"Sign Up"
+      up_9:"Sign Up",
+      up_10:"FORGOT PASSWORD?",
+      up_11:"CLICK HERE",
     },
   
     in: {
@@ -175,7 +177,9 @@ const translations = {
       up_6:"kata sandi",
       up_7:"Gabung",
       up_8:"Belum punya akun?",
-      up_9:"Mendaftar"
+      up_9:"Mendaftar",
+      up_10:"TIDAK INGAT KATA SANDI?",
+      up_11:"KLIK DISINI",
     }
   }
   

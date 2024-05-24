@@ -17,8 +17,22 @@ window.onload = () => {
         document.querySelector(".form").style.display = "block";
         document.querySelector(".loader").style.display = "none";
     } , 4000)
+
+    document.querySelector("#hidePass").style.display = "none";
 }
 
+
+document.querySelector("#showPass").addEventListener("click" , (e) => {
+    document.querySelector("#password").setAttribute("type" , "text");
+    document.querySelector("#hidePass").style.display = "block";
+    e.target.style.display = "none"
+})
+
+document.querySelector("#hidePass").addEventListener("click" , (e) => {
+    document.querySelector("#password").setAttribute("type" , "password");
+    document.querySelector("#showPass").style.display = "block";
+    e.target.style.display = "none"
+})
 
 document.querySelector("#login-btn").addEventListener("click" , (event) => {
     event.preventDefault();

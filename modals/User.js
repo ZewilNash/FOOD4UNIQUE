@@ -23,12 +23,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: [true, "You Must Provide Password"],
         trim: true,
-        match: [
-            /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{10,}$/,
-
-            'Please provide valid       password (one Capital      Letter One smaller     one special Character and one number) With length more than or equal 10'
-
-        ]
+        minlength:[8 , "PLEASE PROVIDE AT LEAST 8 CHARACTERS FOR PASSWORD"]
     },
 
     role: {

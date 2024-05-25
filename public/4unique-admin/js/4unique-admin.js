@@ -70,13 +70,17 @@ document.querySelector(".upload_widget_review").addEventListener(
     false
 );
 
-document.querySelector(".upload_widget_edit").addEventListener(
-    "click",
-    function () {
-        myWidget.open();
-    },
-    false
-);
+if(document.querySelectorAll(".upload_widget_edit")){
+    document.querySelectorAll(".upload_widget_edit").forEach(btn => {
+        btn.addEventListener(
+            "click",
+            function () {
+                myWidget.open();
+            },
+            false
+        );
+    })
+}
 
 document.querySelector(".upload_widget_category").addEventListener(
     "click",
@@ -86,15 +90,17 @@ document.querySelector(".upload_widget_category").addEventListener(
     false
 );
 
-if(document.querySelector("#upload_widget_category")){
-    document.querySelector("#upload_widget_category").addEventListener(
-        "click",
-        function () {
-            myWidget.open();
-        },
-        false
-    );
-}
+// if(document.querySelectorAll("#upload_widget_category_btn")){
+//     document.querySelectorAll("#upload_widget_category_btn").forEach(btn => {
+//         btn.addEventListener(
+//             "click",
+//             function () {
+//                 myWidget.open();
+//             },
+//             false
+//         );
+//     })
+// }
 
 
 
@@ -700,10 +706,10 @@ function updateProduct() {
 
         let HTML = `<p class="success-message">${msg}</p>`;
 
-        document.querySelector("#success-edit-p").innerHTML += HTML;
+        document.querySelector("#success").innerHTML += HTML;
 
         setTimeout(() => {
-            document.querySelector("#success-edit-p").innerHTML = "";
+            document.querySelector("#success").innerHTML = "";
             // document.querySelector("#create-btn").disabled = false;
 
             // window.location.href = "/home";
@@ -718,13 +724,13 @@ function updateProduct() {
         errors.forEach(err => {
             let HTML = `<p class="error-message">${err}</p>`;
 
-            document.querySelector("#errors-edit-p").innerHTML += HTML;
+            document.querySelector("#errors").innerHTML += HTML;
 
 
         });
 
         setTimeout(() => {
-            document.querySelector("#errors-edit-p").innerHTML = "";
+            document.querySelector("#errors").innerHTML = "";
         }, 3000)
 
     })
@@ -738,9 +744,11 @@ document.querySelector("#create-category-btn").addEventListener("click", (e) => 
     createCategory();
 })
 
-document.querySelector("#create-btn-edit").addEventListener("click", (e) => {
-    e.preventDefault();
-    updateProduct();
+document.querySelectorAll("#create-btn-edit").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        updateProduct();
+    })
 })
 
 

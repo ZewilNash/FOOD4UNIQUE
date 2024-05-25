@@ -281,8 +281,8 @@
 
             <div style="display: flex;width: 100%;justify-content: space-between;" class="">
 
-              <a data-bs-toggle="modal" data-bs-target="#editCat-<%= categories[i].category.split(' ')[0]  %>" data-category-name="<%= categories[i].category%>"
-                style="color: blue;font-size: 20px;" id="edit_category" href="#">EDIT</a>
+              <!-- <a data-bs-toggle="modal" data-bs-target="#editCat-<%= categories[i].category.split(' ')[0]  %>" data-category-name="<%= categories[i].category%>"
+                style="color: blue;font-size: 20px;" id="edit_category" href="#">EDIT</a> -->
 
               <a data-category-name="<%= categories[i].category %>" style="color: red;font-size: 20px;"
                 id="delete_category" href="#">Delete</a>
@@ -290,46 +290,7 @@
 
             </div>
 
-            <!-- Modal -->
-            <div class="modal fade" id="editCat-<%= categories[i].category.split(' ')[0] %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-              aria-labelledby="staticBackdropLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">UPDATE <%= categories[i].category %></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <form action="#"
-                    style="display: flex;justify-content: center;align-items: center;height: 100%;width: 100%;flex-direction: column;padding: 30px;">
             
-                    <label for="name">CATEGORY NAME <em>&#x2a;</em></label>
-            
-                    <input value="<%= categories[i].category %>" id="up_cat_name" name="name" required="" type="text" />
-            
-                    <label for="image">CATEGORY POSTER IMAGE</label>
-            
-                    <input id="upload_widget_category" name="image" type="file" multiple class="input-field"
-                      accept="image/*" />
-            
-            
-                    <button 
-                    data-category-name="<%= categories[i].category %>"
-                    id="update-category-btn">UPDATE CATEGORY</button>
-            
-                    <small style="text-align: center;font-size: 17px;">
-                      WHEN YOU UPDATE THE CATEGORY YOU NEED TO FIRST UPLOAD THE CATEGORY POSTER DONT FORGET!!
-                    </small>
-            
-                  </form>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                   
-                  </div>
-                </div>
-              </div>
-            </div>
 
           </div>
           <% } %>
@@ -493,8 +454,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <div id="success-edit-p"></div>
-                <div id="errors-edit-p"></div>
+                <div style="position: fixed;" id="success-edit-p"></div>
+                <div style="position: fixed;" id="errors-edit-p"></div>
                 <form action="#">
                   <input value="<%= products[i]._id %>" type="text" hidden id="id_edit">
                   <label for="name">NAME <em>&#x2a;</em></label>
@@ -528,7 +489,9 @@
                     accept="image/*" />
 
 
-                  <button id="create-btn-edit">EDIT</button>
+                  <button
+                  data-food-id="<%= products[i]._id %>"
+                  id="create-btn-edit">EDIT</button>
 
                   <div class="mt-5" id="errors"></div>
                   <div class="mt-5" id="success"></div>

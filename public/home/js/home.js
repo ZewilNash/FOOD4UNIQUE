@@ -104,23 +104,23 @@ window.onload = () => {
 const categories = [
 
     {
-        category: "EGYPTIAN FOOD",
+        category: "egyptian food",
         image: "./images/categories/egyptian.jpg"
     },
 
 
     {
-        category: "INDONESIAN FOOD",
+        category: "indonesian food",
         image: "./images/categories/indonisian.jpg"
     },
 
     {
-        category: "EGYINDO FOOD",
+        category: "egyindo food",
         image: "./images/categories/egyindo.jpg"
     },
 
     {
-        category: "VIP FOOD",
+        category: "vip food",
         image: "./images/categories/vip.jpg"
     },
     // {
@@ -128,7 +128,7 @@ const categories = [
     //     image: "./images/categories/best.jpg"
     // },
     {
-        category: "DESSERTS",
+        category: "desserts",
         image: "./images/categories/dessert.jpg"
     },
 
@@ -161,7 +161,7 @@ axios.get(URL + `api/v1/auth/get_category`, {
     categories.forEach(cat => {
 
         HTML += `
-        <a style="text-align:center;font-size:17px" href="/food/${cat.category.toLowerCase()}"class="col-md-4 category mt-5">
+        <a style="text-align:center;font-size:17px" href="/food/${cat.category}"class="col-md-4 category mt-5">
             <img style="width:100%;height:350px;object-fit-contain" src="${cat.image}" />
 
             ${cat.category.includes("(") ? `

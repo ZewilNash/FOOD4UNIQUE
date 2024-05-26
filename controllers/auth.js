@@ -567,6 +567,8 @@ const updateCategory = async (req,res) => {
     const {category} = req.params;
     const {categoryItem , image} = req.body;
 
+  
+    
 
     if(!categoryItem || !image){
         return res.status(400).json({msg:"YOU MUST PROVIDE IMAGE && CATEGORY NAME" , success:false});
@@ -580,6 +582,8 @@ const updateCategory = async (req,res) => {
     }
 
     await Category.findOneAndUpdate({category:category} , {category:categoryItem , image} , {useFindAndModify:false});
+
+    await Food.updateMany({category:category} , {"$set":{"category": categoryItem}})
 
     res.status(200).json({success:true,msg:"Category Updated Successfully"});
 }

@@ -90,17 +90,7 @@ document.querySelector(".upload_widget_category").addEventListener(
     false
 );
 
-// if(document.querySelectorAll("#upload_widget_category_btn")){
-//     document.querySelectorAll("#upload_widget_category_btn").forEach(btn => {
-//         btn.addEventListener(
-//             "click",
-//             function () {
-//                 myWidget.open();
-//             },
-//             false
-//         );
-//     })
-// }
+
 
 
 
@@ -662,6 +652,59 @@ function createProduct() {
 }
 
 
+function updateCategory(categoryName,edit_cat){
+    let url = document.URL.split("4unique-admin")[0];
+    let user = JSON.parse(localStorage.getItem("user"));
+    let image = url_images[0];
+
+    axios.patch(String(url) + `api/v1/auth/update_category/${categoryName}`, {
+        categoryItem:edit_cat,
+        image:image
+    }, {
+        headers: {
+            Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+        }
+    }
+
+    ).then(res => {
+        console.log(res);
+
+        // success
+        let msg = res.data.msg;
+        // document.querySelector("#create-btn-edit").disabled = true;
+
+        let HTML = `<p class="success-message">${msg}</p>`;
+
+        document.querySelector("#success").innerHTML += HTML;
+
+        setTimeout(() => {
+            document.querySelector("#success").innerHTML = "";
+            // document.querySelector("#create-btn").disabled = false;
+
+            // window.location.href = "/home";
+            window.location.reload();
+
+        }, 3000)
+
+    }).catch(err => {
+        console.log(err);
+
+        let errors = err.response.data.msg.split(",");
+
+        errors.forEach(err => {
+            let HTML = `<p class="error-message">${err}</p>`;
+
+            document.querySelector("#errors").innerHTML += HTML;
+
+
+        });
+
+        setTimeout(() => {
+            document.querySelector("#errors").innerHTML = "";
+        }, 3000)
+
+    })
+}
 
 
 function updateProduct() {
@@ -713,6 +756,7 @@ function updateProduct() {
             // document.querySelector("#create-btn").disabled = false;
 
             // window.location.href = "/home";
+            window.location.reload();
 
         }, 3000)
 
@@ -738,6 +782,60 @@ function updateProduct() {
 }
 
 
+document.querySelectorAll("#edit_category").forEach(cat => {
+    cat.addEventListener("click" , (e) => {
+        e.preventDefault();
+        const {categoryName} = e.target.dataset;
+        
+        const myPopup = new Popup({
+            id: "my-popup",
+            title: "FOOD4UNIQUE",
+            content: `<form style="display: flex;justify-content: center;align-items: center;margin-top: 20px;flex-direction: column;">
+            <h1 class="mb-5">EDIT CATEGORY</h1>
+            
+            <input id="edit_cat_name" type="text" placeholder="CATEGORY NAME">
+
+            <input id="upload_widget_category_edit_btn" name="image" type="file" multiple class="input-field" accept="image/*" />
+            
+            <button data-category-name="${categoryName}" id="edit_cat_btn" type="submit">Submit</button>
+          </form>`,
+            showImmediately: true,
+            textColor: "black",
+            heightMultiplier: 0.8,
+            disableScroll: false,
+            hideTitle: true
+        });
+
+
+
+        myPopup.show();
+
+        if(document.querySelectorAll("#upload_widget_category_edit_btn")){
+            document.querySelectorAll("#upload_widget_category_edit_btn").forEach(btn => {
+                btn.addEventListener(
+                    "click",
+                    function () {
+                        myWidget.open();
+                    },
+                    false
+                );
+            })
+        }
+
+        document.querySelectorAll("#edit_cat_btn").forEach(btn => {
+            btn.addEventListener("click" , (e) => {
+                e.preventDefault();
+                const {categoryName} = e.target.dataset;
+                const edit_cat = document.querySelector("#edit_cat_name").value
+                console.log(edit_cat);
+                
+                updateCategory(categoryName,edit_cat);
+                
+            })
+        })
+        
+    })
+})
 
 document.querySelector("#create-category-btn").addEventListener("click", (e) => {
     e.preventDefault();

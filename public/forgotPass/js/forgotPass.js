@@ -18,9 +18,23 @@ window.onload = () => {
         document.querySelector(".loader").style.display = "none";
     }, 4000)
 
-   
+    document.querySelector("#hidePass").style.display = "none";
 
 }
+
+
+
+document.querySelector("#showPass").addEventListener("click" , (e) => {
+    document.querySelector("#newPass").setAttribute("type" , "text");
+    document.querySelector("#hidePass").style.display = "block";
+    e.target.style.display = "none"
+})
+
+document.querySelector("#hidePass").addEventListener("click" , (e) => {
+    document.querySelector("#newPass").setAttribute("type" , "password");
+    document.querySelector("#showPass").style.display = "block";
+    e.target.style.display = "none"
+})
 
 
 document.querySelector("#back_from_forgot").addEventListener("click", () => {

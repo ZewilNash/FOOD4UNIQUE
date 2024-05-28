@@ -42,9 +42,11 @@ const updateProduct = async (req,res) => {
 
     const product = await Product.findOneAndUpdate({_id:foodId} , {$set:{name,price,category,size,description,images}} , {new:true})
 
-   
+    const deleteFoodFromCart = await Cart.deleteMany({food:foodId});
 
-    res.status(200).json({product , success:true, msg:"Product Updated Successfully"});
+    
+
+    res.status(200).json({product , success:true, msg:"Product Updated Successfully" , deleteFoodFromCart});
 }
 
 
@@ -127,7 +129,9 @@ const deleteFood = async (req,res) => {
 
     const deletedProduct = await Product.findOneAndDelete({_id:foodId});
 
-    res.status(200).json({deletedProduct , msg:"Food Deleted Successfully" , success:true});
+    const deleteFoodFromCart = await Cart.deleteMany({food:foodId});
+
+    res.status(200).json({deletedProduct , msg:"Food Deleted Successfully" , success:true , deleteFoodFromCart});
 }
 
 const getSingleFood = async (req,res) => {

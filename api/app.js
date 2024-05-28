@@ -277,7 +277,7 @@ app.get("/favourites/:id", async (req, res) => {
 
     const { id } = req.params;
 
-    const user = await User.findOne({ _id: id }).populate("favourites");
+    const user = await User.findOne({ _id: id }).populate("favourites"); 
 
     if (!user) {
         return res.redirect("/notfound");

@@ -130,7 +130,7 @@ app.get("/home", async (req, res) => {
 
 app.get("/food", async (req, res) => {
     const categories = await Category.find({})
-    const products = await Product.find({}).sort("createdAt");
+    const products = await Product.find({}).sort({createdAt: -1})
 
     res.render("pages/food/index", { product: [], products: products,categories , msg:"" });
 });
@@ -147,7 +147,7 @@ app.get("/cart/:id", async (req, res) => {
         return res.redirect("/notfound");
     }
 
-    const products = await Cart.find({ user: req.params.id }).populate("food").sort("createdAt");
+    const products = await Cart.find({ user: req.params.id }).populate("food").sort({createdAt: -1});
 
   
     // const total = products.reduce((a,b) => a.food.price * b.food.price)
@@ -182,7 +182,7 @@ app.get("/findfood/:text", async (req, res) => {
 
     const { text } = req.params
 
-    let products = await Product.find({ name: { $regex: text, $options: "i" } }).sort("createdAt");
+    let products = await Product.find({ name: { $regex: text, $options: "i" } }).sort({createdAt: -1});
 
 
     if (products.length === 0) {
@@ -198,7 +198,7 @@ app.get("/food/:cat", async (req, res) => {
 
     const { cat } = req.params;
 
-    const product = await Product.find({ category: cat }).sort("createdAt");
+    const product = await Product.find({ category: cat }).sort({createdAt: -1});
 
 
 
@@ -300,8 +300,10 @@ app.get("/user_orders/:id", async (req, res) => {
         return res.status(404).json({msg:"user Not Found" , success:false});
     }
 
-    const userOrders = await BOOKOrder.find({email:user[0].email}).sort("-createdAt");
+    const userOrders = await BOOKOrder.find({email:user[0].email}).sort({createdAt: -1});
 
+    
+    
     const carts = [];
 
     // console.log(userOrders);
@@ -314,6 +316,7 @@ app.get("/user_orders/:id", async (req, res) => {
 
 
      
+    //  console.log(carts);
      
 
      if(userOrders.length === 0){

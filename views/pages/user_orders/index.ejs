@@ -90,7 +90,20 @@
 
 
 
-                            <h1 data-lang="order_4">WE BOOKED YOUR FOOD IT WILL BE READY ON TIME</h1>
+                            <small 
+                            data-lang="order_16"
+                            style="font-size: 18px;">ORDER CONTAINS:</small>
+                            <% for(var w = 0; w < userOrders[i].cart.length; w++) { %>
+                            
+                            <small style="font-size: 18px;font-weight: bold;">
+                               <%= userOrders[i].cart[w].food.name %>
+                            </small>
+                                
+                            <% } %>
+
+                            <h1 
+                            style="margin-top: 15px;"
+                            data-lang="order_4">WE BOOKED YOUR FOOD IT WILL BE READY ON TIME</h1>
 
                             <small style="font-size: 17px;">
                                 <span data-lang="order_5">ORDER DATE:</span> <%= userOrders[i].date %>
@@ -123,6 +136,18 @@
                             <small style="font-size: 17px;"><span data-lang="order_10">
                                 YOUR ORDER NUMBER IS :
                             </span> <%= userOrders[i].order_num %></small>
+
+                            <small
+                            data-lang="order_15"
+                            style="font-size: 18px;">YOU ORDERED:</small
+                                >
+                            <% for(var w = 0; w < userOrders[i].cart.length; w++) { %>
+                            
+                            <small style="font-size: 18px;font-weight: bold;">
+                               <%= userOrders[i].cart[w].food.name %>
+                            </small>
+                                
+                            <% } %>
                             
                           </div>
 

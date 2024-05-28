@@ -457,29 +457,29 @@
                 <div style="position: fixed;" id="success-edit-p"></div>
                 <div style="position: fixed;" id="errors-edit-p"></div>
                 <form action="#">
-                  <input value="<%= products[i]._id %>" type="text" hidden id="id_edit">
+                  <input type="text" hidden id="id_edit">
                   <label for="name">NAME <em>&#x2a;</em></label>
 
-                  <input value="<%= products[i].name %>" id="name_edit" name="name" required="" type="text" />
+                  <input value="<%= products[i].name %>" id="name_edit" name='name_<%= products[i].name %>' required="" type="text" />
 
                   <label for="price">PRICE <em>&#x2a;</em></label>
 
-                  <input value="<%= products[i].price %>" id="price_edit" name="price" required="" type="number" />
+                  <input value="<%= products[i].price %>"  id="price_edit" name="price_<%= products[i].name  %>" required="" type="number" />
 
                   <label for="category">CATEGORY <em>&#x2a;</em></label>
 
-                  <input value="<%= products[i].category %>" id="category_edit" name="category" required=""
+                  <input value="<%= products[i].category %>"  id="category_edit" name="category_<%= products[i].name  %>" required=""
                     type="text" />
 
                   <label for="available_size">Available Sizes <em>&#x2a;</em></label>
 
-                  <input value="<%= products[i].size %>" id="available_size_edit" name="available_size" required=""
+                  <input value="<%= products[i].size %>"  id="available_size_edit" name="size_<%= products[i].name  %>"required=""
                     type="text" />
 
                   <label for="customerNote">DESCRIPTION <em>&#x2a;</em></label>
 
-                  <textarea id="description_edit" name="description" required="" rows="4">
-                <%= products[i].description %>
+                  <textarea id="description_edit" name="description_<%= products[i].name  %>" required="" rows="4">
+                    <%= products[i].description %> 
               </textarea>
 
 
@@ -490,6 +490,8 @@
 
 
                   <button
+                  type="submit"
+                  data-food-name="<%= products[i].name %>"
                   data-food-id="<%= products[i]._id %>"
                   id="create-btn-edit">EDIT</button>
 

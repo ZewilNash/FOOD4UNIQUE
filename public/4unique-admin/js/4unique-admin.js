@@ -706,21 +706,17 @@ function updateCategory(categoryName,edit_cat){
     })
 }
 
-
-function updateProduct() {
+// foodId , name , price , category , size , description
+function updateProduct(foodId , name , price , category , size , description) {
     let user = JSON.parse(localStorage.getItem("user"));
-    let name = document.querySelector("#name_edit").value;
-    let price = document.querySelector("#price_edit").value;
-    let category = document.querySelector("#category_edit").value;
-    let available_size = document.querySelector("#available_size_edit").value;
-    let description = document.querySelector("#description_edit").value;
-
-    let id_edit = document.querySelector("#id_edit").value;
+   
+    
+    let id_edit = foodId;
 
     // let images = document.querySelector("#images").files;
     let images = url_images;
 
-    console.log(images, name, price, description, category, available_size);
+    console.log(images, name, price, description, category, available_size , foodId);
 
 
     // logic to upload to mongodb
@@ -731,7 +727,7 @@ function updateProduct() {
         name,
         price,
         category,
-        size: available_size.split(","),
+        size,
         images,
         description
     }, {
@@ -845,7 +841,31 @@ document.querySelector("#create-category-btn").addEventListener("click", (e) => 
 document.querySelectorAll("#create-btn-edit").forEach(btn => {
     btn.addEventListener("click", (e) => {
         e.preventDefault();
-        updateProduct();
+        const {foodId,foodName} = e.target.dataset;
+
+       
+    
+        let name = document.querySelector(`[name='name_${foodName}']`).value;
+
+        let price = document.querySelector(`[name='price_${foodName}']`).value;
+
+        let category = document.querySelector(`[name='category_${foodName}']`).value;
+
+        let size = document.querySelector(`[name='size_${foodName}']`).value;
+
+
+        let description = document.querySelector(`[name='description_${foodName}']`).value;
+
+
+
+        
+
+        console.log(name , price , category , size , description);
+        
+        
+        updateProduct(foodId , name , price , category , size , description);
+        
+        
     })
 })
 

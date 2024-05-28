@@ -155,7 +155,9 @@ const translations = {
       order_7:"WHEN YOUR FOOD IS READY WE WILL INFORM YOU",
       order_8:"ALWAYS COME HERE & REFRESH THE PAGE TO CHECK YOUR FOOD STATUS",
       order_9:"YOUR ORDER IS READY PLEASE COME TO TAKE IT",
-      order_10:"YOUR ORDER NUMBER IS :"
+      order_10:"YOUR ORDER NUMBER IS :",
+      order_16:"ORDER CONTAINS",
+      order_15:"YOU ORDERED"
     },
   
     in: {
@@ -188,6 +190,8 @@ const translations = {
       order_9:"PESANAN ANDA SUDAH SILAHKAN DATANG UNTUK MENGAMBILNYA",
       order_10:`NOMOR PESANAN ANDA ADALAH :
       `,
+      order_16:"PESANAN BERISI",
+      order_15:"ANDA MEMESAN"
     }
   }
   

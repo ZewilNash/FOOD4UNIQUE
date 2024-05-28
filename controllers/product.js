@@ -21,6 +21,7 @@ const createProduct = async (req,res) => {
 const updateProduct = async (req,res) => {
     const {name,price,category,size,description,images} = req.body;
 
+
     if(!name || !price || !category || !size || !description || !images){
         return res.status(400).json({success:false, msg:"FILL ALL FIELDS BEFORE UPDATING"});
     }

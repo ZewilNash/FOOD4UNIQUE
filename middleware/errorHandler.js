@@ -26,6 +26,8 @@ const errorhandlerMiddleware = (err, req, res, next) => {
 
 
     if (err && req.method === "GET") {
+        // console.log(err);
+        
         res.status(500);
         return res.render("pages/servererror/index", { msg: "Something went wrong, try again later" });
     }

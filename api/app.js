@@ -142,6 +142,8 @@ app.get("/cart/:id", async (req, res) => {
 
     const user = await User.findOne({ _id: req.params.id });
 
+
+    
     if (!user) {
         res.status(404);
         return res.redirect("/notfound");
@@ -149,7 +151,9 @@ app.get("/cart/:id", async (req, res) => {
 
     const products = await Cart.find({ user: req.params.id }).populate("food").sort({createdAt: -1});
 
-  
+
+
+    
     // const total = products.reduce((a,b) => a.food.price * b.food.price)
 
     // console.log(total);
@@ -159,6 +163,8 @@ app.get("/cart/:id", async (req, res) => {
         const array = [];
 
         for (let i = 0; i < products.length; i++) {
+            // console.log(products[i]);
+            
             let mult = Number(products[i].food.price) * Number(products[i].qty);
             array.push(mult);
         }

@@ -18,7 +18,26 @@ const ReportSchema = new mongoose.Schema({
         required: [true, "You Must Provide report Message"],
         trim: true,
         unique: true
-    }
+    },
+
+    name:{
+        type: String,
+        required: [true, "You Must Provide name"],
+        trim: true,
+    },
+
+    email: {
+        type: String,
+        required: [true, "You Must Provide email"],
+        trim: true,
+    },
+
+    phone: {
+        type: String,
+        required: [true, "You Must Provide phone"],
+        trim: true,
+    },
+
 
 
 } , {timestamps:true});
@@ -39,7 +58,7 @@ ReportSchema.pre("save", function () {
         from: process.env.GMAIL,
         to: process.env.GMAIL,
         subject: 'SOMEONE MAKE A REPORT PLEASE CHECK IT OUT',
-        html: `<p>ORDER ID: </p><h1>${this.order}</h1>, <p>REPORT CONTENT: </p><h1>${this.report}</h1>`
+        html: `<p>ORDER ID: </p><h1>${this.order}</h1>, <p>REPORT CONTENT: </p><h1>${this.report}</h1><p>REPORT OWNER NAME: </p><h1>${this.name}</h1><p>REPORT OWNER EMAIL: </p><h1>${this.email}</h1><p>REPORT OWNER PHONE: </p><h1>${this.phone}</h1>`
     };
 
     transporter.sendMail(mailOptions, function (error, info) {

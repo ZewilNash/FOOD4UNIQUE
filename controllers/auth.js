@@ -141,11 +141,11 @@ const deleteCart = async (req,res) => {
 }
 
 const sendReport = async (req,res) => {
-    const {orderId,report} = req.body;
+    const {orderId,report , name , email , phone} = req.body;
 
     
-
-    const order = await BookedOrder.find({_id:orderId});
+    // just for test
+    const order = await Order.find({_id:orderId});
 
     
 
@@ -156,7 +156,10 @@ const sendReport = async (req,res) => {
     // create report
     const report_obj = await Report.create({
         order:orderId,
-        report:report
+        report:report,
+        name,
+        email,
+        phone
     });
 
     res.status(200).json({success:true , msg:"Report Sent Successfully,W'll Contact You Soon.." , report_obj})

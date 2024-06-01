@@ -1176,38 +1176,42 @@ document.querySelectorAll("#edit_booked_order_btn").forEach(btn => {
     })
 })
 
-document.querySelector("#delete_booked_order").addEventListener("click", (e) => {
-    let URL = document.URL.split("4unique-admin")[0];
-
-
-
-    const user = JSON.parse(localStorage.getItem("user"));
-
-    let { orderId } = e.target.dataset;
-
-    axios.delete(URL + `api/v1/auth/delete_booked_order/${orderId}`, {
-        headers: {
-            Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
-        }
-    }).then(res => {
-        let msg = res.data.msg;
-
-        let HTML = `<p class="success-message">${msg}</p>`;
-
-        document.querySelector("#success_delete").innerHTML += HTML;
-
-        setTimeout(() => {
-            document.querySelector("#success_delete").innerHTML = "";
-
-            // window.location.href = "/home";
-
-        }, 3000)
-        window.location.reload();
-    }).catch(err => {
-        console.log(err);
-
+if(document.querySelector("#delete_booked_order")){
+    document.querySelector("#delete_booked_order").addEventListener("click", (e) => {
+        let URL = document.URL.split("4unique-admin")[0];
+    
+    
+    
+        const user = JSON.parse(localStorage.getItem("user"));
+    
+        let { orderId } = e.target.dataset;
+    
+        axios.delete(URL + `api/v1/auth/delete_booked_order/${orderId}`, {
+            headers: {
+                Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
+            }
+        }).then(res => {
+            let msg = res.data.msg;
+    
+            let HTML = `<p class="success-message">${msg}</p>`;
+    
+            document.querySelector("#success_delete").innerHTML += HTML;
+    
+            setTimeout(() => {
+                document.querySelector("#success_delete").innerHTML = "";
+    
+                // window.location.href = "/home";
+    
+            }, 3000)
+            window.location.reload();
+        }).catch(err => {
+            console.log(err);
+    
+        })
     })
-})
+}
+
+
 
 
 document.querySelector("#booked_order_id_text").addEventListener("input", (e) => {

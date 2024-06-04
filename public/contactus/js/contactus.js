@@ -205,7 +205,7 @@ const translations = {
     discover: "DISCOVER ALL",
     categories: "CATEGORIES",
     egyptian: "EGYPTIAN",
-    indonesian: "INSONESIAN",
+    indonesian: "INDONESIAN",
     egyindo: "EGYINDO",
     vip: "VIP",
     desserts: "DESSERTS",

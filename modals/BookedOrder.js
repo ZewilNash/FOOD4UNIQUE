@@ -105,7 +105,7 @@ const BookedOrderSchema = new mongoose.Schema({
 
 BookedOrderSchema.plugin(mongooseSequence(mongoose) , {inc_field:"order_num"})
 
-BookedOrderSchema.pre("save" , function () {
+BookedOrderSchema.post("save" , function () {
     var transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,

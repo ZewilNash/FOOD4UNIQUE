@@ -116,23 +116,23 @@ const translations = {
     cart_7:"This Ordered By (Confirm Your Name)?",
     cart_8:"Email (Email To Inform You About Your Order)?",
     cart_9:"Phone Number (Phone Number To Inform You About Your Order)?",
-    cart_10:"Your Address",
-    cart_11:"Your Province",
-    cart_12:"Your Country",
-    cart_13:"Your Zip Code",
-    cart_14:"Your Road",
-    cart_15:"Your Village",
-    cart_16:"Your Leisure",
+    cart_10:"Your Address(Optional)",
+    cart_11:"Your Province(Optional)",
+    cart_12:"Your Country(Optional)",
+    cart_13:"Your Zip Code(Optional)",
+    cart_14:"Your Road(Optional)",
+    cart_15:"Your Village(Optional)",
+    cart_16:"Your Leisure(Optional)",
     cart_17:"Fill Most Of Info Automatically",
     cart_18:"Turn On Location!",
     cart_19:"This Sevice May Not Working Well In The Future",
     cart_20:"If This Happen You Need To Fill Your Info Manually",
     cart_21:"Choose Payment Method",
-    cart_22:"PAY & BOOK AN ORDER & TAKEAWAY FROM OUR PLACE",
+    cart_22:"BOOK AN ORDER & TAKEAWAY FROM OUR PLACE",
     cart_23:"OUR PLACE:",
     cart_24:"YOU WANT US TO PREPARE YOUR FOOD AT?",
     cart_25:"YOU WILL COME TO TAKE YOUR FOOD AT WHAT TIME?",
-    cart_26:"PAY WITH DANA,VIRTUAL ACCOUNT AND MORE..",
+    cart_26:"BOOK YOUR ORDER AND PAY WHEN YOU TAKE IT FROM OUR PLACE...",
 
   },
 
@@ -169,23 +169,23 @@ const translations = {
     cart_7:"Ini Dipesan Oleh (Konfirmasi Nama Anda)?",
     cart_8:"Email (Email Untuk Memberitahu Anda Tentang Pesanan Anda)?",
     cart_9:"Nomor Telepon (Nomor Telepon Untuk Memberitahu Anda Tentang Pesanan Anda)?",
-    cart_10:"Alamat Anda",
-    cart_11:"Provinsi Anda",
-    cart_12:"Negaramu",
-    cart_13:"Kode Pos Anda",
-    cart_14:"Jalan Anda",
-    cart_15:"Desa Anda",
-    cart_16:"Your Leisure",
+    cart_10:"Alamat Anda(Opsional)",
+    cart_11:"Provinsi Anda(Opsional)",
+    cart_12:"Negaramu(Opsional)",
+    cart_13:"Kode Pos Anda(Opsional)",
+    cart_14:"Jalan Anda(Opsional)",
+    cart_15:"Desa Anda(Opsional)",
+    cart_16:"Your Leisure(Opsional)",
     cart_17:"Isi Sebagian Besar Info Secara Otomatis",
     cart_18:"Aktifkan Lokasi!",
     cart_19:"Layanan Ini Mungkin Tidak Berfungsi Dengan Baik Di Masa Mendatang",
     cart_20:"Jika Ini Terjadi Anda Perlu Mengisi Info Anda Secara Manual",
     cart_21:"Pilih cara pembayaran",
-    cart_22:"BAYAR & PESAN PESANAN & BAWA Pulang DARI TEMPAT KAMI",
+    cart_22:"PESAN PESANAN & BAWA Pulang DARI TEMPAT KAMI",
     cart_23:"TEMPAT KITA:",
     cart_24:"ANDA INGIN KAMI MENYIAPKAN MAKANAN ANDA DI?",
     cart_25:"ANDA AKAN DATANG UNTUK MENGAMBIL MAKANAN ANDA PADA WAKTU BERAPA?",
-    cart_26:"BAYAR DENGAN DANA, AKUN VIRTUAL DAN LAINNYA..",
+    cart_26:"PESAN PESANAN ANDA DAN BAYAR SAAT ANDA MENGAMBIL DARI TEMPAT KAMI...",
   }
 }
 
@@ -442,6 +442,23 @@ function BOOKOrder(user_id, name, email, phone, address, zip_code, state, countr
         Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
       }
     }).then(res => {
+
+      
+
+      const myPopup = new Popup({
+        id: "my-popup",
+        title: "FOOD4UNIQUE",
+        content: `${localStorage.getItem("lang") === "in" ? `
+        KAMI MEMESAN PESANAN ANDA DENGAN SUKSES!` : "WE BOOKED YOUR ORDER SUCCESSFULLY!"}`,
+        showImmediately: true,
+        textColor: "green"
+      });
+  
+  
+  
+      // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+      myPopup.show();
+      document.querySelector("#pay-button_book").disabled = true
 
       // delete_cart
       deleteCart();
@@ -893,92 +910,68 @@ document.querySelector("#pay-button_book").addEventListener("click", (e) => {
 
 
 
-  if (phone && address && email && name && date && time) {
+  if (phone && email && name && date && time) {
 
-    window.snap.pay(`${transaction_token}`, {
-      onSuccess: function (result) {
-        /* You may add your own implementation here */
-        /* You may add your own implementation here */
-        //  make an order here
+        BOOKOrder(user_id, name, email, phone, address, zip_code, state, country, road, village, leisure, "booked", time, date, false);
 
-        /*
+    // window.snap.pay(`${transaction_token}`, {
+    //   onSuccess: function (result) {
+      
+    //     BOOKOrder(user_id, name, email, phone, address, zip_code, state, country, road, village, leisure, "booked", time, date, true);
+
+    //   },
+    //   onPending: function (result) {
     
-        cart
-    user
-    name
-    email
-    phone
-    address
-    state
-    country
-    zip_code
-    road
-    village
-    leisure
-    status
-    isPaid
-    
-        */
-
-        // user_id , name , email , phone,address,zip_code,state,country,road="",village="",leisure="",status , time , date , isPaid
-
-        //      makeOrder(user.user._id,name,email,phone,address,zip_code,state,country,road,village,leisure,"pending" , true);
-
-        BOOKOrder(user_id, name, email, phone, address, zip_code, state, country, road, village, leisure, "booked", time, date, true);
-
-      },
-      onPending: function (result) {
-        /* You may add your own implementation here */
-        const myPopup = new Popup({
-          id: "my-popup",
-          title: "FOOD4UNIQUE",
-          content: `${localStorage.getItem("lang") === "in" ? `Menunggu Pembayaran Anda
-          ` : "Waiting Your Payment"}`,
-          showImmediately: true,
-          textColor: "red"
-        });
+    //     const myPopup = new Popup({
+    //       id: "my-popup",
+    //       title: "FOOD4UNIQUE",
+    //       content: `${localStorage.getItem("lang") === "in" ? `Menunggu Pembayaran Anda
+    //       ` : "Waiting Your Payment"}`,
+    //       showImmediately: true,
+    //       textColor: "red"
+    //     });
 
 
 
-        // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
-        myPopup.show();
-      },
-      onError: function (result) {
-        /* You may add your own implementation here */
-        const myPopup = new Popup({
-          id: "my-popup",
-          title: "FOOD4UNIQUE",
-          content: `
-           ${localStorage.getItem("lang") === "in" ? `Pembayaran gagal
-           ` : "Payment Failed"}`,
-          showImmediately: true,
-          textColor: "red"
-        });
+      
+    //     myPopup.show();
+    //   },
+    //   onError: function (result) {
+       
+    //     const myPopup = new Popup({
+    //       id: "my-popup",
+    //       title: "FOOD4UNIQUE",
+    //       content: `
+    //        ${localStorage.getItem("lang") === "in" ? `Pembayaran gagal
+    //        ` : "Payment Failed"}`,
+    //       showImmediately: true,
+    //       textColor: "red"
+    //     });
 
 
 
-        // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
-        myPopup.show();
-      },
-      onClose: function () {
-        /* You may add your own implementation here */
-        const myPopup = new Popup({
-          id: "my-popup",
-          title: "FOOD4UNIQUE",
-          content: `
-            ${localStorage.getItem("lang") === "in" ? `Anda menutup popup tanpa menyelesaikan pembayaran!
-            ` : "you closed the popup without finishing the payment!"}`,
-          showImmediately: true,
-          textColor: "red"
-        });
+       
+    //     myPopup.show();
+    //   },
+    //   onClose: function () {
+      
+    //     const myPopup = new Popup({
+    //       id: "my-popup",
+    //       title: "FOOD4UNIQUE",
+    //       content: `
+    //         ${localStorage.getItem("lang") === "in" ? `Anda menutup popup tanpa menyelesaikan pembayaran!
+    //         ` : "you closed the popup without finishing the payment!"}`,
+    //       showImmediately: true,
+    //       textColor: "red"
+    //     });
 
 
 
-        // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
-        myPopup.show();
+        
+    //     myPopup.show();
 
-      }
-    })
+    //   }
+    // })
 
 
 
@@ -986,17 +979,13 @@ document.querySelector("#pay-button_book").addEventListener("click", (e) => {
     const myPopup = new Popup({
       id: "my-popup",
       title: "FOOD4UNIQUE",
-      content: `${localStorage.getItem("lang") === "in" ? "HARAP MEMBERIKAN DETAIL PESANAN YANG HILANG (wajib: email, nama, telepon, alamat, tanggal, waktu)":"PLEASE PROVIDE ALL MISSING ORDER DETAILS (required: email , name , phone , address,date,time)"}`,
+      content: `${localStorage.getItem("lang") === "in" ? "HARAP MEMBERIKAN DETAIL PESANAN YANG HILANG (wajib: email, nama, telepon, tanggal, waktu)":"PLEASE PROVIDE ALL MISSING ORDER DETAILS (required: email , name , phone ,date,time)"}`,
       showImmediately: true,
       textColor: "red"
     });
 
 
 
-
-
-
-    // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
     myPopup.show();
   }
 

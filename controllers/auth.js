@@ -222,9 +222,22 @@ const editBookedOrder = async (req,res) => {
 
     pusher.trigger('notifications', 'order_status', {data:order});
     
+    let sentHolder = {}
+
+        
+
     global.io.on('connection', function (socket) {
-        socket.emit('statusUpdated' , order);
+        if(sentHolder[socket.id] == false) {
+            //sent data to client with emit, this will run only once
+            socket.emit('statusUpdated' , order);
+            sentHolder[socket.id] = true
+         }
+        
     });
+
+    // global.io.on('connection', function (socket) {
+    //     socket.emit('statusUpdated' , order);
+    // });
 
   
     // global.pusher.trigger("my-channel", "my-event", {

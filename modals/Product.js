@@ -66,8 +66,17 @@ ProductSchema.pre("save" , async function () {
 
     pusher.trigger('notifications', 'food_added', {data:food});
 
+    let sentHolder = {}
+
+        
+
     global.io.on('connection', function (socket) {
-        socket.emit('foodadded' , food);
+        if(sentHolder[socket.id] == false) {
+            //sent data to client with emit, this will run only once
+            socket.emit('foodadded' , food);
+            sentHolder[socket.id] = true
+         }
+        
     });
    
 })

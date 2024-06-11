@@ -8,6 +8,8 @@ const User = require("../modals/User");
 const Cart = require("../modals/Cart");
 const Order = require("../modals/Order");
 const BOOKOrder = require("../modals/BookedOrder");
+var expressPublicIp = require('express-public-ip');
+
 const Report = require("../modals/Report");
 const Reviews = require("../modals/FOODREVIEW");
 const Category = require("../modals/CATEGORY");
@@ -72,6 +74,8 @@ app.set("view engine", "ejs");
 
 app.set("trust proxy", 1);
 
+app.use(expressPublicIp());
+
 app.use(
     rateLimiter({
         windowMs: 15 * 60 * 1000, // 15 minutes
@@ -108,9 +112,9 @@ app.get("/", (req, res) => {
     res.render("pages/landing/index");
 });
 
-// app.get("/sw.js", (req, res) => {
-//     res.render("pages/sw.js/index");
-// });
+app.get("/sw.js", (req, res) => {
+    res.render("pages/sw.js/index");
+});
 
 app.get("/signuppage", (req, res) => {
     res.render("pages/signuppage/index");

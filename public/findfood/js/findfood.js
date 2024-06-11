@@ -79,6 +79,12 @@ window.onload = () => {
           console.log(err);
           
       })
+
+      if(user.user.auto === true){
+        console.log(true);
+        
+        document.querySelector("#logout").style.display = "none"
+    }
 }
 
 let user = JSON.parse(localStorage.getItem("user"));

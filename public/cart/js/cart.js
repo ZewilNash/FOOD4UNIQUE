@@ -81,6 +81,12 @@ window.onload = () => {
 
   })
 
+  if(user.user.auto === true){
+    console.log(true);
+    
+    document.querySelector("#logout").style.display = "none"
+}
+
 }
 
 
@@ -333,77 +339,77 @@ document.querySelector("#back-to-cart").addEventListener("click", (e) => {
 
 
 // --------------------------------------
-document.querySelector("#auto_fill_btn").addEventListener("click", (e) => {
-  e.target.innerText = localStorage.getItem("lang") === "in" ? "TUNGGU SEBENTAR..." : "WAIT A MOMENT..."
-  e.target.disabled = true;
+// document.querySelector("#auto_fill_btn").addEventListener("click", (e) => {
+//   e.target.innerText = localStorage.getItem("lang") === "in" ? "TUNGGU SEBENTAR..." : "WAIT A MOMENT..."
+//   e.target.disabled = true;
 
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
+//   if (navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(function (position) {
+//       const latitude = position.coords.latitude;
+//       const longitude = position.coords.longitude;
 
-      axios.get(`https://geocode.maps.co/reverse?lat=${latitude}&lon=${longitude}&api_key=65b701bc4459c825070634awd0b43ca`).then(res => {
-        let country = res.data.address.country;
-        let state = res.data.address.state;
-        let village = res.data.address.village;
-        let road = res.data.address.road;
-        let postcode = res.data.address.postcode;
-        let display_name = res.data.display_name;
-        let leisure = res.data.address.leisure;
+//       axios.get(`https://geocode.maps.co/reverse?lat=${latitude}&lon=${longitude}&api_key=65b701bc4459c825070634awd0b43ca`).then(res => {
+//         let country = res.data.address.country;
+//         let state = res.data.address.state;
+//         let village = res.data.address.village;
+//         let road = res.data.address.road;
+//         let postcode = res.data.address.postcode;
+//         let display_name = res.data.display_name;
+//         let leisure = res.data.address.leisure;
 
-        setTimeout(() => {
+//         setTimeout(() => {
 
-          document.querySelector("#order_state").value = state ? state : "";
-          document.querySelector("#order_country").value = country ? country : "";
-          document.querySelector("#order_zip_code").value = postcode ? postcode : "";
-          document.querySelector("#order_address").value = display_name ? display_name : "";
-          document.querySelector("#order_road").value = road ? road : "";
-          document.querySelector("#order_village").value = village ? village : "";
-          document.querySelector("#order_leisure").value = leisure ? leisure : "";
-          document.querySelector("#order_email").value = user.user.email;
-          document.querySelector("#order_name").value = user.user.fullname;
-          e.target.innerText = localStorage.getItem("lang") === "in" ? "Tunggu 10 menit untuk menggunakannya kembali" : "Wait 10 minutes to use it again"
-        }, 1500)
+//           document.querySelector("#order_state").value = state ? state : "";
+//           document.querySelector("#order_country").value = country ? country : "";
+//           document.querySelector("#order_zip_code").value = postcode ? postcode : "";
+//           document.querySelector("#order_address").value = display_name ? display_name : "";
+//           document.querySelector("#order_road").value = road ? road : "";
+//           document.querySelector("#order_village").value = village ? village : "";
+//           document.querySelector("#order_leisure").value = leisure ? leisure : "";
+//           document.querySelector("#order_email").value = user.user.email;
+//           document.querySelector("#order_name").value = user.user.fullname;
+//           e.target.innerText = localStorage.getItem("lang") === "in" ? "Tunggu 10 menit untuk menggunakannya kembali" : "Wait 10 minutes to use it again"
+//         }, 1500)
 
-        setTimeout(() => {
-          e.target.innerText = "Fill Most Of Info Automatically"
-          e.target.disabled = false;
-        }, 600000)
-
-
-      }).catch(err => {
-        const myPopup = new Popup({
-          id: "my-popup",
-          title: "FOOD4UNIQUE",
-          content: `${localStorage.getItem("lang") === "in" ? "LAYANAN OTOMATIS TIDAK BERFUNGSI, COBA LAGI NANTI!" : "AUTOMATIC SERVICE IS NOT WORKING , TRY AGAIN LATER!"}`,
-          showImmediately: true,
-          textColor: "red"
-        });
+//         setTimeout(() => {
+//           e.target.innerText = "Fill Most Of Info Automatically"
+//           e.target.disabled = false;
+//         }, 600000)
 
 
-
-        // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
-        myPopup.show();
-      })
-
-    });
-  } else {
-    const myPopup = new Popup({
-      id: "my-popup",
-      title: "FOOD4UNIQUE",
-      content: `Geolocation is not supported by this Device.`,
-      showImmediately: true,
-      textColor: "red"
-    });
+//       }).catch(err => {
+//         const myPopup = new Popup({
+//           id: "my-popup",
+//           title: "FOOD4UNIQUE",
+//           content: `${localStorage.getItem("lang") === "in" ? "LAYANAN OTOMATIS TIDAK BERFUNGSI, COBA LAGI NANTI!" : "AUTOMATIC SERVICE IS NOT WORKING , TRY AGAIN LATER!"}`,
+//           showImmediately: true,
+//           textColor: "red"
+//         });
 
 
 
-    // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
-    myPopup.show();
+//         // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+//         myPopup.show();
+//       })
 
-  }
-})
+//     });
+//   } else {
+//     const myPopup = new Popup({
+//       id: "my-popup",
+//       title: "FOOD4UNIQUE",
+//       content: `Geolocation is not supported by this Device.`,
+//       showImmediately: true,
+//       textColor: "red"
+//     });
+
+
+
+//     // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+//     myPopup.show();
+
+//   }
+// })
 
 /*
 
@@ -846,63 +852,66 @@ document.querySelector("#order_name").addEventListener("focusout", (event) => {
 
 
 
-document.querySelector("#order_address").addEventListener("input", (e) => {
+// document.querySelector("#order_address").addEventListener("input", (e) => {
 
 
-  let url = `https://alamat.thecloudalert.com/api/cari/index/?keyword=${e.target.value}`
-  axios.get(url).then(res => {
-    let data_arr = res.data.result;
+//   let url = `https://alamat.thecloudalert.com/api/cari/index/?keyword=${e.target.value}`
+//   axios.get(url).then(res => {
+//     let data_arr = res.data.result;
 
-    if (data_arr.length > 0) {
-      document.querySelector("#address").classList.remove("hide");
-    } else {
-      document.querySelector("#address").classList.add("hide");
-    }
-
-
-    for (let i = 0; i < data_arr.length; i++) {
-      let option = document.createElement("option");
-      option.innerText = `${data_arr[i].negara},${data_arr[i].provinsi},${data_arr[i].kabkota},${data_arr[i].kecamatan},
-      ${data_arr[i].desakel}`;
-      option.value = `${data_arr[i].negara},${data_arr[i].provinsi},${data_arr[i].kabkota},${data_arr[i].kecamatan},
-      ${data_arr[i].desakel}`;
+//     if (data_arr.length > 0) {
+//       document.querySelector("#address").classList.remove("hide");
+//     } else {
+//       document.querySelector("#address").classList.add("hide");
+//     }
 
 
-
-      document.querySelector("#address").appendChild(option);
-
-      document.querySelector("#address").addEventListener("change", (e) => {
-
-        document.querySelector("#order_address").value = e.target.value;
-        document.querySelector("#order_state").value = e.target.value.split(",")[1];
-        document.querySelector("#order_country").value = e.target.value.split(",")[0];;
-      })
-
-    }
+//     for (let i = 0; i < data_arr.length; i++) {
+//       let option = document.createElement("option");
+//       option.innerText = `${data_arr[i].negara},${data_arr[i].provinsi},${data_arr[i].kabkota},${data_arr[i].kecamatan},
+//       ${data_arr[i].desakel}`;
+//       option.value = `${data_arr[i].negara},${data_arr[i].provinsi},${data_arr[i].kabkota},${data_arr[i].kecamatan},
+//       ${data_arr[i].desakel}`;
 
 
 
+//       document.querySelector("#address").appendChild(option);
 
-  }).catch(err => console.log(err)
-  )
+//       document.querySelector("#address").addEventListener("change", (e) => {
 
-})
+//         document.querySelector("#order_address").value = e.target.value;
+//         document.querySelector("#order_state").value = e.target.value.split(",")[1];
+//         document.querySelector("#order_country").value = e.target.value.split(",")[0];;
+//       })
+
+//     }
+
+
+
+
+//   }).catch(err => console.log(err)
+//   )
+
+// })
 
 
 document.querySelector("#pay-button_book").addEventListener("click", (e) => {
   e.preventDefault();
 
-  let state = document.querySelector("#order_state").value;
-  let country = document.querySelector("#order_country").value
-  let zip_code = document.querySelector("#order_zip_code").value
-  let address = document.querySelector("#order_address").value
-  let road = document.querySelector("#order_road").value
-  let village = document.querySelector("#order_village").value
-  let leisure = document.querySelector("#order_leisure").value
+  // let state = document.querySelector("#order_state").value;
+  // let country = document.querySelector("#order_country").value
+  // let zip_code = document.querySelector("#order_zip_code").value
+  // let address = document.querySelector("#order_address").value
+  // let road = document.querySelector("#order_road").value
+  // let village = document.querySelector("#order_village").value
+  // let leisure = document.querySelector("#order_leisure").value
+
+  const phoneRegex = /^(?:\+62|62|0)[2-9]\d{7,11}$/;
+  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
   let phone = document.querySelector("#order_phone").value;
-  let email = user.user.email;
-  let name = user.user.fullname;
+  let email = document.querySelector("#order_email").value;
+  let name = document.querySelector("#order_name").value;
   let user_id = user.user._id;
 
   var [h, m] = document.getElementById('book_food_time').value.split(":");
@@ -914,7 +923,45 @@ document.querySelector("#pay-button_book").addEventListener("click", (e) => {
 
   if (phone && email && name && date && time) {
 
-        BOOKOrder(user_id, name, email, phone, address, zip_code, state, country, road, village, leisure, "booked", time, date, false);
+    if (!phoneRegex.test(phone)) {
+      // Phone number is valid
+      const myPopup = new Popup({
+        id: "my-popup",
+        title: "FOOD4UNIQUE",
+        content: `${localStorage.getItem("lang") === "in" ? `HARAP MASUKKAN NOMOR YANG VALID (CONTOH:+62212341234)
+        ` : "PLEASE ENTER A VALID NUMBER (EX:+62212341234)"}`,
+        showImmediately: true,
+        textColor: "red"
+      });
+  
+  
+  
+      // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+      myPopup.show();
+      document.querySelector("#order_phone").value = ""
+    }
+
+    else if (!emailRegex.test(email)) {
+      // Email is valid
+      const myPopup = new Popup({
+        id: "my-popup",
+        title: "FOOD4UNIQUE",
+        content: `${localStorage.getItem("lang") === "in" ? "HARAP MASUKKAN EMIAL YANG VALID (Contoh:example@email.com)" : "PLEASE ENTER A VALID EMIAL (EX:example@email.com)"}`,
+        showImmediately: true,
+        textColor: "red"
+      });
+  
+  
+  
+      // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+      myPopup.show();
+      document.querySelector("#order_email").value = ""
+    }else {
+
+
+        BOOKOrder(user_id, name, email, phone, address = "", zip_code = "", state = "", country = "", road = "", village = "", leisure = "", "booked", time, date, false);
+
+    }
 
     // window.snap.pay(`${transaction_token}`, {
     //   onSuccess: function (result) {

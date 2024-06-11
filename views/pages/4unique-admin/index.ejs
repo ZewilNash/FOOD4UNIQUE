@@ -130,17 +130,17 @@
             <p style="text-align: center;">Made By : <%=  completedOrders[i].name %></p>
             <p style="text-align: center;">Order Owner Email : <%=  completedOrders[i].email %></p>
             <p style="text-align: center;">Order Owner phone : <%=  completedOrders[i].phone %></p>
-            <p style="text-align: center;">Order Owner address : <%=  completedOrders[i].address %></p>
+            <!-- <p style="text-align: center;">Order Owner address : <%=  completedOrders[i].address %></p> -->
 
-            <div style="font-size: 22px;" class="d-flex gap-3 mt-3">
+            <!-- <div style="font-size: 22px;" class="d-flex gap-3 mt-3">
               <span style="font-size:15px;text-align: center;">owner state: <%=  completedOrders[i].state %></span>
               <span style="font-size:15px;text-align: center;">owner country: <%=  completedOrders[i].country %></span>
               <span style="font-size:15px;text-align: center;">owner village: <%=  completedOrders[i].village %></span>
               <span style="font-size:15px;text-align: center;">owner leisure: <%=  completedOrders[i].leisure %></span>
-            </div>
+            </div> -->
 
             <div style="font-size: 18px;" class="d-flex gap-3 mt-3">
-              <span>order Owner Zip Code: <%=  completedOrders[i].zip_code %></span>
+              <!-- <span>order Owner Zip Code: <%=  completedOrders[i].zip_code %></span> -->
               <span>order status: <%=  completedOrders[i].status %></span>
               <span>order isPaid: <%=  completedOrders[i].isPaid %></span>
 
@@ -179,6 +179,12 @@
             <h1><%= users[i].fullname %></h1>
             <h1><%= users[i].email %></h1>
             <h1><%= users[i].role %></h1>
+
+            <% if(users[i].auto === true) { %>
+              <small style="text-align: center;color: red;">THIS USER IS AUTO GENERATED</small>
+             
+            <% } %>
+
             <div style="display: flex;width: 100%;justify-content: space-between;" class="">
               <a data-user-id="<%= users[i]._id %>" style="color: blue;font-size: 20px;" id="edit_user"
                 href="#">Edit</a>
@@ -387,18 +393,18 @@
           <p style="text-align: center;">Order Owner Email : <%=  bookedOrders[i].email %></p>
           <p style="text-align: center;">Order Owner phone : <%=  bookedOrders[i].phone %></p>
 
-          <p style="text-align: center;">Order Owner address : <%=  bookedOrders[i].address %></p>
+          <!-- <p style="text-align: center;">Order Owner address : <%=  bookedOrders[i].address %></p>
 
 
           <span style="font-size:15px;text-align: center;">owner state: <%=  bookedOrders[i].state %></span>
           <span style="font-size:15px;text-align: center;">owner country: <%=  bookedOrders[i].country %></span>
           <span style="font-size:15px;text-align: center;">owner village: <%=  bookedOrders[i].village %></span>
-          <span style="font-size:15px;text-align: center;">owner leisure: <%=  bookedOrders[i].leisure %></span>
+          <span style="font-size:15px;text-align: center;">owner leisure: <%=  bookedOrders[i].leisure %></span> -->
 
 
 
           <div style="font-size: 18px;" class="d-flex gap-3 mt-3">
-            <span>order Owner Zip Code: <%=  bookedOrders[i].zip_code %></span>
+            <!-- <span>order Owner Zip Code: <%=  bookedOrders[i].zip_code %></span> -->
             <span>order status: <%=  bookedOrders[i].status %></span>
             <span>order isPaid: <%=  bookedOrders[i].isPaid %></span>
 

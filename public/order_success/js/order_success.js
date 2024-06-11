@@ -13,6 +13,12 @@ window.onload = () => {
     if (user && user.user.role === "admin") {
       window.location.href = "/4unique-admin"
     }
+
+    if(user.user.auto === true){
+      console.log(true);
+      
+      document.querySelector("#logout").style.display = "none"
+      }
   
     document.querySelector("#my_cart_link").setAttribute("href", `/cart/${user.user._id}`);
   
@@ -25,6 +31,8 @@ window.onload = () => {
     document.querySelector("#logout").style.display = user ? "block" : "none";
   
     document.querySelector(".home").style.display = "none";
+
+
   
     setTimeout(() => {
       document.querySelector(".home").style.display = "block";
@@ -42,6 +50,8 @@ window.onload = () => {
       console.log(err);
   
     })
+
+
 
     // let URL = document.URL.split("order_success")[0];
     axios.get(URL + `api/v1/auth/get_user_orders/${user.user._id}` ,  {
@@ -62,6 +72,8 @@ window.onload = () => {
         console.log(err);
         
     })
+
+    
   }
   
   document.querySelector("#logout").addEventListener("click" , () => logout());

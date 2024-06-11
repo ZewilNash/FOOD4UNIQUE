@@ -2,6 +2,11 @@ window.onload = () => {
 
   let user = JSON.parse(localStorage.getItem("user"));
 
+  if(user.user.auto === true){
+    console.log(true);
+    
+    document.querySelector("#logout").style.display = "none"
+}
 
 
   if (!user) {
@@ -11,6 +16,8 @@ window.onload = () => {
   if (user && user.user.role === "admin") {
     window.location.href = "/4unique-admin"
   }
+
+
 
   document.querySelector("#my_cart_link").setAttribute("href", `/cart/${user.user._id}`);
 
@@ -79,6 +86,12 @@ window.onload = () => {
   })
 
   showFoodReviews();
+
+  if(user.user.auto === true){
+    console.log(true);
+    
+    document.querySelector("#logout").style.display = "none"
+}
 }
 
 // alsolike-container

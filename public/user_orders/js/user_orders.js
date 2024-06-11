@@ -50,6 +50,8 @@ window.onload = () => {
             console.log(err);
             
         })
+
+       
     
     
         document.querySelector("#my_cart_link").setAttribute("href" , `/cart/${user.user._id}`);
@@ -102,10 +104,16 @@ window.onload = () => {
             console.log(err);
             
         })
+
+        if(user.user.auto === true){
+            console.log(true);
+            
+            document.querySelector("#logout").style.display = "none"
+        }
     }
 
 
-
+   
 
 document.querySelector("#logout").addEventListener("click" , () => logout());
 

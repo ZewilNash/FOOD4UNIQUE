@@ -41,6 +41,14 @@ const UserSchema = new mongoose.Schema({
 
     code:{
         type: String,
+    },
+
+    auto:{
+        type:Boolean,
+        default:false
+    },
+    ip:{
+        type: String,
     }
 
 } , {timestamps:true});

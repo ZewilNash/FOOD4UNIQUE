@@ -2,6 +2,11 @@ window.onload = () => {
 
   const user = JSON.parse(localStorage.getItem("user"));
 
+  if(user.user.auto === true){
+  
+    document.querySelector("#logout").style.display = "none"
+  }
+
   
   if (!user) {
     console.log("hello");
@@ -12,6 +17,8 @@ window.onload = () => {
   if(user && user.user.role === "admin"){
     window.location.href = "/4unique-admin"
   }
+
+ 
 
   document.querySelector("#my_cart_link").setAttribute("href" , `/cart/${user.user._id}`);
 
@@ -24,6 +31,8 @@ window.onload = () => {
   document.querySelector("#logout").style.display = user ? "block" : "none";
 
   document.querySelector(".home").style.display = "none";
+
+  
 
   setTimeout(() => {
     document.querySelector(".home").style.display = "block";
@@ -78,6 +87,12 @@ window.onload = () => {
       
   })
 
+  if(user.user.auto === true){
+    console.log(true);
+    
+    document.querySelector("#logout").style.display = "none"
+}
+
 
   //  no-food
 // nofood-link
@@ -87,8 +102,9 @@ document.querySelector("#no-food").innerText = localStorage.getItem("lang") === 
 document.querySelector("#nofood-link").innerText = localStorage.getItem("lang") === "in" ? "JELAJAHI SEMUA MAKANAN KAMI" : "EXPLORE ALL OF OUR FOOD"
 
 
-
 }
+
+
 
 
 const foods = [

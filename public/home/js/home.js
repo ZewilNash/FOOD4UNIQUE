@@ -99,6 +99,11 @@ window.onload = () => {
         setLanguage(localStorage.getItem("lang"))
     }
 
+    if(user.user.auto === true){
+        console.log(true);
+        
+        document.querySelector("#logout").style.display = "none"
+    }
 }
 
 const categories = [

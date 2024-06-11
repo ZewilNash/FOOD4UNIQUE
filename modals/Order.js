@@ -38,7 +38,6 @@ const OrderSchema = new mongoose.Schema({
 
     address: {
         type: String,
-        required: [true, "You Must Provide Address"],
         trim: true,
     },
     confirmed_address: {
@@ -47,18 +46,15 @@ const OrderSchema = new mongoose.Schema({
     },
     state: {
         type: String,
-        required: [true, "You Must Provide State"],
         trim: true,
     },
     country: {
         type: String,
-        required: [true, "You Must Provide Country"],
         trim: true,
     },
 
     zip_code: {
         type: String,
-        required: [true, "You Must Provide Country"],
         trim: true
     },
     road: {

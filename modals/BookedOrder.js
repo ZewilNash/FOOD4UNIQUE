@@ -39,7 +39,6 @@ const BookedOrderSchema = new mongoose.Schema({
 
     address: {
         type: String,
-        required: [true, "You Must Provide Address"],
         trim: true,
     },
     confirmed_address: {

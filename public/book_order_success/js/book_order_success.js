@@ -37,7 +37,7 @@ window.onload = () => {
         Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
       }
     }).then(res => {
-      document.querySelector("#cart_length").innerText = `${res.data.cartLength}`
+      document.querySelector("#cart_length").innerText = `${res.data.cartLength > 99 ? '99+' : res.data.cartLength}`
     }).catch(err => {
       console.log(err);
   

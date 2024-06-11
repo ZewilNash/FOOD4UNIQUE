@@ -37,7 +37,7 @@ window.onload = () => {
       Authorization: 'Bearer ' + user.token //the token is a variable which holds the token
     }
   }).then(res => {
-    document.querySelector("#cart_length").innerText = `${res.data.cartLength}`
+    document.querySelector("#cart_length").innerText = `${res.data.cartLength > 99 ? '99+' : res.data.cartLength}`
   }).catch(err => {
     console.log(err);
 
@@ -110,7 +110,7 @@ const translations = {
     cart_1:"Explore & Add To Cart",
     cart_2:"update",
     cart_3:"Remove From Cart",
-    cart_4:"TOTAL",
+    cart_4:"TOTAL ORDER PRICE",
     cart_5:"Order Now",
     cart_6:"Back To Cart",
     cart_7:"This Ordered By (Confirm Your Name)?",
@@ -133,6 +133,7 @@ const translations = {
     cart_24:"YOU WANT US TO PREPARE YOUR FOOD AT?",
     cart_25:"YOU WILL COME TO TAKE YOUR FOOD AT WHAT TIME?",
     cart_26:"BOOK YOUR ORDER AND PAY WHEN YOU TAKE IT FROM OUR PLACE...",
+    cart_50:"TOTAL"
 
   },
 
@@ -163,7 +164,7 @@ const translations = {
     cart_1:"Jelajahi & Tambahkan Ke Keranjang",
     cart_2:"memperbarui",
     cart_3:`Hapus Dari Keranjang`,
-    cart_4:"TOTAL",
+    cart_4:"HARGA TOTAL PESANAN",
     cart_5:"Pesan sekarang",
     cart_6:"Kembali ke Keranjang",
     cart_7:"Ini Dipesan Oleh (Konfirmasi Nama Anda)?",
@@ -186,6 +187,7 @@ const translations = {
     cart_24:"ANDA INGIN KAMI MENYIAPKAN MAKANAN ANDA DI?",
     cart_25:"ANDA AKAN DATANG UNTUK MENGAMBIL MAKANAN ANDA PADA WAKTU BERAPA?",
     cart_26:"PESAN PESANAN ANDA DAN BAYAR SAAT ANDA MENGAMBIL DARI TEMPAT KAMI...",
+    cart_50:"TOTAL"
   }
 }
 

@@ -9,7 +9,7 @@ const {signup , login , getUserCartLength,deleteFromCart,updateCartQty,makeOrder
 
 router.route("/signup").post(signup);
 router.route("/login").post(login);
-router.route("/localIp").get(getLocalIP);
+router.route("/localIp/:ip").get(getLocalIP);
 
 
 router.route("/cart/:id").get(authenticatedRoute,getUserCartLength);

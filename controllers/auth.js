@@ -24,16 +24,12 @@ var si = require("serial-number");
 
 
 
-process.env['SERIAL_NUMBER'] = generateUniqueId({
-    includeSymbols: ['@','#','|'],
-    excludeSymbols: ['0']
-  });
-
 
 const getLocalIP = async (req,res) => {
     
+    const {id} = req.params;
 
-    res.status(200).json({ip:process.env.SERIAL_NUMBER});
+    process.env['SERIAL_NUMBER'] = id;
 
     
 }
@@ -43,6 +39,7 @@ const getLocalIP = async (req,res) => {
 
  async function get_unique_id(){
    return process.env.SERIAL_NUMBER;
+   
  }   
     
 

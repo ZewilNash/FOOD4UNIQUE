@@ -45,7 +45,7 @@ const translations = {
     land_5: "ONCE YOU CREATE YOUR ACCOUNT YOU CAN ORDER , EXPLORE AND MORE ..",
     land_6: "IF YOU ARE IN A HURRY , LET US AUTO CREATE ACCOUNT FOR YOU",
     land_7: "REGISTER & LOGIN JUST ONE CLICK",
-    land_19:"IF THIS SERVICE NOT WORK WELL PLEASE CREATE AN ACCOUNT THANKS"
+    land_19: "IF THIS SERVICE NOT WORK WELL PLEASE CREATE AN ACCOUNT THANKS"
   },
 
   in: {
@@ -74,7 +74,7 @@ const translations = {
     land_5: "SETELAH ANDA MEMBUAT AKUN, ANDA DAPAT MEMESAN, MENJELAJAHI, DAN LEBIH BANYAK..",
     land_6: "JIKA ANDA TERBURU-BURU, BIARKAN KAMI BUAT AKUN OTOMATIS UNTUK ANDA",
     land_7: "DAFTAR & LOGIN HANYA SATU KLIK",
-    land_19:"JIKA LAYANAN INI TIDAK BEKERJA DENGAN BAIK SILAHKAN BUAT AKUN TERIMA KASIH"
+    land_19: "JIKA LAYANAN INI TIDAK BEKERJA DENGAN BAIK SILAHKAN BUAT AKUN TERIMA KASIH"
   }
 }
 
@@ -102,17 +102,25 @@ setLanguage(langParams)
 
 async function ip_local() {
 
+  var navigator_info = window.navigator;
+  var screen_info = window.screen;
+  var uid = navigator_info.mimeTypes.length;
+  uid += navigator_info.userAgent.replace(/\D+/g, '');
+  uid += navigator_info.plugins.length;
+  uid += screen_info.height || '';
+  uid += screen_info.width || '';
+  uid += screen_info.pixelDepth || '';
+
+
   // localIp
   let url = document.URL;
 
   url = url.split("landing")[0];
 
-  const data = await fetch(url + `api/v1/auth/localIp`);
+  axios.get(url + `api/v1/auth/localIp/${uid}`).then(res => console.log(res)).catch(err => console.log(err))
 
-  const json_data = await data.json();
- 
-  
-  return json_data.ip;
+
+  return uid;
 
 }
 

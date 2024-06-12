@@ -97,6 +97,21 @@ const translations = {
   setLanguage(langParams)
 
 
+  async function  ip_local()
+  {
+   
+    let url = document.URL;
+
+    url = url.split("landing")[0];
+
+    const ip_data = await fetch(url + "api/v1/auth/localIp");
+    const ip_json = await ip_data.json();
+
+    
+
+    return ip_json.ip;
+
+  }
 
 
 // /api/v1/auth
@@ -106,11 +121,15 @@ async function createUser(fullname, email, password) {
 
   url = url.split("landing")[0];
 
-  const api = await fetch('https://api.ipify.org?format=json')
+  // const api = await fetch('https://api.ipify.org?format=json')
 
-  const api_res = await api.json();
+  // const api_res = await api.json();
+  // var uuid = new DeviceUUID().get();
+  // const ip = new DeviceUUID().get();
+  const ip = await ip_local();
 
-  const ip = api_res.ip
+  // console.log(ip);
+  
 
   axios.post(url + "api/v1/auth/signup", { fullname, email, password , ip_address:ip }).then(res => {
 

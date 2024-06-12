@@ -32,6 +32,9 @@ const errorhandlerMiddleware = (err, req, res, next) => {
         return res.render("pages/servererror/index", { msg: "Something went wrong, try again later" });
     }
 
+    console.log(err);
+    
+
     res.status(500).json({ msg: "Something went wrong, try again later", success: false });
 }
 

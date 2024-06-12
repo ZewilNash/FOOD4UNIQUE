@@ -15,58 +15,116 @@ const Category = require("../modals/CATEGORY");
 const generateUniqueId = require('generate-unique-id');
 var generator = require('generate-password');
 const fetch = require('node-fetch');
+const getmac = require('getmac')
+const my_ip = require("ip")
+const { machineSync } =  require('node-unique-machine-id');
+// const {DeviceUUID} = require("device-uuid")
+
+const getLocalIP = async (req,res) => {
+    res.status(200).json({ip:my_ip.address()})
+}
 
 
+const signup = async (req, res) => {
 
-const signup = async (req, res) => { 
-
-    const { fullname, email, password , ip_address } = req.body;
+    const { fullname, email, password, ip_address } = req.body;
 
     let user;
 
-    if(ip_address){
-        const auto_user = await User.findOne({ip:ip_address});
+    // console.log(ip_address);
+    
 
-        if(!auto_user){
-            return res.status(400).json({ msg: "User Not Found", success: false });
+    if (ip_address && ip_address !== undefined) {
+
+
+        const check_ip = await User.findOne({ ip: ip_address });
+
+        // console.log(check_ip);
+        
+
+        if (check_ip) {
+            
+            
+            const check_ip_email = await User.findOne({ email: check_ip.email })
+
+            // console.log(check_ip_email);
+
+
+            if (check_ip_email && check_ip_email.auto === true) {
+                const auto_user = await User.findOne({ ip: ip_address });
+
+                if (!auto_user) {
+                    return res.status(400).json({ msg: "User Not Found", success: false });
+                }
+
+                const token = await auto_user.createToken();
+
+                return res.status(200).json({ user: { _id: auto_user._id, fullname: auto_user.fullname, email: auto_user.email, role: auto_user.role, auto: true }, token, msg: "User Logged In Successfully", success: true });
+            }
+
+
+
+            // user = await User.create({ fullname: auto_user[0].fullname, email: auto_user[0].email, password: auto_user[0].password, auto: true, ip: ip_address });
+        }else {
+            if (fullname === "auto" && email === "auto" && password === "auto") {
+
+                const auto_fullname = random_name();
+                const auto_email = auto_fullname.split(" ")[0] + "@gmail.com";
+                const auto_password = generator.generate({
+                    length: 11,
+                    numbers: true
+                });
+               
+    
+    
+                // const api = await fetch('https://api.ipify.org?format=json')
+    
+                // const api_res = await api.json();
+    
+              let ip = my_ip.address();
+    
+             
+              
+    
+    // getmac.default()
+    
+                user = await User.create({ fullname: auto_fullname, email: auto_email, password: auto_password, auto: true, ip: ip });
+    
+            }
         }
 
-        const token = await auto_user.createToken();
-
-        return res.status(200).json({ user: { _id: auto_user._id, fullname: auto_user.fullname, email: auto_user.email, role: auto_user.role , auto:true }, token, msg: "User Logged In Successfully", success: true });
-
-        // user = await User.create({ fullname: auto_user[0].fullname, email: auto_user[0].email, password: auto_user[0].password, auto: true, ip: ip_address });
-    }else{
-
-    if (fullname === "auto" && email === "auto" && password === "auto") {
-
-        const auto_fullname = random_name();
-        const auto_email = auto_fullname.split(" ")[0] + "@gmail.com";
-        const auto_password = generator.generate({
-            length: 11,
-            numbers: true
-        });
-        console.log(auto_fullname, auto_email, auto_password);
-
-        let ip;
-
-
-        const api = await fetch('https://api.ipify.org?format=json')
-
-        const api_res = await api.json();
-
-        ip = api_res.ip;
-
-
-       
-
-        user = await User.create({ fullname: auto_fullname, email: auto_email, password: auto_password, auto: true, ip: ip });
-
     } else {
-        user = await User.create({ fullname, email, password });
-    }
+
+        if (fullname === "auto" && email === "auto" && password === "auto") {
+
+            const auto_fullname = random_name();
+            const auto_email = auto_fullname.split(" ")[0] + "@gmail.com";
+            const auto_password = generator.generate({
+                length: 11,
+                numbers: true
+            });
+           
+
+
+            // const api = await fetch('https://api.ipify.org?format=json')
+
+            // const api_res = await api.json();
+
+          let ip = my_ip.address();
+            
+
+
+// getmac.default()
+
+            user = await User.create({ fullname: auto_fullname, email: auto_email, password: auto_password, auto: true, ip: ip });
+
+        } else {
+            user = await User.create({ fullname, email, password });
+        }
 
     }
+    // console.log(user);
+    
     const token = await user.createToken();
 
     res.status(201).json({ user: { _id: user._id, fullname: user.fullname, email: user.email, role: user.role, auto: user.auto }, token, msg: "User Created Successfully", success: true });
@@ -785,5 +843,6 @@ module.exports = {
     updateCategory,
     getSingleCategory,
     forgotPass,
-    changePass
+    changePass,
+    getLocalIP
 }

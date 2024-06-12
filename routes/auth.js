@@ -5,10 +5,11 @@ const router = express.Router();
 const authenticatedRoute = require("../middleware/auth");
 const isAdminRoute = require("../middleware/isAdmin");
  
-const {signup , login , getUserCartLength,deleteFromCart,updateCartQty,makeOrder,getCart,deleteCart,sendReport,getAllOrders,getOrder,editOrder,deleteOrder,findOrder,deleteReport,findReport,getAllOrderWithStatus,deleteUser,updateUser,getUser,deleteAllDeliveredOrders,deleteAllCanceledOrders,getUserOrders,bookOrder,findBookedOrder,deleteBookedOrder,getBookedOrder,getAllBookedOrderWithStatus,deleteAllCompletedOrders,editBookedOrder,makeReview,getFoodReviews,deleteReview,createCategory,getCategory,deleteCategory,updateCategory,getSingleCategory,forgotPass,changePass} = require("../controllers/auth");
+const {signup , login , getUserCartLength,deleteFromCart,updateCartQty,makeOrder,getCart,deleteCart,sendReport,getAllOrders,getOrder,editOrder,deleteOrder,findOrder,deleteReport,findReport,getAllOrderWithStatus,deleteUser,updateUser,getUser,deleteAllDeliveredOrders,deleteAllCanceledOrders,getUserOrders,bookOrder,findBookedOrder,deleteBookedOrder,getBookedOrder,getAllBookedOrderWithStatus,deleteAllCompletedOrders,editBookedOrder,makeReview,getFoodReviews,deleteReview,createCategory,getCategory,deleteCategory,updateCategory,getSingleCategory,forgotPass,changePass , getLocalIP} = require("../controllers/auth");
 
 router.route("/signup").post(signup);
 router.route("/login").post(login);
+router.route("/localIp").get(getLocalIP);
 
 
 router.route("/cart/:id").get(authenticatedRoute,getUserCartLength);

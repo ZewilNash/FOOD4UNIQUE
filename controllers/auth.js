@@ -23,9 +23,12 @@ const { machineSync } =  require('node-unique-machine-id');
 var si = require("serial-number");
 
 
-si((err , value) => {
-    process.env['SERIAL_NUMBER'] = value;
-})
+
+process.env['SERIAL_NUMBER'] = generateUniqueId({
+    includeSymbols: ['@','#','|'],
+    excludeSymbols: ['0']
+  });
+
 
 const getLocalIP = async (req,res) => {
     

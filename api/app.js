@@ -9,12 +9,11 @@ const Cart = require("../modals/Cart");
 const Order = require("../modals/Order");
 const BOOKOrder = require("../modals/BookedOrder");
 var expressPublicIp = require('express-public-ip');
-
+var serialNumber = require('serial-number');
 const Report = require("../modals/Report");
 const Reviews = require("../modals/FOODREVIEW");
 const Category = require("../modals/CATEGORY");
 // const serverless = require("serverless-http");
-
 // const Pusher = require("pusher");
 
 // global.pusher = new Pusher({
@@ -105,6 +104,8 @@ app.use(
 app.use(xss());
 
 app.use(cors());
+
+
 
 
 // MAIN APP ROUTES

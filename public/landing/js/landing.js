@@ -1,3 +1,4 @@
+
 window.onload = () => {
 
   let user = JSON.parse(localStorage.getItem("user"));
@@ -100,24 +101,16 @@ setLanguage(langParams)
 async function ip_local() {
 
   // localIp
-
   let url = document.URL;
 
   url = url.split("landing")[0];
 
+  const data = await fetch(url + `api/v1/auth/localIp`);
+
+  const json_data = await data.json();
+ 
   
-
-  var uuid = new DeviceUUID().get();
-
-  axios.get(url + `api/v1/auth/localIp/${uuid}`).then(res => {
-    console.log(res);
-    
-  }).catch(err => {
-    console.log(err);
-    
-  })
-
-  return uuid;
+  return json_data.ip;
 
 }
 

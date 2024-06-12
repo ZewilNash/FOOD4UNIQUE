@@ -19,29 +19,30 @@ const getmac = require('getmac')
 const my_ip = require("ip")
 const { machineSync } =  require('node-unique-machine-id');
 // const {DeviceUUID} = require("device-uuid")
-global.device_id;
+
+var si = require("serial-number");
 
 
+si((err , value) => {
+    process.env['SERIAL_NUMBER'] = value;
+})
 
 const getLocalIP = async (req,res) => {
-    const {ip} = req.params;
-    global.device_id = ip;
-}
-
-const get_unique_id = () => {
-    // const id = generateUniqueId({
-    //     includeSymbols: ['@','#','|'],
-    //     excludeSymbols: ['0']
-    //   });
-
-    //   return id;
-
-    
     
 
-    return global.device_id;
+    res.status(200).json({ip:process.env.SERIAL_NUMBER});
+
     
 }
+
+
+
+
+ async function get_unique_id(){
+   return process.env.SERIAL_NUMBER;
+ }   
+    
+
 
 
 
@@ -55,8 +56,6 @@ const signup = async (req, res) => {
     let user;
 
     
-    
-
     if (ip_address && ip_address !== undefined) {
 
 
@@ -104,7 +103,7 @@ const signup = async (req, res) => {
     
                 // const api_res = await api.json();
     
-              let ip = get_unique_id()
+              let ip = await get_unique_id()
     
              
                 
@@ -134,7 +133,7 @@ const signup = async (req, res) => {
 
             // const api_res = await api.json();
 
-          let ip = get_unique_id()
+          let ip = await get_unique_id()
             
 
 

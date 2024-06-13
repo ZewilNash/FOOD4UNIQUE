@@ -43,12 +43,6 @@ const getLocalIP = async (req,res) => {
  }   
     
 
-
-
-
-
-
-
 const signup = async (req, res) => {
 
     const { fullname, email, password, ip_address } = req.body;
@@ -61,10 +55,13 @@ const signup = async (req, res) => {
 
         const check_ip = await User.findOne({ ip: ip_address });
 
+        
+
         // console.log(check_ip);
         
 
         if (check_ip) {
+            
             
             
             const check_ip_email = await User.findOne({ email: check_ip.email })

@@ -102,14 +102,20 @@ setLanguage(langParams)
 
 async function ip_local() {
 
-  var navigator_info = window.navigator;
-  var screen_info = window.screen;
-  var uid = navigator_info.mimeTypes.length;
-  uid += navigator_info.userAgent.replace(/\D+/g, '');
-  uid += navigator_info.plugins.length;
-  uid += screen_info.height || '';
-  uid += screen_info.width || '';
-  uid += screen_info.pixelDepth || '';
+  // var navigator_info = window.navigator;
+  // var screen_info = window.screen;
+  // var uuid = navigator_info.mimeTypes.length;
+
+  // uuid += navigator_info.userAgent.replace(/\D+/g, '');
+  // uuid += navigator_info.plugins.length;
+  // uuid += screen_info.height || '';
+  // uuid += screen_info.width || '';
+  // uuid += screen_info.pixelDepth || '';
+
+  var uid = new DeviceUUID().get();
+  // console.log(uid) 
+
+  // uid += uuid
 
 
   // localIp

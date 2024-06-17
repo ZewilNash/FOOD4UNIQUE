@@ -788,28 +788,28 @@ document.querySelectorAll("#update_qty").forEach(btn => {
   })
 })
 
-document.querySelector("#order_email").addEventListener("focusout", (event) => {
-  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+// document.querySelector("#order_email").addEventListener("focusout", (event) => {
+//   const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
-  let value = document.querySelector("#order_email").value
+//   let value = document.querySelector("#order_email").value
 
-  if (!emailRegex.test(value)) {
-    // Email is valid
-    const myPopup = new Popup({
-      id: "my-popup",
-      title: "FOOD4UNIQUE",
-      content: `${localStorage.getItem("lang") === "in" ? "HARAP MASUKKAN EMIAL YANG VALID (Contoh:example@email.com)" : "PLEASE ENTER A VALID EMIAL (EX:example@email.com)"}`,
-      showImmediately: true,
-      textColor: "red"
-    });
+//   if (!emailRegex.test(value)) {
+//     // Email is valid
+//     const myPopup = new Popup({
+//       id: "my-popup",
+//       title: "FOOD4UNIQUE",
+//       content: `${localStorage.getItem("lang") === "in" ? "HARAP MASUKKAN EMIAL YANG VALID (Contoh:example@email.com)" : "PLEASE ENTER A VALID EMIAL (EX:example@email.com)"}`,
+//       showImmediately: true,
+//       textColor: "red"
+//     });
 
 
 
-    // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
-    myPopup.show();
-    document.querySelector("#order_email").value = ""
-  }
-})
+//     // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+//     myPopup.show();
+//     document.querySelector("#order_email").value = ""
+//   }
+// })
 
 document.querySelector("#order_name").addEventListener("focusout", (event) => {
 
@@ -910,7 +910,7 @@ document.querySelector("#pay-button_book").addEventListener("click", (e) => {
   const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
   let phone = document.querySelector("#order_phone").value;
-  let email = document.querySelector("#order_email").value;
+  // let email = document.querySelector("#order_email").value;
   let name = document.querySelector("#order_name").value;
   let user_id = user.user._id;
 
@@ -919,9 +919,9 @@ document.querySelector("#pay-button_book").addEventListener("click", (e) => {
   let date = document.querySelector("#book_food_date").value;
   let time = h >= 12 ? document.getElementById('book_food_time').value + ' PM' : document.getElementById('book_food_time').value + ' AM'
 
+  let time_value = document.getElementById('book_food_time').value;
 
-
-  if (phone && email && name && date && time) {
+  if (phone && name && date && time_value) {
 
     if (!phoneRegex.test(phone)) {
       // Phone number is valid
@@ -941,25 +941,27 @@ document.querySelector("#pay-button_book").addEventListener("click", (e) => {
       document.querySelector("#order_phone").value = ""
     }
 
-    else if (!emailRegex.test(email)) {
-      // Email is valid
-      const myPopup = new Popup({
-        id: "my-popup",
-        title: "FOOD4UNIQUE",
-        content: `${localStorage.getItem("lang") === "in" ? "HARAP MASUKKAN EMIAL YANG VALID (Contoh:example@email.com)" : "PLEASE ENTER A VALID EMIAL (EX:example@email.com)"}`,
-        showImmediately: true,
-        textColor: "red"
-      });
+    //     else if (!emailRegex.test(email)) {
+    //   // Email is valid
+    //   const myPopup = new Popup({
+    //     id: "my-popup",
+    //     title: "FOOD4UNIQUE",
+    //     content: `${localStorage.getItem("lang") === "in" ? "HARAP MASUKKAN EMIAL YANG VALID (Contoh:example@email.com)" : "PLEASE ENTER A VALID EMIAL (EX:example@email.com)"}`,
+    //     showImmediately: true,
+    //     textColor: "red"
+    //   });
   
   
   
-      // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
-      myPopup.show();
-      document.querySelector("#order_email").value = ""
-    }else {
+    //   // document.querySelector(".error").innerText = `Please Provide Your Missing Order Details!!`;
+    //   myPopup.show();
+    //   document.querySelector("#order_email").value = ""
+    // }
+
+  else {
 
 
-        BOOKOrder(user_id, name, email, phone, address = "", zip_code = "", state = "", country = "", road = "", village = "", leisure = "", "booked", time, date, false);
+        BOOKOrder(user_id, name, email = "", phone, address = "", zip_code = "", state = "", country = "", road = "", village = "", leisure = "", "booked", time, date, false);
 
     }
 

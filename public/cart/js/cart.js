@@ -1,6 +1,5 @@
 window.onload = () => {
-
-
+  
 
 
   let user = JSON.parse(localStorage.getItem("user"));
@@ -706,6 +705,8 @@ isPaid
 
 */
 
+
+
 function deleteCart() {
   let user_ob = JSON.parse(localStorage.getItem("user"));
   let URL = document.URL.split("cart")[0];
@@ -954,7 +955,7 @@ document.querySelector("#pay-button_book").addEventListener("click", (e) => {
       document.querySelector("#order_phone").value = ""
     }
 
-    //     else if (!emailRegex.test(email)) {
+    // else if (!emailRegex.test(email)) {
     //   // Email is valid
     //   const myPopup = new Popup({
     //     id: "my-popup",
@@ -971,7 +972,7 @@ document.querySelector("#pay-button_book").addEventListener("click", (e) => {
     //   document.querySelector("#order_email").value = ""
     // }
 
-  else {
+   else {
 
 
         BOOKOrder(user_id, name, email = "", phone, address = "", zip_code = "", state = "", country = "", road = "", village = "", leisure = "", "booked", time, date, false);
@@ -1043,7 +1044,7 @@ document.querySelector("#pay-button_book").addEventListener("click", (e) => {
     const myPopup = new Popup({
       id: "my-popup",
       title: "FOOD4UNIQUE",
-      content: `${localStorage.getItem("lang") === "in" ? "HARAP MEMBERIKAN DETAIL PESANAN YANG HILANG (wajib: email, nama, telepon, tanggal, waktu)":"PLEASE PROVIDE ALL MISSING ORDER DETAILS (required: email , name , phone ,date,time)"}`,
+      content: `${localStorage.getItem("lang") === "in" ? "HARAP MEMBERIKAN DETAIL PESANAN YANG HILANG (wajib: nama, telepon, tanggal, waktu)":"PLEASE PROVIDE ALL MISSING ORDER DETAILS (required: name , phone ,date,time)"}`,
       showImmediately: true,
       textColor: "red"
     });
@@ -1056,4 +1057,5 @@ document.querySelector("#pay-button_book").addEventListener("click", (e) => {
 
 
 })
+
 

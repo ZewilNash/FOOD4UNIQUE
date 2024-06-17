@@ -90,6 +90,19 @@ window.onload = () => {
 }
 
 
+if(document.querySelector("#book_order_modal")){
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = today.getFullYear();
+
+  today = yyyy + '-' + mm + '-' + dd;
+  // document.getElementById("myDate").setAttribute("min", today);
+
+  document.querySelector("#book_food_date").setAttribute("min" , today)
+
+}
+
 // language setup
 const translations = {
   en: {
